@@ -36,6 +36,17 @@ import { getPackActivo } from "../packs";
 const PACK = getPackActivo();
 const OP = PACK.operacion;
 
+// Sedes y unidades POR POSICIÓN. Los casos plantados no pueden referirse a
+// nombres concretos (eran marítimos y reventaban en otras industrias):
+// se anclan al índice, que todos los packs respetan.
+const SEDE_PRINCIPAL = OP.sedes[0];
+const SEDE_2 = OP.sedes[1] || OP.sedes[0];
+const SEDE_3 = OP.sedes[2] || OP.sedes[0];
+const SEDE_4 = OP.sedes[3] || OP.sedes[0];
+const SEDE_5 = OP.sedes[4] || OP.sedes[0];
+const UNIDAD_1 = OP.unidades[0];
+const UNIDAD_2 = OP.unidades[1] || OP.unidades[0];
+
 export const ETIQUETAS_GASTOS = {
   faena: OP.etiquetaFaena,
   sedes: OP.sedes,
@@ -177,44 +188,53 @@ const randomPatente = () => {
   return `${l1}${l2}${l3}${l4}·${n1}${n2}`;
 };
 
-// Ciudades y distancias para cálculos realistas
-const RUTAS: Record<string, { destino: string; kmReal: number; horasNormal: number }[]> = {
-  "San Antonio": [
-    { destino: "Valparaíso", kmReal: 116, horasNormal: 1.5 },
-    { destino: "San Vicente", kmReal: 500, horasNormal: 6.5 },
-    { destino: "Puerto Montt", kmReal: 675, horasNormal: 8.5 },
-    { destino: "La Serena", kmReal: 470, horasNormal: 6 },
-    { destino: "Mejillones", kmReal: 1370, horasNormal: 17 },
-    { destino: "Mejillones", kmReal: 1570, horasNormal: 19 },
-    { destino: "Rancagua", kmReal: 87, horasNormal: 1.2 },
-    { destino: "Talca", kmReal: 255, horasNormal: 3.5 },
-    { destino: "Chillán", kmReal: 400, horasNormal: 5.2 },
-    { destino: "Puerto Montt", kmReal: 1020, horasNormal: 13 },
-  ],
-  "Mejillones": [
-    { destino: "Mejillones", kmReal: 200, horasNormal: 2.8 },
-    { destino: "Iquique", kmReal: 415, horasNormal: 5.5 },
-    { destino: "Copiapó", kmReal: 570, horasNormal: 7 },
-    { destino: "San Antonio", kmReal: 1370, horasNormal: 17 },
-  ],
-  "San Vicente": [
-    { destino: "Los Ángeles", kmReal: 110, horasNormal: 1.5 },
-    { destino: "Chillán", kmReal: 105, horasNormal: 1.4 },
-    { destino: "Puerto Montt", kmReal: 285, horasNormal: 3.8 },
-    { destino: "San Antonio", kmReal: 500, horasNormal: 6.5 },
-  ],
-  "Valparaíso": [
-    { destino: "Quintero", kmReal: 45, horasNormal: 0.8 },
-    { destino: "San Antonio", kmReal: 116, horasNormal: 1.5 },
-    { destino: "San Antonio", kmReal: 105, horasNormal: 1.4 },
-  ],
-  "Puerto Montt": [
-    { destino: "Villarrica", kmReal: 90, horasNormal: 1.3 },
-    { destino: "Valdivia", kmReal: 165, horasNormal: 2.2 },
-    { destino: "San Vicente", kmReal: 285, horasNormal: 3.8 },
-    { destino: "Osorno", kmReal: 265, horasNormal: 3.5 },
-  ],
+// Rutas y distancias.
+//
+// Antes era una tabla fija con nombres marítimos. Ahora se derivan de las
+// ciudades del pack: la distancia sale de cuán separadas están en la lista
+// (que va de norte a sur), lo que da rutas cortas y largas verosímiles en
+// cualquier industria, y garantiza que exista al menos una ruta larga para
+// el hallazgo de velocidad imposible.
+
+type Ruta = { destino: string; kmReal: number; horasNormal: number };
+
+const CIUDADES_PACK = OP.ciudades;
+
+/** Distancia aproximada según la separación entre dos ciudades de la lista. */
+const distanciaEntre = (a: number, b: number): number => {
+  const salto = Math.abs(a - b);
+  if (salto === 0) return 45;
+  return Math.round(salto * 135 + (salto % 3) * 40);
 };
+
+const construirRutas = (): Record<string, Ruta[]> => {
+  const tabla: Record<string, Ruta[]> = {};
+  OP.sedes.forEach((sede, idxSede) => {
+    // Ancla la sede a una ciudad de la lista para calcular distancias.
+    const origenIdx = idxSede % CIUDADES_PACK.length;
+    const destinos: Ruta[] = [];
+
+    CIUDADES_PACK.forEach((ciudad, idxCiudad) => {
+      if (idxCiudad === origenIdx) return;
+      const km = distanciaEntre(origenIdx, idxCiudad);
+      destinos.push({
+        destino: ciudad,
+        kmReal: km,
+        // ~78 km/h promedio en carretera, redondeado a un decimal
+        horasNormal: Math.max(0.5, Math.round((km / 78) * 10) / 10),
+      });
+    });
+
+    tabla[sede] = destinos;
+  });
+  return tabla;
+};
+
+const RUTAS: Record<string, Ruta[]> = construirRutas();
+
+/** Fallback seguro: si una sede no tiene rutas, usa las de la primera. */
+const rutasDe = (sede: string): Ruta[] => RUTAS[sede] || RUTAS[OP.sedes[0]];
+
 
 const FAENAS_SAAM = OP.actividades;
 
@@ -234,13 +254,24 @@ const addHours = (d: Date, h: number) => new Date(d.getTime() + h * 3600000);
 // ─────────────────────────────────────────────────────────────────────
 export const vehiculos: Vehiculo[] = [];
 
-const TIPO_CONFIG: Record<Vehiculo["tipo"], { capacidad: number; rendimiento: number; marca: string[]; modelo: string[] }> = {
-  "Camioneta pool":    { capacidad: 50, rendimiento: 13, marca: ["Toyota","Nissan","Hyundai"],           modelo: ["Yaris","Versa","Accent"] },
-  "Camioneta 4x4":            { capacidad: 80, rendimiento: 9,  marca: ["Toyota","Nissan","Chevrolet","Mazda"], modelo: ["Hilux","Frontier","D-Max","BT-50"] },
-  "Bus de relevo": { capacidad: 120,rendimiento: 5,  marca: ["Mercedes-Benz","Ford","Iveco"],        modelo: ["Sprinter","Transit","Daily"] },
-  "SUV supervisión":       { capacidad: 65, rendimiento: 10, marca: ["Toyota","Kia","Hyundai"],              modelo: ["Rav4","Sportage","Tucson"] },
-  "Van traslado tripulación":         { capacidad: 70, rendimiento: 11, marca: ["Toyota","Hyundai"],                    modelo: ["Hiace","H1"] },
+// Configuración de vehículos POR POSICIÓN, no por nombre: cada pack declara
+// sus cinco tipos en el mismo orden (utilitario liviano, 4x4, transporte de
+// grupo, SUV de supervisión, van), así que la ficha técnica calza igual sea
+// cual sea la industria.
+const TIPO_CONFIG_ORDEN: { capacidad: number; rendimiento: number; marca: string[]; modelo: string[] }[] = [
+  { capacidad: 50,  rendimiento: 13, marca: ["Toyota","Nissan","Hyundai"],            modelo: ["Yaris","Versa","Accent"] },
+  { capacidad: 80,  rendimiento: 9,  marca: ["Toyota","Nissan","Chevrolet","Mazda"],  modelo: ["Hilux","Frontier","D-Max","BT-50"] },
+  { capacidad: 120, rendimiento: 5,  marca: ["Mercedes-Benz","Ford","Iveco"],         modelo: ["Sprinter","Transit","Daily"] },
+  { capacidad: 65,  rendimiento: 10, marca: ["Toyota","Kia","Hyundai"],               modelo: ["Rav4","Sportage","Tucson"] },
+  { capacidad: 70,  rendimiento: 11, marca: ["Toyota","Hyundai"],                     modelo: ["Hiace","H1"] },
+];
+
+/** Ficha técnica del tipo, resuelta por posición con fallback al primero. */
+const configDeTipo = (tipo: string) => {
+  const idx = OP.tiposVehiculo.indexOf(tipo);
+  return TIPO_CONFIG_ORDEN[idx >= 0 ? idx : 0] || TIPO_CONFIG_ORDEN[0];
 };
+
 
 const TIPOS = OP.tiposVehiculo as Vehiculo["tipo"][];
 const BASES = OP.sedes as Vehiculo["base"][];
@@ -254,14 +285,14 @@ for (let i = 0; i < 80; i++) {
     acc += DISTRIB_TIPOS[k];
     if (roll < acc) { tipo = TIPOS[k]; break; }
   }
-  const cfg = TIPO_CONFIG[tipo];
+  const cfg = configDeTipo(tipo);
   // Distribución de bases: 60% San Antonio, 10-15% resto
   const baseRoll = rng();
-  const base: Vehiculo["base"] = baseRoll < 0.60 ? "San Antonio"
-    : baseRoll < 0.72 ? "San Vicente"
-    : baseRoll < 0.83 ? "Valparaíso"
-    : baseRoll < 0.92 ? "Mejillones"
-    : "Puerto Montt";
+  const base: Vehiculo["base"] = baseRoll < 0.60 ? SEDE_PRINCIPAL
+    : baseRoll < 0.72 ? SEDE_2
+    : baseRoll < 0.83 ? SEDE_3
+    : baseRoll < 0.92 ? SEDE_4
+    : SEDE_5;
 
   vehiculos.push({
     id: `VEH-${String(i + 1).padStart(3, "0")}`,
@@ -283,15 +314,18 @@ for (let i = 0; i < 80; i++) {
 // ─────────────────────────────────────────────────────────────────────
 export const personas: Persona[] = [];
 const CARGOS = [...OP.cargosOperativos, ...OP.cargosAdministrativos].map((c) => c.cargo) as Persona["cargo"][];
+const CARGOS_OPERATIVOS = new Set(OP.cargosOperativos.map((c) => c.cargo));
+
+
 const UNIDADES = OP.unidades as Persona["unidad"][];
 
 for (let i = 0; i < 90; i++) {
   const baseRoll = rng();
-  const base: Persona["base"] = baseRoll < 0.65 ? "San Antonio"
-    : baseRoll < 0.75 ? "San Vicente"
-    : baseRoll < 0.83 ? "Valparaíso"
-    : baseRoll < 0.92 ? "Mejillones"
-    : "Puerto Montt";
+  const base: Persona["base"] = baseRoll < 0.65 ? SEDE_PRINCIPAL
+    : baseRoll < 0.75 ? SEDE_2
+    : baseRoll < 0.83 ? SEDE_3
+    : baseRoll < 0.92 ? SEDE_4
+    : SEDE_5;
   personas.push({
     id: `PER-${String(i + 1).padStart(3, "0")}`,
     rut: randomRUT(),
@@ -322,7 +356,7 @@ for (let i = 0; i < 180; i++) {
   // Elegir ciudad basada en tipo de evento — simplificamos
   const origenBases = Object.keys(RUTAS);
   const origen = pick(origenBases);
-  const destinos = RUTAS[origen];
+  const destinos = rutasDe(origen);
   const ruta = pick(destinos);
   const ubicacion = ruta.destino;
 
@@ -372,7 +406,10 @@ const vehiculosActivos = vehiculos.filter((v) => v.estado === "Activo");
 
 vehiculosActivos.forEach((v) => {
   const numViajes = 30 + Math.floor(rng() * 41);
-  const choferBase = v.asignadoA || pick(personas.filter((p) => p.cargo === "Chofer" || p.cargo === "Marinero")).id;
+  // El conductor sale de los cargos operativos del pack (antes estaba fijo a
+  // cargos marítimos, lo que dejaba el filtro vacío en otras industrias).
+  const candidatos = personas.filter((p) => CARGOS_OPERATIVOS.has(p.cargo));
+  const choferBase = v.asignadoA || pick(candidatos.length ? candidatos : personas).id;
 
   for (let i = 0; i < numViajes; i++) {
     const diaOffset = Math.floor(rng() * DIAS_TOTAL);
@@ -381,7 +418,7 @@ vehiculosActivos.forEach((v) => {
     const inicio = new Date(fecha); inicio.setHours(horaInicio, Math.floor(rng() * 60), 0, 0);
 
     // Elegir ruta desde la base del vehículo
-    const rutasDesdeBase = RUTAS[v.base] || RUTAS["San Antonio"];
+    const rutasDesdeBase = rutasDe(v.base);
     const ruta = pick(rutasDesdeBase);
     const kmReal = ruta.kmReal;
     const horasNormal = ruta.horasNormal;
@@ -558,15 +595,22 @@ for (let i = 0; i < 90; i++) {
 // HALLAZGOS PLANTADOS — Aquí es donde la demo cobra vida
 // ─────────────────────────────────────────────────────────────────────
 
+// Destino más lejano desde la sede principal — da el contraste de km/h.
+const DESTINO_LEJANO = rutasDe(SEDE_PRINCIPAL)
+  .reduce((a, b) => (b.kmReal > a.kmReal ? b : a), rutasDe(SEDE_PRINCIPAL)[0]).destino;
+
 // 🚨 HALLAZGO 1: Velocidades imposibles (>200 km/h calculado)
 // 6 viajes donde el chofer rindió tiempo demasiado corto para la distancia
-const trabsMejillones = personas.filter((p) => p.unidad === "Operaciones Mejillones" || p.unidad === "Operaciones Valparaíso").slice(0, 4);
+const candidatosVel = personas.filter((p) => p.unidad === UNIDAD_1 || p.unidad === UNIDAD_2);
+const trabsMejillones = (candidatosVel.length ? candidatosVel : personas).slice(0, 4);
 for (let i = 0; i < 6; i++) {
   const p = trabsMejillones[i % trabsMejillones.length];
-  const veh = pick(vehiculosActivos.filter((v) => v.base === "San Antonio"));
+  const vehsSede = vehiculosActivos.filter((v) => v.base === SEDE_PRINCIPAL);
+  const veh = pick(vehsSede.length ? vehsSede : vehiculosActivos);
   const fecha = new Date(2026, 1, 3 + i * 5);
   fecha.setHours(6, 30, 0, 0);
-  const distanciaReal = 1570; // San Antonio-Mejillones
+  // Ruta más larga disponible en el pack — es el ancla del hallazgo.
+  const distanciaReal = Math.max(1570, ...rutasDe(SEDE_PRINCIPAL).map((r) => r.kmReal));
   const tiempoDeclaradoMalo = 6.5; // rindió 6.5h para 1570km → 241 km/h
   const tiempoGPSReal = 18.5;
   viajes.push({
@@ -575,8 +619,8 @@ for (let i = 0; i < 6; i++) {
     choferId: p.id,
     fechaInicio: fmtDateTime(fecha),
     fechaFin: fmtDateTime(addHours(fecha, tiempoGPSReal)),
-    origen: "San Antonio",
-    destino: "Mejillones",
+    origen: SEDE_PRINCIPAL,
+    destino: DESTINO_LEJANO,
     distanciaDeclaradaKm: distanciaReal,
     distanciaGPSKm: distanciaReal + Math.floor(rng() * 40 - 20),
     tiempoDeclaradoHoras: tiempoDeclaradoMalo,
@@ -612,7 +656,9 @@ for (let i = 0; i < 12; i++) {
 // 🚨 HALLAZGO 3: Descargas sospechosas — patrón de robo (8 casos)
 // Cargas altas seguidas de descenso rápido del nivel según GPS
 for (let i = 0; i < 8; i++) {
-  const v = pick(vehiculosActivos.filter((veh) => veh.tipo === "Bus de relevo" || veh.tipo === "Camioneta 4x4"));
+  // Vehículos de mayor estanque: posiciones 2 (transporte de grupo) y 1 (4x4).
+  const grandes = vehiculosActivos.filter((veh) => veh.tipo === OP.tiposVehiculo[2] || veh.tipo === OP.tiposVehiculo[1]);
+  const v = pick(grandes.length ? grandes : vehiculosActivos);
   const fecha = new Date(FECHA_INICIO.getTime() + Math.floor(rng() * DIAS_TOTAL) * 86400000);
   fecha.setHours(20 + Math.floor(rng() * 3), 30, 0, 0); // horario tarde
   const litros = Math.round(v.capacidadEstanqueLitros * 0.95);
@@ -636,7 +682,7 @@ for (let i = 0; i < 34; i++) {
   const chofer = v.asignadoA || pick(personas).id;
   const fecha = new Date(FECHA_INICIO.getTime() + Math.floor(rng() * DIAS_TOTAL) * 86400000);
   fecha.setHours(7 + Math.floor(rng() * 12), 0, 0, 0);
-  const rutasBase = RUTAS[v.base] || RUTAS["San Antonio"];
+  const rutasBase = rutasDe(v.base);
   const ruta = pick(rutasBase);
   viajes.push({
     id: `VJE-${String(_viajeId++).padStart(5, "0")}`,
@@ -659,11 +705,12 @@ for (let i = 0; i < 34; i++) {
 
 // 🚨 HALLAZGO 5: Viáticos sin viaje GPS asociado (18 casos)
 // La persona rindió viático en ciudad X pero ningún vehículo asignado a ella salió de San Antonio ese día
-const personasParaHallazgo = personas.filter((p) => p.base === "San Antonio").slice(0, 10);
+const enSedePrincipal = personas.filter((p) => p.base === SEDE_PRINCIPAL);
+const personasParaHallazgo = (enSedePrincipal.length ? enSedePrincipal : personas).slice(0, 10);
 for (let i = 0; i < 18; i++) {
   const p = personasParaHallazgo[i % personasParaHallazgo.length];
   const fecha = new Date(FECHA_INICIO.getTime() + Math.floor(rng() * DIAS_TOTAL) * 86400000);
-  const ciudadRemota = pick(["Mejillones","Iquique","Puerto Montt","Osorno","Valdivia"]);
+  const ciudadRemota = pick(OP.ciudades.slice(-6));
   viaticos.push({
     id: `VIA-${String(_viaticoId++).padStart(5, "0")}`,
     personaId: p.id,
@@ -744,7 +791,7 @@ for (let i = 0; i < 4; i++) {
     fecha: fmtDate(fecha),
     evento,
     ubicacion: ubic,
-    unidad: "Operaciones Valparaíso",
+    unidad: UNIDAD_1,
     equipoAsignado: personas.slice(i * 3, i * 3 + 3).map((p) => p.id),
     vehiculosAsignados: [vehiculosActivos[i * 2].id],
     presupuestoCLP: 1_800_000,
@@ -758,7 +805,7 @@ for (let i = 0; i < 4; i++) {
     fecha: fmtDate(fecha),
     evento,
     ubicacion: ubic,
-    unidad: "Operaciones Mejillones",
+    unidad: UNIDAD_2,
     equipoAsignado: personas.slice(i * 3 + 3, i * 3 + 6).map((p) => p.id),
     vehiculosAsignados: [vehiculosActivos[i * 2 + 1].id],
     presupuestoCLP: 2_200_000,
@@ -973,7 +1020,7 @@ export const buildFlotaContext = () => {
       nombre: PACK.cliente,
       sector: PACK.sector,
       operacion: "Nacional (Arica a Punta Arenas)",
-      bases: ["San Antonio","Mejillones","San Vicente","Valparaíso","Puerto Montt"],
+      sedes: OP.sedes,
       flotaTotal: vehiculos.length,
       flotaActiva: vehiculos.filter((v) => v.estado === "Activo").length,
       personalOperativo: personas.length,
