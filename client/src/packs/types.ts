@@ -87,5 +87,12 @@ export type IndustryPack = {
   logoPath: string;
   /** Cómo describir la operación en una frase — se inyecta en los prompts. */
   descripcionOperacion: string;
+  /**
+   * Espacios que este pack puede mostrar. Los espacios 01-03 y el Coach son
+   * agnósticos; "cinco" (Gastos) y "seis" (Remuneraciones) todavía tienen el
+   * vocabulario marítimo embebido en src/data/, así que sólo el pack marítimo
+   * los declara. Un espacio no declarado no aparece en el menú.
+   */
+  espaciosDisponibles: string[];
   p2p: P2PPack;
 };

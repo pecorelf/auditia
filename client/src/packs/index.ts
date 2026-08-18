@@ -6,10 +6,14 @@
 import type { IndustryPack } from "./types";
 import { maritimo } from "./maritimo";
 import { medios } from "./medios";
+import { afp } from "./afp";
+import { mineria } from "./mineria";
+import { banca } from "./banca";
+import { retail } from "./retail";
 
 export type { IndustryPack } from "./types";
 
-export const PACKS: IndustryPack[] = [maritimo, medios];
+export const PACKS: IndustryPack[] = [afp, banca, mineria, retail, maritimo, medios];
 
 export const PACK_POR_DEFECTO = "maritimo";
 

@@ -8,12 +8,22 @@ import { EspacioCuatro } from "./views/EspacioCuatro";
 import { EspacioCinco } from "./views/EspacioCinco";
 import { EspacioSeis } from "./views/EspacioSeis";
 import { Admin } from "./views/Admin";
+import { getPackActivo } from "./packs";
 
 export default function App() {
+  // Al cambiar de pack, el espacio guardado puede ya no existir en el menú.
+  const disponibles = getPackActivo().espaciosDisponibles;
   const user = useStore((s) => s.user);
-  const espacio = useStore((s) => s.espacio);
+  const espacioGuardado = useStore((s) => s.espacio);
 
   if (!user) return <Login />;
+
+  // Si el pack no soporta el espacio guardado, cae al 01 en vez de dejar la
+  // pantalla en blanco.
+  const espacio =
+    espacioGuardado === "admin" || disponibles.includes(espacioGuardado)
+      ? espacioGuardado
+      : "uno";
 
   return (
     <Layout>

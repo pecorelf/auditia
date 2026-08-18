@@ -13,6 +13,7 @@ export const medios: IndustryPack = {
     "Canal de televisión con operación nacional, producción propia y corresponsalías regionales. " +
     "El gasto se concentra en producción externa, arriendo de equipos, enlaces satelitales y " +
     "servicios técnicos, con equipos periodísticos desplegados en terreno.",
+  espaciosDisponibles: ["uno", "dos", "tres", "cuatro"],
 
   p2p: {
     areasEmpleado: [

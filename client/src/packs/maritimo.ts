@@ -13,6 +13,7 @@ export const maritimo: IndustryPack = {
     "Operador de remolcadores portuarios con bases de Arica a Punta Arenas. Dotación embarcada " +
     "en turnos de guardia, faenas de atraque y desatraque, y un gasto dominado por combustible " +
     "marino, astilleros y repuestos de motores.",
+  espaciosDisponibles: ["uno", "dos", "tres", "cuatro", "cinco", "seis"],
 
   p2p: {
     areasEmpleado: [

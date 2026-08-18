@@ -1,3 +1,4 @@
+import { getPackActivo } from "../packs";
 import { useStore, type Espacio } from "../store/useStore";
 import { Logo, WordmarkAuditIA } from "./Logo";
 import { BRANDING } from "../config/branding";
@@ -47,6 +48,12 @@ const ITEMS: Item[] = [
     subtitle: "Preparación de reuniones con stakeholders",
   },
 ];
+
+// Sólo los espacios que el pack activo declara, renumerados para que no
+// queden saltos en la numeración visible.
+const VISIBLES = ITEMS
+  .filter((i) => getPackActivo().espaciosDisponibles.includes(i.id))
+  .map((i, k) => ({ ...i, number: String(k + 1).padStart(2, "0") }));
 
 export function Sidebar() {
   const espacio = useStore((s) => s.espacio);
