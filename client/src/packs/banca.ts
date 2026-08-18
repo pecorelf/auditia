@@ -13,7 +13,7 @@ export const banca: IndustryPack = {
     "Banco universal con banca personas y empresas, red de sucursales y cajeros automáticos, " +
     "fiscalizado por la CMF. El gasto se concentra en procesamiento de medios de pago, core " +
     "bancario, transporte de valores, buró de crédito y campañas de captación.",
-  espaciosDisponibles: ["uno", "dos", "tres", "cuatro"],
+  espaciosDisponibles: ["uno", "dos", "tres", "cuatro", "cinco", "seis"],
 
   p2p: {
     areasEmpleado: [
@@ -112,4 +112,34 @@ export const banca: IndustryPack = {
       ],
     },
   },
+  operacion: {
+    sedes: ["Sucursal Santiago Centro", "Sucursal Providencia", "Sucursal Antofagasta", "Sucursal Concepción", "Sucursal Puerto Montt"],
+    unidades: ["Red de Sucursales", "Banca Personas", "Banca Empresas", "Operaciones", "Cobranza", "Medios de Pago", "Contact Center"],
+    cargosOperativos: [
+      { cargo: "Cajero", peso: 5, sueldo: [800_000, 1_200_000] },
+      { cargo: "Ejecutivo de cuentas", peso: 4, sueldo: [1_100_000, 1_900_000] },
+      { cargo: "Ejecutivo comercial", peso: 3, sueldo: [1_200_000, 2_100_000] },
+      { cargo: "Ejecutivo de contact center", peso: 2, sueldo: [750_000, 1_100_000] },
+      { cargo: "Gerente de sucursal", peso: 1, sueldo: [3_200_000, 4_800_000] },
+    ],
+    cargosAdministrativos: [
+      { cargo: "Analista de operaciones", peso: 3, sueldo: [1_300_000, 2_000_000] },
+      { cargo: "Analista de riesgo", peso: 3, sueldo: [1_600_000, 2_500_000] },
+      { cargo: "Especialista de cumplimiento", peso: 2, sueldo: [1_900_000, 2_900_000] },
+      { cargo: "Ingeniero de sistemas", peso: 2, sueldo: [2_000_000, 3_200_000] },
+      { cargo: "Analista de Personas", peso: 1, sueldo: [1_200_000, 1_800_000] },
+    ],
+    etiquetaActivo: "Sucursal",
+    activos: ["Sucursal Santiago Centro", "Sucursal Apoquindo", "Sucursal Providencia", "Sucursal Maipú", "Sucursal Ñuñoa", "Sucursal Valparaíso", "Sucursal Viña del Mar", "Sucursal Rancagua", "Sucursal Talca", "Sucursal Concepción", "Sucursal Temuco", "Sucursal Puerto Montt", "Sucursal La Serena", "Sucursal Antofagasta", "Sucursal Iquique", "Sucursal Arica"],
+    etiquetaDotacion: "dotación de sucursal",
+    etiquetaFaena: "jornada de sucursal",
+    actividades: ["Cierre contable de sucursal", "Atención extendida fin de mes", "Arqueo de caja extraordinario", "Campaña de captación en terreno", "Visita a cliente empresa", "Apertura de sucursal nueva", "Refuerzo por peak de pago de remuneraciones", "Operativo de cobranza en terreno", "Migración de sistema en sucursal", "Auditoría de bóveda", "Capacitación normativa a la red", "Traslado de valores programado"],
+    ciudades: ["Santiago", "Valparaíso", "Viña del Mar", "Rancagua", "Talca", "Concepción", "Temuco", "Puerto Montt", "La Serena", "Antofagasta", "Iquique", "Arica", "Chillán", "Osorno", "Copiapó"],
+    tiposVehiculo: ["Camioneta pool", "Auto ejecutivo", "Van operativa", "SUV supervisión", "Auto fuerza de venta"],
+    convenios: ["Convenio Red Comercial 2024-2027", "Sindicato Administrativo 2025-2027"],
+    bonosConvenio: ["Bono de metas comerciales", "Bono de atención extendida", "Bono de cierre de mes", "Bono de reemplazo", "Bono de sucursal completa", "Asignación de zona", "Asignación de colación"],
+    bonoPrincipal: "Bono de metas comerciales",
+    bonoDotacionCompleta: "Bono de sucursal completa",
+  },
+
 };

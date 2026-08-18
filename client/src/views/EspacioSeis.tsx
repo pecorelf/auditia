@@ -1,11 +1,11 @@
-// Espacio 06 · id="seis" — Remuneraciones y Dotación Embarcada
+// Remuneraciones y Dotación — etiquetas según el pack activo
 // Cliente e industria vienen del pack activo
 
 import { useState, useMemo } from "react";
 import { Header } from "../components/Header";
 import { BRANDING } from "../config/branding";
 import {
-  trabajadores, turnos, liquidaciones, finiquitos, detectarHallazgos, BONOS_CONVENIO,
+  trabajadores, turnos, liquidaciones, finiquitos, detectarHallazgos, BONOS_CONVENIO, ETIQUETAS,
 } from "../data/remuneraciones";
 import { CLP, num, fmtDate } from "../lib/format";
 import { AnalisisEnVivo } from "../components/AnalisisEnVivo";
@@ -13,11 +13,11 @@ import { AnalisisEnVivo } from "../components/AnalisisEnVivo";
 type Fuente = "trabajadores" | "turnos" | "liquidaciones" | "finiquitos" | "convenio";
 
 const FUENTES: { id: Fuente; nombre: string; descripcion: string; tipo: string; filas: number; icono: string }[] = [
-  { id: "trabajadores",  nombre: "Maestro_Trabajadores.xlsx",     descripcion: "Contrato, cargo, base, convenio y datos bancarios", tipo: "Excel · estructurado",   filas: trabajadores.length, icono: "👥" },
-  { id: "turnos",        nombre: "Bitacora_Turnos_Embarque.xlsx", descripcion: "Guardias y faenas por remolcador, con dotación",    tipo: "Bitácora · estructurado", filas: turnos.length,       icono: "⚓" },
+  { id: "trabajadores",  nombre: "Maestro_Trabajadores.xlsx",     descripcion: "Contrato, cargo, sede, convenio y datos bancarios", tipo: "Excel · estructurado",   filas: trabajadores.length, icono: "👥" },
+  { id: "turnos",        nombre: "Bitacora_Turnos.xlsx", descripcion: `Guardias y turnos por ${ETIQUETAS.activo.toLowerCase()}, con dotación`,    tipo: "Bitácora · estructurado", filas: turnos.length,       icono: "⚓" },
   { id: "liquidaciones", nombre: "Liquidaciones_Sueldo.pdf",      descripcion: "Base, horas extra, bonos y descuentos por período", tipo: "PDF + Excel · mixto",     filas: liquidaciones.length, icono: "🧾" },
   { id: "finiquitos",    nombre: "Finiquitos_Periodo.pdf",        descripcion: "Causal, indemnización y vacaciones proporcionales", tipo: "PDF · NO estructurado",   filas: finiquitos.length,   icono: "📄" },
-  { id: "convenio",      nombre: "Convenio_Colectivo_2024.pdf",   descripcion: "Bonos autorizados y topes vigentes",                tipo: "PDF · NO estructurado",   filas: BONOS_CONVENIO.length, icono: "📘" },
+  { id: "convenio",      nombre: "Convenio_Colectivo.pdf",   descripcion: "Bonos autorizados y topes vigentes",                tipo: "PDF · NO estructurado",   filas: BONOS_CONVENIO.length, icono: "📘" },
 ];
 
 const PAGE_SIZE_OPTIONS = [50, 100, 250, 500];
@@ -63,12 +63,12 @@ export function EspacioSeis() {
   return (
     <>
       <Header
-        eyebrow="Espacio 06 · Remuneraciones y Dotación"
+        eyebrow="Remuneraciones y Dotación"
         title={BRANDING.firmName}
-        subtitle="Auditoría continua de la nómina: cada hora extra pagada contra la bitácora de turnos por remolcador, cada bono contra el convenio colectivo, cada liquidación contra la vigencia del contrato"
+        subtitle={`Auditoría continua de la nómina: cada hora extra pagada contra la bitácora de turnos por ${ETIQUETAS.activo.toLowerCase()}, cada bono contra el convenio colectivo, cada liquidación contra la vigencia del contrato`}
         meta={[
           { label: "Trabajadores", value: num(trabajadores.length) },
-          { label: "Dotación embarcada", value: num(trabajadores.filter((t) => t.embarcado).length) },
+          { label: ETIQUETAS.dotacion, value: num(trabajadores.filter((t) => t.embarcado).length) },
           { label: "Turnos registrados", value: num(turnos.length) },
           { label: "Liquidaciones", value: num(liquidaciones.length) },
           { label: "Masa salarial", value: CLP(masaSalarial) },
@@ -120,10 +120,10 @@ export function EspacioSeis() {
           fuentes={FUENTES.map((f) => ({ nombre: f.nombre, filas: f.filas, icono: f.icono }))}
           hallazgos={[
             { titulo: "Horas extra sin respaldo en la bitácora de turnos", severidad: "critica", cantidad: hallazgos.heImposibles.cantidad, montoCLP: hallazgos.heImposibles.montoTotal },
-            { titulo: "Bono de embarque pagado dos veces en el mismo período", severidad: "critica", cantidad: hallazgos.bonoDuplicado.cantidad, montoCLP: hallazgos.bonoDuplicado.montoTotal },
+            { titulo: `${ETIQUETAS.bonoPrincipal} pagado dos veces en el mismo período`, severidad: "critica", cantidad: hallazgos.bonoDuplicado.cantidad, montoCLP: hallazgos.bonoDuplicado.montoTotal },
             { titulo: "Liquidaciones sin ningún turno registrado", severidad: "critica", cantidad: hallazgos.sinTurnos.cantidad, montoCLP: hallazgos.sinTurnos.montoTotal },
             { titulo: "Pagos posteriores a la fecha de finiquito", severidad: "critica", cantidad: hallazgos.postFiniquito.cantidad, montoCLP: hallazgos.postFiniquito.montoTotal },
-            { titulo: "Bono de dotación completa en faenas bajo dotación mínima", severidad: "alta", cantidad: hallazgos.bonoDotacionIndebido.cantidad, montoCLP: hallazgos.bonoDotacionIndebido.montoTotal },
+            { titulo: `${ETIQUETAS.bonoDotacion} en turnos bajo dotación mínima`, severidad: "alta", cantidad: hallazgos.bonoDotacionIndebido.cantidad, montoCLP: hallazgos.bonoDotacionIndebido.montoTotal },
             { titulo: "Horas extra sobre el tope legal mensual", severidad: "alta", cantidad: hallazgos.sobreTope.cantidad, montoCLP: hallazgos.sobreTope.montoTotal },
             { titulo: "Guardias sobre 16 horas continuas", severidad: "alta", cantidad: hallazgos.guardiasLargas.cantidad },
             { titulo: "Trabajadores que comparten cuenta bancaria", severidad: "alta", cantidad: hallazgos.cuentasCompartidas.cantidad },
@@ -140,17 +140,17 @@ export function EspacioSeis() {
               titulo="Horas extra pagadas sin respaldo en la bitácora de turnos"
               cantidad={hallazgos.heImposibles.cantidad}
               unidad="liquidaciones"
-              descripcion={`Liquidaciones con horas extra que exceden las horas efectivamente registradas en la bitácora del remolcador. Monto pagado sin respaldo: ${CLP(hallazgos.heImposibles.montoTotal)}.`}
+              descripcion={`Liquidaciones con horas extra que exceden las horas efectivamente registradas en la bitácora de turnos. Monto pagado sin respaldo: ${CLP(hallazgos.heImposibles.montoTotal)}.`}
               normativa="Art. 32 y 33 Código del Trabajo · registro de asistencia obligatorio"
-              recomendacion="Bloquear el pago de horas extra que no tengan turno registrado en bitácora. Exigir validación del patrón de remolcador antes del cierre de nómina y auditar los casos detectados con foco en quién autorizó."
+              recomendacion="Bloquear el pago de horas extra que no tengan turno registrado en bitácora. Exigir validación del supervisor responsable antes del cierre de nómina y auditar los casos detectados con foco en quién autorizó."
             />
             <HallazgoCard
               severidad="critica"
-              titulo="Bono de embarque pagado dos veces en el mismo período"
+              titulo={`${ETIQUETAS.bonoPrincipal} pagado dos veces en el mismo período`}
               cantidad={hallazgos.bonoDuplicado.cantidad}
               unidad="casos"
               descripcion={`Un mismo bono aparece duplicado dentro de la misma liquidación. Sobrepago acumulado: ${CLP(hallazgos.bonoDuplicado.montoTotal)}.`}
-              normativa="Convenio Marítimo 2024-2027 · un bono de embarque por período"
+              normativa={`${ETIQUETAS.convenioOperativo} · un ${ETIQUETAS.bonoPrincipal.toLowerCase()} por período`}
               recomendacion="Regla de unicidad por tipo de bono y período en el motor de nómina. Revisar si el duplicado viene de carga manual o de doble interfaz entre operaciones y remuneraciones."
             />
             <HallazgoCard
@@ -173,11 +173,11 @@ export function EspacioSeis() {
             />
             <HallazgoCard
               severidad="alta"
-              titulo="Bono de dotación completa en faenas bajo dotación mínima"
+              titulo={`${ETIQUETAS.bonoDotacion} en turnos bajo dotación mínima`}
               cantidad={hallazgos.bonoDotacionIndebido.cantidad}
               unidad="casos"
-              descripcion={`Se pagó bono de dotación completa en períodos donde la faena operó por debajo de la dotación mínima de seguridad. Monto: ${CLP(hallazgos.bonoDotacionIndebido.montoTotal)}. Además del sobrepago, es un riesgo operacional.`}
-              normativa="Dotación mínima de seguridad · normativa marítima aplicable"
+              descripcion={`Se pagó ${ETIQUETAS.bonoDotacion.toLowerCase()} en períodos donde el turno operó por debajo de la dotación mínima definida. Monto: ${CLP(hallazgos.bonoDotacionIndebido.montoTotal)}. Además del sobrepago, es un riesgo operacional.`}
+              normativa="Dotación mínima definida por la operación"
               recomendacion="Condicionar el bono a la dotación efectiva registrada en la faena. Escalar a Operaciones los turnos bajo mínimo: el hallazgo económico es menor que el riesgo de seguridad que revela."
             />
             <HallazgoCard
@@ -194,9 +194,9 @@ export function EspacioSeis() {
               titulo="Guardias superiores a 16 horas continuas"
               cantidad={hallazgos.guardiasLargas.cantidad}
               unidad="turnos"
-              descripcion="Turnos embarcados con más de 16 horas continuas sin descanso registrado. Riesgo de fatiga operacional en maniobra."
-              normativa="Descanso mínimo entre turnos · convenio y normativa marítima"
-              recomendacion="Bloqueo en la planificación de turnos que superen el límite y reporte semanal al Gerente de Operaciones. Correlacionar estos turnos con incidentes de maniobra del mismo período."
+              descripcion="Turnos con más de 16 horas continuas sin descanso registrado. Riesgo de fatiga operacional."
+              normativa="Descanso mínimo entre turnos · convenio vigente"
+              recomendacion="Bloqueo en la planificación de turnos que superen el límite y reporte semanal al Gerente de Operaciones. Correlacionar estos turnos con incidentes del mismo período."
             />
             <HallazgoCard
               severidad="alta"
@@ -305,7 +305,7 @@ export function EspacioSeis() {
               {fuente === "turnos" && (
                 <>
                   <thead className="bg-deloitte-paper text-deloitte-mute">
-                    <tr>{["ID","Fecha","Trabajador","Remolcador","Base","Tipo","Inicio","Fin","Horas","Dotación"].map((h) => (
+                    <tr>{["ID","Fecha","Trabajador",ETIQUETAS.activo,"Sede","Tipo","Inicio","Fin","Horas","Dotación"].map((h) => (
                       <th key={h} className="text-left font-semibold px-3 py-2 border-b border-deloitte-line">{h}</th>))}</tr>
                   </thead>
                   <tbody>
@@ -317,7 +317,7 @@ export function EspacioSeis() {
                           <td className="px-3 py-1.5 tabular">{t.id}</td>
                           <td className="px-3 py-1.5 tabular">{fmtDate(t.fecha)}</td>
                           <td className="px-3 py-1.5">{trabById.get(t.trabajadorId)?.nombre}</td>
-                          <td className="px-3 py-1.5">{t.remolcador}</td>
+                          <td className="px-3 py-1.5">{t.activo}</td>
                           <td className="px-3 py-1.5">{t.base}</td>
                           <td className="px-3 py-1.5">{t.tipo}</td>
                           <td className="px-3 py-1.5 tabular">{t.horaInicio}</td>
@@ -400,7 +400,7 @@ export function EspacioSeis() {
                     {BONOS_CONVENIO.map((b) => (
                       <tr key={b} className="row-striped border-b border-deloitte-line/50">
                         <td className="px-3 py-1.5">{b}</td>
-                        <td className="px-3 py-1.5 text-deloitte-mute">Convenio Marítimo 2024-2027</td>
+                        <td className="px-3 py-1.5 text-deloitte-mute">{ETIQUETAS.convenioOperativo}</td>
                       </tr>
                     ))}
                   </tbody>

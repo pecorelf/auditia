@@ -15,7 +15,7 @@ const ITEMS: Item[] = [
     id: "uno",
     number: "01",
     title: "Pagos a Proveedores",
-    subtitle: "Bunkering, astilleros y servicios portuarios",
+    subtitle: "Proveedores, órdenes de compra y facturas",
   },
   {
     id: "dos",
@@ -78,7 +78,7 @@ export function Sidebar() {
       <nav className="flex-1 px-3 py-4 space-y-1">
         <div className="px-2 mb-2">
           <div className="text-[10px] uppercase tracking-[0.18em] text-white/40 font-semibold">
-            Demo · 3 espacios
+            {`Demo · ${VISIBLES.length} espacios`}
           </div>
         </div>
         {ITEMS.map((it) => {

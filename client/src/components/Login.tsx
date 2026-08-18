@@ -29,7 +29,7 @@ export function Login() {
               El estado del arte de la IA<br />en Auditoría Interna.
             </h1>
             <p className="text-white/60 mt-5 text-[15px] leading-relaxed max-w-md">
-              Tres espacios. Un solo asistente. Del análisis de datos puntual a la
+              Un solo asistente en todos los espacios. Del análisis de datos puntual a la
               planificación estratégica del plan anual.
             </p>
           </div>
@@ -105,7 +105,7 @@ export function Login() {
 
           <div className="mt-6 text-[11px] text-deloitte-mute leading-relaxed border-t border-deloitte-line pt-4">
             Para la demo en vivo el moderador puede elegir cualquier perfil — esto solo afecta el
-            badge en pantalla, no los datos. Los datos son los mismos para los tres espacios y han
+            badge en pantalla, no los datos. Los datos son los mismos en todos los espacios y han
             sido sintetizados para esta demo.
           </div>
         </div>

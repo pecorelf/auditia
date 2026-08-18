@@ -13,7 +13,7 @@ export const medios: IndustryPack = {
     "Canal de televisión con operación nacional, producción propia y corresponsalías regionales. " +
     "El gasto se concentra en producción externa, arriendo de equipos, enlaces satelitales y " +
     "servicios técnicos, con equipos periodísticos desplegados en terreno.",
-  espaciosDisponibles: ["uno", "dos", "tres", "cuatro"],
+  espaciosDisponibles: ["uno", "dos", "tres", "cuatro", "cinco", "seis"],
 
   p2p: {
     areasEmpleado: [
@@ -106,4 +106,34 @@ export const medios: IndustryPack = {
       ],
     },
   },
+  operacion: {
+    sedes: ["Estudio Central", "Corresponsalía Norte", "Corresponsalía Sur", "Planta Transmisora", "Oficina Regional"],
+    unidades: ["Prensa", "Producción", "Programación", "Post-producción", "Corresponsalía Norte", "Corresponsalía Sur", "Continuidad"],
+    cargosOperativos: [
+      { cargo: "Periodista", peso: 5, sueldo: [1_200_000, 2_000_000] },
+      { cargo: "Camarógrafo", peso: 4, sueldo: [1_000_000, 1_600_000] },
+      { cargo: "Editor", peso: 3, sueldo: [1_100_000, 1_800_000] },
+      { cargo: "Asistente de producción", peso: 2, sueldo: [700_000, 1_000_000] },
+      { cargo: "Productor", peso: 1, sueldo: [1_600_000, 2_500_000] },
+    ],
+    cargosAdministrativos: [
+      { cargo: "Coordinador", peso: 3, sueldo: [1_700_000, 2_500_000] },
+      { cargo: "Supervisor de contenido", peso: 2, sueldo: [2_000_000, 2_900_000] },
+      { cargo: "Reportero gráfico", peso: 2, sueldo: [900_000, 1_400_000] },
+      { cargo: "Analista de Personas", peso: 1, sueldo: [1_200_000, 1_800_000] },
+      { cargo: "Jefe", peso: 1, sueldo: [2_500_000, 3_800_000] },
+    ],
+    etiquetaActivo: "Programa",
+    activos: ["Noticiero Central", "Noticiero AM", "Matinal", "Reportajes", "Deportes", "Programa Cultural", "Franja Infantil", "Late Show", "Documentales", "Especiales", "Continuidad", "Streaming Digital"],
+    etiquetaDotacion: "equipo en terreno",
+    etiquetaFaena: "cobertura",
+    actividades: ["Cobertura de emergencia", "Transmisión en vivo desde terreno", "Reportaje en regiones", "Cobertura deportiva", "Enlace satelital", "Cobertura electoral", "Grabación de programa en exteriores", "Cobertura de cumbre presidencial", "Nota en terreno", "Transmisión de evento masivo", "Especial de aniversario", "Cobertura judicial"],
+    ciudades: ["Santiago", "Valparaíso", "Viña del Mar", "Rancagua", "Talca", "Concepción", "Temuco", "Puerto Montt", "La Serena", "Antofagasta", "Iquique", "Arica", "Chillán", "Osorno", "Punta Arenas"],
+    tiposVehiculo: ["Camioneta pool", "Auto periodístico", "Móvil de transmisión", "SUV producción", "Van equipo técnico"],
+    convenios: ["Convenio Producción 2024-2027", "Sindicato Administrativo 2025-2027"],
+    bonosConvenio: ["Bono de terreno", "Bono de cobertura", "Bono nocturno", "Bono de reemplazo", "Bono de equipo completo", "Asignación de zona", "Asignación de colación"],
+    bonoPrincipal: "Bono de terreno",
+    bonoDotacionCompleta: "Bono de equipo completo",
+  },
+
 };

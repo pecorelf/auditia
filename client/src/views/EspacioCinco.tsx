@@ -1,4 +1,4 @@
-// Espacio 04 visual / id="cinco" internamente — Gastos, Rendiciones y Traslados SAAM
+// Gastos, Rendiciones y Traslados — cliente e industria según el pack activo
 // Cliente e industria vienen del pack activo
 
 import { useState, useMemo } from "react";
@@ -65,7 +65,7 @@ export function EspacioCinco() {
         title={BRANDING.firmName}
         subtitle="Auditoría continua del gasto operativo en traslados y rendiciones · flota de apoyo + viáticos de relevo + servicios externos, con cruce de GPS y bitácora de faenas"
         meta={[
-          { label: "Bases operativas", value: "5 (Val · SAn · Mej · SVi · PMo)" },
+          { label: "Bases operativas", value: `5 sedes` },
           { label: "Flota total", value: `${vehiculos.length} vehículos` },
           { label: "Personal operativo", value: `${personas.length}` },
           { label: "Viajes analizados", value: num(viajes.length) },
@@ -242,7 +242,7 @@ export function EspacioCinco() {
               titulo="Excesos de velocidad > 150 km/h"
               cantidad={hallazgos.excesosVelocidad.cantidad}
               unidad="viajes"
-              descripcion={`Vehículos de SAAM registrados por GPS a velocidades peligrosas. Máxima detectada: ${hallazgos.excesosVelocidad.max} km/h. Riesgo laboral, reputacional y de responsabilidad civil.`}
+              descripcion={`Vehículos de ${BRANDING.firmName} registrados por GPS a velocidades peligrosas. Máxima detectada: ${hallazgos.excesosVelocidad.max} km/h. Riesgo laboral, reputacional y de responsabilidad civil.`}
               normativa="Ley de Tránsito · Ley 20.393 (responsabilidad de la empresa)"
               recomendacion="Notificar a los 34 conductores individualmente. Implementar límite electrónico en la flota (governor). Reportar patrón agregado a Gerencia de Operaciones. Incluir cláusula de descuento por multa en política de flota."
             />
@@ -322,7 +322,7 @@ export function EspacioCinco() {
               titulo="Multas de tránsito no reembolsadas por el chofer"
               cantidad={hallazgos.multasNoReembolsadas.cantidad}
               unidad="multas"
-              descripcion={`Multas pagadas por SAAM que la política señala deberían ser reembolsadas por el chofer responsable. Total: ${hallazgos.multasNoReembolsadas.totalUTM.toFixed(1)} UTM.`}
+              descripcion={`Multas pagadas por ${BRANDING.firmName} que la política señala deberían ser reembolsadas por el chofer responsable. Total: ${hallazgos.multasNoReembolsadas.totalUTM.toFixed(1)} UTM.`}
               normativa="Política interna de flota"
               recomendacion="Descontar de próximo pago de sueldo. Modificar contrato para clarificar responsabilidad. Cruzar con conductores con más de 3 multas: podría ser criterio para retirar asignación de vehículo."
             />

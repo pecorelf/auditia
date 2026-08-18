@@ -21,7 +21,7 @@ export const afp: IndustryPack = {
     "agentes previsionales inscritos en el registro. El gasto se concentra en custodia de valores, " +
     "terminales de información de mercado, despacho de cartolas cuatrimestrales y campañas de " +
     "captación y retención de afiliados.",
-  espaciosDisponibles: ["uno", "dos", "tres", "cuatro"],
+  espaciosDisponibles: ["uno", "dos", "tres", "cuatro", "cinco", "seis"],
 
   p2p: {
     areasEmpleado: [
@@ -120,4 +120,34 @@ export const afp: IndustryPack = {
       ],
     },
   },
+  operacion: {
+    sedes: ["Sucursal Santiago Centro", "Sucursal Providencia", "Sucursal Antofagasta", "Sucursal Concepción", "Sucursal Puerto Montt"],
+    unidades: ["Red de Sucursales", "Servicio al Afiliado", "Fuerza de Venta", "Beneficios y Pensiones", "Operaciones Previsionales", "Contact Center", "Recaudación y Cobranza"],
+    cargosOperativos: [
+      { cargo: "Agente previsional", peso: 5, sueldo: [800_000, 1_500_000] },
+      { cargo: "Ejecutivo de sucursal", peso: 4, sueldo: [900_000, 1_400_000] },
+      { cargo: "Ejecutivo de servicio al afiliado", peso: 3, sueldo: [800_000, 1_200_000] },
+      { cargo: "Ejecutivo de contact center", peso: 2, sueldo: [750_000, 1_100_000] },
+      { cargo: "Jefe de sucursal", peso: 1, sueldo: [2_200_000, 3_200_000] },
+    ],
+    cargosAdministrativos: [
+      { cargo: "Analista previsional", peso: 3, sueldo: [1_200_000, 1_800_000] },
+      { cargo: "Analista de inversiones", peso: 2, sueldo: [2_000_000, 3_000_000] },
+      { cargo: "Especialista de cumplimiento", peso: 2, sueldo: [1_800_000, 2_700_000] },
+      { cargo: "Coordinador de operaciones", peso: 2, sueldo: [1_600_000, 2_400_000] },
+      { cargo: "Analista de Personas", peso: 1, sueldo: [1_200_000, 1_800_000] },
+    ],
+    etiquetaActivo: "Sucursal",
+    activos: ["Sucursal Santiago Centro", "Sucursal Providencia", "Sucursal Las Condes", "Sucursal Maipú", "Sucursal Ñuñoa", "Sucursal Valparaíso", "Sucursal Viña del Mar", "Sucursal Rancagua", "Sucursal Talca", "Sucursal Concepción", "Sucursal Temuco", "Sucursal Puerto Montt", "Sucursal La Serena", "Sucursal Antofagasta", "Sucursal Iquique", "Sucursal Arica"],
+    etiquetaDotacion: "dotación de atención",
+    etiquetaFaena: "jornada de atención",
+    actividades: ["Operativo de afiliación en terreno", "Charla previsional en empresa", "Atención extendida cierre de mes", "Campaña de traspasos", "Operativo de pensionados", "Feria de empleo con stand", "Visita a empresa cotizante", "Regularización de cotizaciones impagas", "Atención de trámite de pensión", "Capacitación de agentes en regiones", "Operativo de asesoría de fondos", "Refuerzo por peak de traspasos"],
+    ciudades: ["Santiago", "Valparaíso", "Viña del Mar", "Rancagua", "Talca", "Concepción", "Temuco", "Puerto Montt", "La Serena", "Antofagasta", "Iquique", "Arica", "Chillán", "Osorno", "Copiapó"],
+    tiposVehiculo: ["Camioneta pool", "Auto ejecutivo", "Van operativos en terreno", "SUV supervisión", "Auto fuerza de venta"],
+    convenios: ["Convenio Red Comercial 2024-2027", "Sindicato Administrativo 2025-2027"],
+    bonosConvenio: ["Bono de captación", "Bono de atención extendida", "Bono de operativo en terreno", "Bono de reemplazo", "Bono de sucursal completa", "Asignación de zona", "Asignación de colación"],
+    bonoPrincipal: "Bono de captación",
+    bonoDotacionCompleta: "Bono de sucursal completa",
+  },
+
 };

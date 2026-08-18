@@ -13,7 +13,7 @@ export const retail: IndustryPack = {
     "Cadena de tiendas con centro de distribución propio y canal e-commerce. El gasto se " +
     "concentra en transporte y última milla, packaging, campañas de temporada, mantención de " +
     "salas y equipos de frío, y servicios de guardias y aseo.",
-  espaciosDisponibles: ["uno", "dos", "tres", "cuatro"],
+  espaciosDisponibles: ["uno", "dos", "tres", "cuatro", "cinco", "seis"],
 
   p2p: {
     areasEmpleado: [
@@ -114,4 +114,34 @@ export const retail: IndustryPack = {
       ],
     },
   },
+  operacion: {
+    sedes: ["Tienda Santiago Centro", "Tienda Maipú", "Tienda Antofagasta", "Tienda Concepción", "Centro de Distribución Quilicura"],
+    unidades: ["Operaciones Tienda", "Centro de Distribución", "E-commerce", "Prevención de Pérdidas", "Trade Marketing", "Logística y Distribución", "Servicio al Cliente"],
+    cargosOperativos: [
+      { cargo: "Vendedor", peso: 5, sueldo: [600_000, 950_000] },
+      { cargo: "Cajero", peso: 4, sueldo: [600_000, 900_000] },
+      { cargo: "Reponedor", peso: 3, sueldo: [600_000, 850_000] },
+      { cargo: "Operario de bodega", peso: 3, sueldo: [700_000, 1_050_000] },
+      { cargo: "Jefe de sección", peso: 1, sueldo: [1_100_000, 1_700_000] },
+    ],
+    cargosAdministrativos: [
+      { cargo: "Administrador de tienda", peso: 3, sueldo: [1_800_000, 2_700_000] },
+      { cargo: "Supervisor de centro de distribución", peso: 2, sueldo: [1_600_000, 2_400_000] },
+      { cargo: "Analista de categoría", peso: 2, sueldo: [1_400_000, 2_200_000] },
+      { cargo: "Coordinador de operaciones", peso: 2, sueldo: [1_500_000, 2_300_000] },
+      { cargo: "Analista de Personas", peso: 1, sueldo: [1_200_000, 1_800_000] },
+    ],
+    etiquetaActivo: "Tienda",
+    activos: ["Tienda Santiago Centro", "Tienda Apoquindo", "Tienda Providencia", "Tienda Maipú", "Tienda Ñuñoa", "Tienda Puente Alto", "Tienda Valparaíso", "Tienda Viña del Mar", "Tienda Rancagua", "Tienda Talca", "Tienda Concepción", "Tienda Temuco", "Tienda Puerto Montt", "Tienda La Serena", "Tienda Antofagasta", "CD Quilicura"],
+    etiquetaDotacion: "dotación de sala",
+    etiquetaFaena: "turno de sala",
+    actividades: ["Inventario cíclico de sala", "Apertura de temporada", "Campaña Cyber", "Reposición nocturna", "Toma de inventario anual", "Refuerzo por peak de fin de semana", "Remodelación de sala", "Activación de trade marketing", "Peak de picking e-commerce", "Recepción de contenedor en CD", "Cambio de layout de góndolas", "Liquidación de temporada"],
+    ciudades: ["Santiago", "Valparaíso", "Viña del Mar", "Rancagua", "Talca", "Concepción", "Temuco", "Puerto Montt", "La Serena", "Antofagasta", "Iquique", "Arica", "Chillán", "Osorno", "Copiapó"],
+    tiposVehiculo: ["Camioneta pool", "Camión de reparto", "Van última milla", "SUV supervisión", "Furgón de traslado"],
+    convenios: ["Convenio Comercio 2024-2027", "Sindicato Administrativo 2025-2027"],
+    bonosConvenio: ["Bono de sala", "Bono de metas de venta", "Bono nocturno", "Bono de reemplazo", "Bono de dotación completa", "Asignación de zona", "Asignación de colación"],
+    bonoPrincipal: "Bono de sala",
+    bonoDotacionCompleta: "Bono de dotación completa",
+  },
+
 };

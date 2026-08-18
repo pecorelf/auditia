@@ -64,7 +64,7 @@ export function EspacioDos() {
       <Header
         eyebrow="Espacio 02 · Monitoreo Continuo"
         title="Tablero de seguimiento y control"
-        subtitle="Monitoreo continuo del proceso Procure-to-Pay de SAAM. Vista permanente para el dueño de proceso — Auditoría Interna solo interviene en casos escalados."
+        subtitle={`Monitoreo continuo del proceso Procure-to-Pay de ${BRANDING.firmName}. Vista permanente para el dueño de proceso — Auditoría Interna solo interviene en casos escalados.`}
         meta={[
           { label: "Empresa", value: BRANDING.firmName },
           { label: "Período", value: "FY 2023-26 (al 26-May-2026)" },

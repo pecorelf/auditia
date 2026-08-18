@@ -1,9 +1,9 @@
-// Remuneraciones y Dotación Embarcada — SAAM Towage Chile
-// Operador de remolcadores portuarios. Dotación embarcada + personal de tierra.
+// Remuneraciones y Dotación — vocabulario según el pack de industria activo.
+// Personal operativo (el que hace turnos) + personal administrativo.
 //
 // El caso cruza 5 fuentes (estructuradas + NO estructuradas):
 //   1. Maestro de trabajadores (contrato, cargo, base, convenio)
-//   2. Turnos de embarque y guardia (bitácora operativa por remolcador)
+//   2. Turnos y guardias (bitácora operativa por activo)
 //   3. Liquidaciones de sueldo (base, horas extra, bonos, descuentos)
 //   4. Convenio colectivo vigente (bonos permitidos y topes)
 //   5. Finiquitos del período
@@ -20,6 +20,22 @@
 //   9. Bonos pagados fuera del convenio colectivo vigente (medio)
 //  10. Saltos de líquido > 40% sobre la media del cargo sin cambio de cargo (medio)
 
+import { getPackActivo } from "../packs";
+
+const PACK = getPackActivo();
+const OP = PACK.operacion;
+
+/** Etiquetas del pack, para usar en textos de la vista y del prompt. */
+export const ETIQUETAS = {
+  activo: OP.etiquetaActivo,
+  dotacion: OP.etiquetaDotacion,
+  faena: OP.etiquetaFaena,
+  bonoPrincipal: OP.bonoPrincipal,
+  bonoDotacion: OP.bonoDotacionCompleta,
+  convenioOperativo: OP.convenios[0],
+  convenioAdministrativo: OP.convenios[1],
+};
+
 // ─────────────────────────────────────────────────────────────────────
 // TIPOS
 // ─────────────────────────────────────────────────────────────────────
@@ -33,7 +49,7 @@ export type Trabajador = {
   base: string;
   unidad: string;
   tipoContrato: "Indefinido" | "Plazo fijo" | "Por faena";
-  convenio: "Convenio Marítimo 2024-2027" | "Sindicato Tierra 2025-2027" | "Sin convenio";
+  convenio: string;
   fechaIngreso: string;
   sueldoBaseCLP: number;
   banco: string;
@@ -46,9 +62,9 @@ export type Turno = {
   id: string;
   trabajadorId: string;
   fecha: string;
-  remolcador: string;
+  activo: string;
   base: string;
-  tipo: "Guardia embarcada" | "Faena" | "Relevo" | "Tierra";
+  tipo: "Guardia" | "Faena" | "Relevo" | "Administrativo";
   horaInicio: string;
   horaFin: string;
   horas: number;
@@ -110,41 +126,16 @@ const iso = (d: Date) => d.toISOString().split("T")[0];
 const NOMBRES = ["María","Pedro","Andrea","Javier","Carolina","Rodrigo","Patricia","Felipe","Soledad","Luis","Constanza","Marcelo","Cristián","Daniela","Eduardo","Francisca","Gonzalo","Loreto","Mauricio","Pamela","Sebastián","Tamara","Víctor","Ximena","Bárbara","César","Diego","Elisa","Fabián","Gabriela","Héctor","Ivonne","Joaquín","Karla","Lautaro","Macarena","Néstor","Olga","Pablo","Raquel","Sergio","Valeria","Nicolás","Paulina"];
 const APELLIDOS = ["González","Soto","Vargas","Muñoz","Pino","Aravena","Reyes","Cárdenas","Vega","Henríquez","Bravo","Torres","Espinoza","Olivares","Saavedra","Lillo","Rojas","Pizarro","Maldonado","Salinas","Cisternas","Quintana","Hidalgo","Lagos","Toledo","Núñez","Vidal","Mora","Aguilar","Pacheco","Mancilla","Almonacid","Bahamondes","Cifuentes","Ojeda","Mardones","Iturra","Tobar"];
 
-const CARGOS_EMBARCADOS = [
-  { cargo: "Marinero", peso: 5, sueldo: [900_000, 1_400_000] },
-  { cargo: "Contramaestre", peso: 2, sueldo: [1_300_000, 1_900_000] },
-  { cargo: "Oficial de Máquinas", peso: 2, sueldo: [1_800_000, 2_600_000] },
-  { cargo: "Jefe de Máquinas", peso: 1, sueldo: [2_600_000, 3_800_000] },
-  { cargo: "Patrón de remolcador", peso: 2, sueldo: [2_800_000, 4_200_000] },
-];
-const CARGOS_TIERRA = [
-  { cargo: "Despachador de operaciones", peso: 3, sueldo: [1_100_000, 1_600_000] },
-  { cargo: "Mecánico de flota", peso: 3, sueldo: [1_100_000, 1_700_000] },
-  { cargo: "Supervisor de faena", peso: 2, sueldo: [1_800_000, 2_600_000] },
-  { cargo: "Coordinador de operaciones", peso: 2, sueldo: [1_700_000, 2_500_000] },
-  { cargo: "Analista de Personas", peso: 1, sueldo: [1_200_000, 1_800_000] },
-];
+const CARGOS_EMBARCADOS = OP.cargosOperativos.map((c) => ({ cargo: c.cargo, peso: c.peso, sueldo: c.sueldo }));
+const CARGOS_TIERRA = OP.cargosAdministrativos.map((c) => ({ cargo: c.cargo, peso: c.peso, sueldo: c.sueldo }));
 
-const BASES = ["Valparaíso","San Antonio","Mejillones","San Vicente","Puerto Montt"];
-const UNIDADES = ["Operaciones Valparaíso","Operaciones San Antonio","Operaciones Mejillones","Operaciones San Vicente","Operaciones Puerto Montt","Mantenimiento y Flota","Servicios Offshore"];
+const BASES = OP.sedes;
+const UNIDADES = OP.unidades;
 const BANCOS = ["BancoEstado","BCI","Santander","Banco de Chile","Itaú","Scotiabank","Security"];
 
-const REMOLCADORES = [
-  "RAM Valparaíso","RAM Aconcagua","RAM Bío-Bío","RAM Loa","RAM Huasco","RAM Maipo",
-  "RAM Cautín","RAM Petrohué","RAM Reloncaví","RAM Chacao","RAM Corral","RAM Lebu",
-  "RAM Elqui","RAM Copiapó","RAM Rapel","RAM Toltén",
-];
+const ACTIVOS = OP.activos;
 
-// Bonos del convenio colectivo vigente (fuente de verdad para el hallazgo #9)
-export const BONOS_CONVENIO = [
-  "Bono de embarque",
-  "Bono de guardia nocturna",
-  "Bono de faena",
-  "Bono de relevo",
-  "Bono de dotación completa",
-  "Asignación de zona",
-  "Asignación de colación",
-];
+export const BONOS_CONVENIO = OP.bonosConvenio;
 const BONOS_FUERA_CONVENIO = ["Bono especial de gestión", "Bono discrecional operativo"];
 
 // ─────────────────────────────────────────────────────────────────────
@@ -169,7 +160,7 @@ for (let i = 0; i < N_TRAB; i++) {
     base: pick(BASES),
     unidad: embarcado ? pick(UNIDADES.slice(0, 5)) : pick(UNIDADES),
     tipoContrato: rng() < 0.82 ? "Indefinido" : (rng() < 0.6 ? "Plazo fijo" : "Por faena"),
-    convenio: embarcado ? "Convenio Marítimo 2024-2027" : (rng() < 0.7 ? "Sindicato Tierra 2025-2027" : "Sin convenio"),
+    convenio: embarcado ? OP.convenios[0] : (rng() < 0.7 ? OP.convenios[1] : "Sin convenio"),
     fechaIngreso: iso(new Date(2012 + Math.floor(rng() * 13), Math.floor(rng() * 12), 1 + Math.floor(rng() * 27))),
     sueldoBaseCLP: between(c.sueldo[0], c.sueldo[1]),
     banco: pick(BANCOS),
@@ -216,9 +207,9 @@ const nuevoTurno = (t: Trabajador, y: number, m: number, dia: number, override: 
     id: `TU${String(_turnoId++).padStart(6, "0")}`,
     trabajadorId: t.id,
     fecha: `${y}-${pad(m)}-${pad(dia)}`,
-    remolcador: t.embarcado ? pick(REMOLCADORES) : "—",
+    activo: t.embarcado ? pick(ACTIVOS) : "—",
     base: t.base,
-    tipo: t.embarcado ? pick(["Guardia embarcada", "Guardia embarcada", "Faena", "Relevo"]) : "Tierra",
+    tipo: t.embarcado ? pick(["Guardia", "Guardia", "Faena", "Relevo"] as const) : "Administrativo",
     horaInicio: `${pad(inicioH)}:00`,
     horaFin: `${pad(finH)}:00`,
     horas,
@@ -248,7 +239,7 @@ const GUARDIAS_LARGAS_IDX = [1200, 4800, 9100, 14300, 19700, 24100, 28800, 31200
 GUARDIAS_LARGAS_IDX.forEach((idx) => {
   const t = turnos[idx % turnos.length];
   t.horas = pick([17, 18, 19, 20]);
-  t.tipo = "Guardia embarcada";
+  t.tipo = "Guardia";
   t.horaFin = `${pad((parseInt(t.horaInicio) + t.horas) % 24)}:00`;
 });
 
@@ -284,13 +275,13 @@ trabajadores.forEach((t) => {
     const horasExtra = misTurnos.length && rng() < 0.45 ? Math.round(horasTurno * between(3, 12) / 100) : 0;
     const bonos: Bono[] = [];
     if (t.embarcado) {
-      bonos.push({ tipo: "Bono de embarque", montoCLP: between(180_000, 320_000) });
-      if (rng() < 0.55) bonos.push({ tipo: "Bono de guardia nocturna", montoCLP: between(60_000, 140_000) });
-      if (rng() < 0.35) bonos.push({ tipo: "Bono de faena", montoCLP: between(80_000, 180_000) });
-      if (rng() < 0.25) bonos.push({ tipo: "Bono de dotación completa", montoCLP: between(70_000, 120_000) });
+      bonos.push({ tipo: OP.bonoPrincipal, montoCLP: between(180_000, 320_000) });
+      if (rng() < 0.55) bonos.push({ tipo: OP.bonosConvenio[1], montoCLP: between(60_000, 140_000) });
+      if (rng() < 0.35) bonos.push({ tipo: OP.bonosConvenio[2], montoCLP: between(80_000, 180_000) });
+      if (rng() < 0.25) bonos.push({ tipo: OP.bonoDotacionCompleta, montoCLP: between(70_000, 120_000) });
     } else {
-      if (rng() < 0.4) bonos.push({ tipo: "Asignación de zona", montoCLP: between(50_000, 110_000) });
-      if (rng() < 0.6) bonos.push({ tipo: "Asignación de colación", montoCLP: between(40_000, 70_000) });
+      if (rng() < 0.4) bonos.push({ tipo: OP.bonosConvenio[5], montoCLP: between(50_000, 110_000) });
+      if (rng() < 0.6) bonos.push({ tipo: OP.bonosConvenio[6], montoCLP: between(40_000, 70_000) });
     }
     const montoHE = horasExtra * valorHoraExtra(t.sueldoBaseCLP);
     const totalBonos = bonos.reduce((a, b) => a + b.montoCLP, 0);
@@ -344,10 +335,10 @@ const BONO_DUPLICADO = [
 BONO_DUPLICADO.forEach(({ t, p }) => {
   const i = liqIdx(t, p);
   if (i < 0) return;
-  const original = liquidaciones[i].bonos.find((b) => b.tipo === "Bono de embarque");
+  const original = liquidaciones[i].bonos.find((b) => b.tipo === OP.bonoPrincipal);
   const monto = original ? original.montoCLP : 250_000;
-  if (!original) liquidaciones[i].bonos.push({ tipo: "Bono de embarque", montoCLP: monto });
-  liquidaciones[i].bonos.push({ tipo: "Bono de embarque", montoCLP: monto });
+  if (!original) liquidaciones[i].bonos.push({ tipo: OP.bonoPrincipal, montoCLP: monto });
+  liquidaciones[i].bonos.push({ tipo: OP.bonoPrincipal, montoCLP: monto });
   liquidaciones[i].liquidoCLP += monto;
 });
 
@@ -430,7 +421,7 @@ PAGO_POST_FINIQUITO.forEach((f) => {
     sueldoBaseCLP: trab.sueldoBaseCLP,
     horasExtraPagadas: 0,
     montoHorasExtraCLP: 0,
-    bonos: [{ tipo: "Bono de embarque", montoCLP: 250_000 }],
+    bonos: [{ tipo: OP.bonoPrincipal, montoCLP: 250_000 }],
     descuentosCLP: Math.round(trab.sueldoBaseCLP * 0.2),
     liquidoCLP: Math.round(trab.sueldoBaseCLP * 0.8) + 250_000,
   });
@@ -519,11 +510,11 @@ export const detectarHallazgos = () => {
   const bonoDotacionIndebido = liquidaciones
     .filter((l) =>
       trabsBajoDotacion.has(`${l.trabajadorId}|${l.periodo}`) &&
-      l.bonos.some((b) => b.tipo === "Bono de dotación completa"))
+      l.bonos.some((b) => b.tipo === OP.bonoDotacionCompleta))
     .map((l) => ({
       liquidacion: l.id, periodo: l.periodo,
       trabajador: trabById.get(l.trabajadorId)?.nombre || l.trabajadorId,
-      montoBonoCLP: l.bonos.filter((b) => b.tipo === "Bono de dotación completa").reduce((a, b) => a + b.montoCLP, 0),
+      montoBonoCLP: l.bonos.filter((b) => b.tipo === OP.bonoDotacionCompleta).reduce((a, b) => a + b.montoCLP, 0),
     }));
 
   // #6 Sobre tope legal de horas extra
@@ -540,7 +531,7 @@ export const detectarHallazgos = () => {
   const guardiasLargas = turnos
     .filter((t) => t.horas > 16)
     .map((t) => ({
-      turno: t.id, fecha: t.fecha, remolcador: t.remolcador, base: t.base, horas: t.horas,
+      turno: t.id, fecha: t.fecha, activo: t.activo, base: t.base, horas: t.horas,
       trabajador: trabById.get(t.trabajadorId)?.nombre || t.trabajadorId,
       cargo: trabById.get(t.trabajadorId)?.cargo,
     }));
@@ -616,19 +607,19 @@ export const buildRemuneracionesContext = () => {
   const masaSalarial = liquidaciones.reduce((a, l) => a + l.liquidoCLP, 0);
   return {
     empresa: {
-      nombre: "SAAM Towage Chile",
-      sector: "Servicios marítimos · remolcadores portuarios",
-      bases: BASES,
-      remolcadores: REMOLCADORES.length,
+      nombre: PACK.cliente,
+      sector: PACK.sector,
+      sedes: BASES,
+      activos: { etiqueta: OP.etiquetaActivo, cantidad: ACTIVOS.length },
       trabajadores: trabajadores.length,
-      dotacionEmbarcada: trabajadores.filter((t) => t.embarcado).length,
-      personalTierra: trabajadores.filter((t) => !t.embarcado).length,
+      dotacionOperativa: trabajadores.filter((t) => t.embarcado).length,
+      personalAdministrativo: trabajadores.filter((t) => !t.embarcado).length,
       turnosRegistrados: turnos.length,
       liquidaciones: liquidaciones.length,
       finiquitos: finiquitos.length,
       periodo: "Oct 2025 – Mar 2026",
       masaSalarialPeriodoCLP: masaSalarial,
-      convenios: ["Convenio Marítimo 2024-2027", "Sindicato Tierra 2025-2027"],
+      convenios: OP.convenios,
       bonosPermitidosConvenio: BONOS_CONVENIO,
       topeLegalHorasExtraMes: TOPE_LEGAL_HORAS,
     },
@@ -638,7 +629,7 @@ export const buildRemuneracionesContext = () => {
       "La masa salarial del período supera CLP " + Math.round(masaSalarial / 1_000_000_000) + ".000 millones. " +
       "Una auditoría tradicional de remuneraciones revisa una muestra de 30 a 50 liquidaciones sobre " +
       liquidaciones.length + ". AuditIA cruza el 100% de las liquidaciones contra la bitácora de turnos " +
-      "por remolcador, el convenio colectivo vigente y los finiquitos del período: cada hora extra pagada " +
+      `por ${OP.etiquetaActivo.toLowerCase()}, el convenio colectivo vigente y los finiquitos del período: cada hora extra pagada ` +
       "contra las horas efectivamente registradas, cada bono contra el convenio que lo autoriza, y cada " +
       "liquidación contra la vigencia del contrato.",
   };

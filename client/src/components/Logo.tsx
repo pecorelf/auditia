@@ -6,7 +6,7 @@ export function Logo({ className = "", invert = false }: { className?: string; i
       className={`inline-flex items-center ${className}`}
       style={{ color: invert ? "#FFFFFF" : BRANDING.colors.ink }}
     >
-      {/* Si aún no se cargó client/public/logo-saam.png, cae al wordmark de texto */}
+      {/* Si el logo del pack no existe, cae al wordmark de texto */}
       <img
         src={BRANDING.logoPath}
         alt={BRANDING.firmName}

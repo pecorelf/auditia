@@ -13,7 +13,7 @@ export const mineria: IndustryPack = {
     "Faena minera de cobre con rajo, planta concentradora y campamento en régimen de turnos. " +
     "El gasto se concentra en neumáticos OTR, servicios de tronadura, reactivos de flotación, " +
     "mantención de equipo pesado y contratos de contratistas en faena.",
-  espaciosDisponibles: ["uno", "dos", "tres", "cuatro"],
+  espaciosDisponibles: ["uno", "dos", "tres", "cuatro", "cinco", "seis"],
 
   p2p: {
     areasEmpleado: [
@@ -114,4 +114,34 @@ export const mineria: IndustryPack = {
       ],
     },
   },
+  operacion: {
+    sedes: ["Faena Rajo Norte", "Planta Concentradora", "Campamento Altiplano", "Taller Mantenimiento", "Oficina Antofagasta"],
+    unidades: ["Operaciones Mina", "Planta Concentradora", "Mantenimiento Mina", "Mantenimiento Planta", "Servicios a la Faena", "Geología", "Planificación Minera"],
+    cargosOperativos: [
+      { cargo: "Operador de equipo pesado", peso: 5, sueldo: [1_400_000, 2_300_000] },
+      { cargo: "Operador de planta", peso: 4, sueldo: [1_300_000, 2_100_000] },
+      { cargo: "Mantenedor mecánico", peso: 3, sueldo: [1_500_000, 2_400_000] },
+      { cargo: "Mantenedor eléctrico e instrumentista", peso: 2, sueldo: [1_700_000, 2_600_000] },
+      { cargo: "Jefe de turno", peso: 1, sueldo: [3_000_000, 4_400_000] },
+    ],
+    cargosAdministrativos: [
+      { cargo: "Supervisor de turno", peso: 3, sueldo: [2_400_000, 3_500_000] },
+      { cargo: "Ingeniero de procesos", peso: 2, sueldo: [2_300_000, 3_600_000] },
+      { cargo: "Analista de contratos", peso: 2, sueldo: [1_400_000, 2_100_000] },
+      { cargo: "Geólogo", peso: 2, sueldo: [2_200_000, 3_400_000] },
+      { cargo: "Analista de Personas", peso: 1, sueldo: [1_300_000, 1_900_000] },
+    ],
+    etiquetaActivo: "Equipo",
+    activos: ["CAEX 401", "CAEX 402", "CAEX 403", "CAEX 404", "Pala 12", "Pala 13", "Perforadora P-07", "Perforadora P-08", "Cargador 21", "Cargador 22", "Molino SAG 1", "Molino de Bolas 2", "Chancador Primario", "Correa Overland", "Bulldozer D-05", "Motoniveladora M-03"],
+    etiquetaDotacion: "dotación de faena",
+    etiquetaFaena: "turno de faena",
+    actividades: ["Tronadura programada banco 3200", "Mantención mayor molino SAG", "Cambio de correa transportadora", "Detención de planta por mantención", "Carguío y transporte turno noche", "Perforación diamantina sondaje", "Mantención de chancador primario", "Traslado de equipo pesado", "Inspección geotécnica de talud", "Cambio de neumáticos OTR", "Campaña de sondajes exploración", "Parada de planta programada"],
+    ciudades: ["Calama", "Antofagasta", "Mejillones", "Copiapó", "Iquique", "Diego de Almagro", "Sierra Gorda", "Tocopilla", "Vallenar", "La Serena", "Santiago", "Rancagua", "María Elena", "Taltal", "Chañaral"],
+    tiposVehiculo: ["Camioneta 4x4", "Camioneta pool", "Bus de acercamiento", "SUV supervisión", "Van traslado de turno"],
+    convenios: ["Convenio Minero 2024-2027", "Sindicato Administrativo 2025-2027"],
+    bonosConvenio: ["Bono de turno", "Bono de faena", "Bono nocturno", "Bono de reemplazo", "Bono de dotación completa", "Asignación de zona", "Asignación de colación"],
+    bonoPrincipal: "Bono de turno",
+    bonoDotacionCompleta: "Bono de dotación completa",
+  },
+
 };

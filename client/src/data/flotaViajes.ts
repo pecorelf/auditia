@@ -1,4 +1,4 @@
-// Gastos, Rendiciones y Traslados — SAAM Towage Chile
+// Gastos, Rendiciones y Traslados — vocabulario según el pack de industria activo.
 // Operador de remolcadores portuarios con bases de Arica a Punta Arenas.
 //
 // El caso combina 6 fuentes de datos (estructuradas + NO estructuradas):
@@ -31,6 +31,16 @@
 //     14. Uso de vehículo fuera de horario laboral (fin de semana no autorizado)
 //     15. Multas de tránsito no reembolsadas por el chofer responsable
 
+import { getPackActivo } from "../packs";
+
+const PACK = getPackActivo();
+const OP = PACK.operacion;
+
+export const ETIQUETAS_GASTOS = {
+  faena: OP.etiquetaFaena,
+  sedes: OP.sedes,
+};
+
 // ─────────────────────────────────────────────────────────────────────
 // TIPOS
 // ─────────────────────────────────────────────────────────────────────
@@ -38,14 +48,14 @@
 export type Vehiculo = {
   id: string;
   patente: string;
-  tipo: "Camioneta pool" | "Camioneta 4x4" | "Bus de relevo" | "SUV supervisión" | "Van traslado tripulación";
+  tipo: string;
   marca: string;
   modelo: string;
   anio: number;
   capacidadEstanqueLitros: number;
   rendimientoKmPorLitro: number;
   asignadoA: string | null; // ID de persona con asignación permanente, null = pool
-  base: "San Antonio" | "Mejillones" | "San Vicente" | "Valparaíso" | "Puerto Montt";
+  base: string;
   estado: "Activo" | "Mantención" | "Baja";
 };
 
@@ -53,9 +63,9 @@ export type Persona = {
   id: string;
   rut: string;
   nombre: string;
-  cargo: "Marinero" | "Contramaestre" | "Chofer" | "Supervisor de faena" | "Mecánico de flota" | "Oficial de Máquinas" | "Patrón de remolcador";
-  unidad: "Operaciones Valparaíso" | "Operaciones San Antonio" | "Operaciones Mejillones" | "Operaciones San Vicente" | "Operaciones Puerto Montt" | "Servicios Offshore" | "Patrón de remolcadorías Regionales";
-  base: "San Antonio" | "Mejillones" | "San Vicente" | "Valparaíso" | "Puerto Montt";
+  cargo: string;
+  unidad: string;
+  base: string;
 };
 
 export type Viaje = {
@@ -206,13 +216,7 @@ const RUTAS: Record<string, { destino: string; kmReal: number; horasNormal: numb
   ],
 };
 
-const FAENAS_SAAM = [
-  "Maniobra de atraque portacontenedores", "Asistencia a nave granelera", "Remolque de barcaza",
-  "Faena offshore apoyo plataforma", "Zarpe de nave tanque", "Escolta carga peligrosa",
-  "Salvamento y rescate en rada", "Emergencia por temporal", "Recalada crucero",
-  "Maniobra de desatraque nave portacontenedores", "Asistencia a nave con falla de máquinas",
-  "Traslado de pontón", "Apoyo a faena de dragado", "Amarre de nave frigorífica",
-];
+const FAENAS_SAAM = OP.actividades;
 
 const ESTACIONES_COMBUSTIBLE = ["Copec", "Shell", "Petrobras", "Enex", "YPF", "Terpel"];
 
@@ -238,8 +242,8 @@ const TIPO_CONFIG: Record<Vehiculo["tipo"], { capacidad: number; rendimiento: nu
   "Van traslado tripulación":         { capacidad: 70, rendimiento: 11, marca: ["Toyota","Hyundai"],                    modelo: ["Hiace","H1"] },
 };
 
-const TIPOS: Vehiculo["tipo"][] = ["Camioneta pool","Camioneta 4x4","Bus de relevo","SUV supervisión","Van traslado tripulación"];
-const BASES: Vehiculo["base"][] = ["San Antonio","Mejillones","San Vicente","Valparaíso","Puerto Montt"];
+const TIPOS = OP.tiposVehiculo as Vehiculo["tipo"][];
+const BASES = OP.sedes as Vehiculo["base"][];
 const DISTRIB_TIPOS = [0.35, 0.20, 0.15, 0.20, 0.10]; // proporciones
 
 for (let i = 0; i < 80; i++) {
@@ -278,8 +282,8 @@ for (let i = 0; i < 80; i++) {
 // PERSONAL OPERATIVO (~90 personas)
 // ─────────────────────────────────────────────────────────────────────
 export const personas: Persona[] = [];
-const CARGOS: Persona["cargo"][] = ["Marinero","Contramaestre","Chofer","Supervisor de faena","Mecánico de flota","Oficial de Máquinas","Patrón de remolcador"];
-const UNIDADES: Persona["unidad"][] = ["Operaciones Valparaíso","Operaciones San Antonio","Operaciones Mejillones","Operaciones San Vicente","Operaciones Puerto Montt","Servicios Offshore","Patrón de remolcadorías Regionales"];
+const CARGOS = [...OP.cargosOperativos, ...OP.cargosAdministrativos].map((c) => c.cargo) as Persona["cargo"][];
+const UNIDADES = OP.unidades as Persona["unidad"][];
 
 for (let i = 0; i < 90; i++) {
   const baseRoll = rng();
@@ -464,7 +468,7 @@ vehiculosActivos.forEach((v) => {
 export const viaticos: Viatico[] = [];
 let _viaticoId = 1;
 
-const CIUDADES_VIAJE = ["Valparaíso","Quintero","San Antonio","San Vicente","Talcahuano","Coronel","Mejillones","Antofagasta","Iquique","Arica","Coquimbo","Lirquén","Puerto Montt","Chacabuco","Punta Arenas"];
+const CIUDADES_VIAJE = OP.ciudades;
 
 // Por cada viaje relevante (distancia > 100km), generar viáticos asociados a la persona
 viajes.filter((v) => v.distanciaGPSKm > 100).slice(0, 900).forEach((vj) => {
@@ -966,8 +970,8 @@ export const buildFlotaContext = () => {
   const h = detectarHallazgos();
   return {
     empresa: {
-      nombre: "SAAM Towage Chile",
-      sector: "Medios de comunicación · canal público",
+      nombre: PACK.cliente,
+      sector: PACK.sector,
       operacion: "Nacional (Arica a Punta Arenas)",
       bases: ["San Antonio","Mejillones","San Vicente","Valparaíso","Puerto Montt"],
       flotaTotal: vehiculos.length,
@@ -982,7 +986,7 @@ export const buildFlotaContext = () => {
     hallazgos: h,
     momentoAnalisis: "26-may-2026 13:00",
     notaImportante:
-      "SAAM gasta cerca de CLP 2.400M anuales en transporte, combustible y viáticos operativos. " +
+      `${PACK.cliente} gasta cerca de CLP 2.400M anuales en transporte, combustible y viáticos operativos. ` +
       "La auditoría tradicional tomaría muestra de ~50 viajes sobre 4.500 y ~30 rendiciones sobre 2.800. " +
       "AuditIA cruza el 100% del universo: cada viaje contra los datos GPS de flota, cada rendición contra " +
       "la actividad real de la persona, cada faena contra su confirmación en bitácora, y cada carga contra la " +

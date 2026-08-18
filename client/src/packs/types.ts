@@ -74,6 +74,43 @@ export type P2PPack = {
   };
 };
 
+/**
+ * Vocabulario de la operación de terreno. Alimenta los espacios de Gastos y
+ * Remuneraciones, que trabajan sobre turnos, sedes y personal operativo.
+ */
+export type OperacionPack = {
+  /** Sedes o bases donde hay operación: "Base Valparaíso", "Sucursal Providencia", "Tienda Maipú". */
+  sedes: string[];
+  /** Unidades organizacionales de terreno. */
+  unidades: string[];
+  /** Cargos operativos — los que hacen turnos. */
+  cargosOperativos: CargoSpec[];
+  /** Cargos administrativos o de apoyo. */
+  cargosAdministrativos: CargoSpec[];
+  /** Cómo se llama el activo al que se asigna un turno: remolcador, sucursal, tienda, faena. */
+  etiquetaActivo: string;
+  /** Nombres de esos activos. */
+  activos: string[];
+  /** Cómo se llama al personal operativo en conjunto: "dotación embarcada", "dotación de faena". */
+  etiquetaDotacion: string;
+  /** Cómo se llama una jornada operativa: "faena", "turno de sala", "jornada". */
+  etiquetaFaena: string;
+  /** Actividades concretas que motivan un turno o un viaje. */
+  actividades: string[];
+  /** Ciudades con operación, para viajes y rendiciones. */
+  ciudades: string[];
+  /** Tipos de vehículo de la flota de apoyo. */
+  tiposVehiculo: string[];
+  /** Convenios colectivos vigentes [operativo, administrativo]. */
+  convenios: [string, string];
+  /** Bonos autorizados por el convenio. */
+  bonosConvenio: string[];
+  /** Bono principal del personal operativo — es el que aparece duplicado en el hallazgo. */
+  bonoPrincipal: string;
+  /** Bono ligado a operar con el equipo completo. */
+  bonoDotacionCompleta: string;
+};
+
 export type IndustryPack = {
   /** Slug único — es lo que se guarda como pack activo. */
   id: string;
@@ -95,4 +132,5 @@ export type IndustryPack = {
    */
   espaciosDisponibles: string[];
   p2p: P2PPack;
+  operacion: OperacionPack;
 };

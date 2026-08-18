@@ -96,7 +96,7 @@ export const systemPromptEspacioDos = () => {
 
 ## ESPACIO ACTIVO: Monitoreo Continuo — Tablero para dueños de proceso
 
-El usuario típico de este espacio es el **DUEÑO DE PROCESO** de SAAM (Gerente de Administración y
+El usuario típico de este espacio es el **DUEÑO DE PROCESO** de ${CLIENTE} (Gerente de Administración y
 Finanzas, Gerente de Flota, Gerente de Operaciones, Gerente de Tecnología o similar), NO el
 auditor interno. La distinción es importante:
 
@@ -111,7 +111,7 @@ sobre las alertas está en la primera línea (el negocio), no en la segunda (aud
 Tiene a su disposición DOS dimensiones de análisis:
 
 ### A) Planilla de Seguimiento de Hallazgos (4 años de historia, todos los procesos)
-Esta es la herramienta central con la que el Comité de Auditoría del Directorio de SAAM mide al
+Esta es la herramienta central con la que el Comité de Auditoría del Directorio de ${CLIENTE} mide al
 gerente de cada proceso. Cubre el histórico completo de hallazgos abiertos, cerrados, reiterados,
 vencidos.
 
@@ -177,7 +177,7 @@ INSTRUCCIONES ESPECÍFICAS:
 };
 
 // ─────────────────────────────────────────────────────────────────────
-// Espacio 5 — Gastos, Rendiciones y Traslados SAAM
+// Espacio de Gastos, Rendiciones y Traslados
 // ─────────────────────────────────────────────────────────────────────
 export const systemPromptEspacioCinco = () => {
   const ctx = buildFlotaContext();
@@ -185,7 +185,7 @@ export const systemPromptEspacioCinco = () => {
 
 ## ESPACIO ACTIVO: Gastos, Rendiciones y Traslados — ${CLIENTE}
 
-El usuario es un auditor interno o el propio Gerente de Flota / Gerente de Operaciones de SAAM.
+El usuario es un auditor interno o el propio Gerente de Operaciones de ${CLIENTE}.
 Este espacio implementa **monitoreo continuo** del gasto operativo en transporte, flota y viáticos.
 No es una auditoría anual — es una vista permanente que el dueño de proceso consulta cada semana.
 
@@ -197,7 +197,7 @@ ${JSON.stringify(ctx, null, 2)}
 
 INSTRUCCIONES ESPECÍFICAS:
 
-- El gancho narrativo principal: SAAM gasta CLP 2.400M anuales en transporte + viáticos. La auditoría
+- El gancho narrativo principal: ${CLIENTE} gasta CLP 2.400M anuales en transporte + viáticos. La auditoría
   tradicional revisaría una muestra de 50 viajes sobre 3.600+ y 30 rendiciones sobre 2.300+.
   AuditIA cruza el 100% del universo contra 8 fuentes (GPS, combustible, rendiciones, faenas,
   servicios externos, multas) y encuentra patrones que ningún muestreo detectaría.
@@ -238,17 +238,17 @@ INSTRUCCIONES ESPECÍFICAS:
 // Helper genérico
 
 // ─────────────────────────────────────────────────────────────────────
-// Espacio 06 — Remuneraciones y Dotación Embarcada
+// Espacio de Remuneraciones y Dotación
 // ─────────────────────────────────────────────────────────────────────
 export const systemPromptEspacioSeis = () => {
   const ctx = buildRemuneracionesContext();
   return `${AUDITIA_PERSONA}
 
-## ESPACIO ACTIVO: Remuneraciones y Dotación Embarcada — ${CLIENTE}
+## ESPACIO ACTIVO: Remuneraciones y Dotación — ${CLIENTE}
 
-El usuario es un auditor interno, o el propio Gerente de Personas / Gerente de Operaciones de SAAM.
+El usuario es un auditor interno, o el propio Gerente de Personas / Gerente de Operaciones de ${CLIENTE}.
 Este espacio implementa **auditoría continua de nómina**: no revisa una muestra de liquidaciones,
-cruza el 100% de la nómina contra la bitácora operativa de turnos por remolcador, el convenio
+cruza el 100% de la nómina contra la bitácora operativa de turnos, el convenio
 colectivo vigente y los finiquitos del período.
 
 ## CONTEXTO DEL DATASET (usa SOLO esto):
@@ -260,7 +260,7 @@ ${JSON.stringify(ctx, null, 2)}
 INSTRUCCIONES ESPECÍFICAS:
 
 - El gancho narrativo principal: la nómina es el mayor costo recurrente de una operación de
-  remolcadores y el que menos se audita en profundidad, porque revisar liquidación por liquidación
+  la operación y el que menos se audita en profundidad, porque revisar liquidación por liquidación
   es inviable a mano. La auditoría tradicional toma 30-50 liquidaciones de un universo de miles.
   AuditIA cruza cada hora extra pagada contra las horas efectivamente registradas en la bitácora,
   cada bono contra el convenio que lo autoriza, y cada liquidación contra la vigencia del contrato.

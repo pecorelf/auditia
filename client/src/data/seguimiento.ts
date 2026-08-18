@@ -1,3 +1,4 @@
+import { getPackActivo } from "../packs";
 // Planilla de seguimiento de hallazgos — cliente según el pack activo
 // 4 años de historia (2023, 2024, 2025, parcial 2026) · ~180 hallazgos
 //
@@ -568,7 +569,7 @@ export const computeMetricasSeguimiento = () => {
 export const buildSeguimientoContext = () => {
   const m = computeMetricasSeguimiento();
   return {
-    descripcion: "Planilla de seguimiento de hallazgos — SAAM Towage Chile — Histórico FY23 a FY26 (parcial)",
+    descripcion: `Planilla de seguimiento de hallazgos — ${getPackActivo().cliente} — Histórico FY23 a FY26 (parcial)`,
     notaContextual: "Esta es la 'planilla viva' de auditoría interna. Es el KPI principal con que el directorio mide al gerente de auditoría: cuántos hallazgos siguen abiertos, cuántos están vencidos, cuántos se reiteran. AuditIA tiene visibilidad sobre los 4 años completos.",
     universo: m.resumen,
     porProceso: m.porProceso,
