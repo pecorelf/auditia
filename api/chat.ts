@@ -1,113 +1,81 @@
-// Endpoint de chat como función serverless de Vercel.
+// Endpoint de chat (SSE) como función serverless de Vercel.
 //
-// Reemplaza a server.js en producción. Mantiene el mismo contrato SSE que ya
-// consume useClaude.ts, así que el frontend no cambia:
+// Usa la firma clásica de Node (req, res): es la que @vercel/node invoca.
+// Mantiene el mismo contrato que server.js, así que el frontend no cambia:
 //   event: chunk  → { text }
 //   event: done   → { ok: true }
 //   event: error  → { error }
-//
-// En local se sigue usando server.js (npm run dev); ambos hablan el mismo protocolo.
 
 import Anthropic from "@anthropic-ai/sdk";
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 
-export const config = { runtime: "nodejs", maxDuration: 60 };
+export const config = { maxDuration: 60 };
 
 const MODEL = process.env.ANTHROPIC_MODEL || "claude-sonnet-4-5";
 const GATE = process.env.DEMO_PASSWORD;
 
-const sse = (event: string, data: unknown) =>
-  `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`;
-
-export default async function handler(req: Request): Promise<Response> {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
-    return new Response("Method not allowed", { status: 405 });
+    res.status(405).json({ error: "Método no permitido" });
+    return;
   }
 
   // Gate de acceso — evita que cualquiera con el link consuma la API key.
-  if (GATE) {
-    const enviado = req.headers.get("x-demo-password");
-    if (enviado !== GATE) {
-      return new Response(JSON.stringify({ error: "No autorizado" }), {
-        status: 401,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
+  if (GATE && req.headers["x-demo-password"] !== GATE) {
+    res.status(401).json({ error: "No autorizado" });
+    return;
   }
 
   if (!process.env.ANTHROPIC_API_KEY) {
-    return new Response(JSON.stringify({ error: "Falta ANTHROPIC_API_KEY en el entorno" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
+    res.status(500).json({ error: "Falta ANTHROPIC_API_KEY en el entorno de Vercel" });
+    return;
   }
 
-  let body: any;
-  try {
-    body = await req.json();
-  } catch {
-    return new Response(JSON.stringify({ error: "Body inválido" }), { status: 400 });
-  }
+  const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
+  const { messages, system, maxTokens = 4096 } = body;
 
-  const { messages, system, maxTokens = 4096 } = body || {};
   if (!Array.isArray(messages) || messages.length === 0) {
-    return new Response(JSON.stringify({ error: "Se requiere el arreglo messages" }), { status: 400 });
+    res.status(400).json({ error: "Se requiere el arreglo messages" });
+    return;
   }
+
+  res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
+  res.setHeader("Cache-Control", "no-cache, no-transform");
+  res.setHeader("Connection", "keep-alive");
+  res.setHeader("X-Accel-Buffering", "no");
+  if (typeof (res as any).flushHeaders === "function") (res as any).flushHeaders();
+
+  const enviar = (event: string, data: unknown) => {
+    res.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`);
+  };
 
   const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-  const encoder = new TextEncoder();
 
-  const stream = new ReadableStream({
-    async start(controller) {
-      const push = (event: string, data: unknown) => {
-        try {
-          controller.enqueue(encoder.encode(sse(event, data)));
-        } catch {
-          /* el cliente cerró la conexión */
-        }
-      };
+  try {
+    const stream = anthropic.messages.stream({
+      model: MODEL,
+      max_tokens: maxTokens,
+      system: system || undefined,
+      messages,
+    });
 
-      // Heartbeat: mantiene viva la conexión mientras se espera a la API.
-      const hb = setInterval(() => push("ping", { t: Date.now() }), 3000);
-
-      try {
-        const resp = await anthropic.messages.stream({
-          model: MODEL,
-          max_tokens: maxTokens,
-          system: system || undefined,
-          messages,
-        });
-
-        clearInterval(hb);
-
-        for await (const evt of resp) {
-          if (evt.type === "content_block_delta" && evt.delta.type === "text_delta") {
-            push("chunk", { text: evt.delta.text });
-          }
-        }
-
-        push("done", { ok: true });
-      } catch (err: any) {
-        clearInterval(hb);
-        // Mensajes de error en español, como en server.js
-        const raw = err?.message || String(err);
-        const msg =
-          raw.includes("rate_limit") ? "Se alcanzó el límite de solicitudes. Espera unos segundos."
-          : raw.includes("authentication") || raw.includes("401") ? "La API key no es válida."
-          : raw.includes("overloaded") ? "El modelo está sobrecargado. Reintenta en un momento."
-          : `Error al consultar el modelo: ${raw}`;
-        push("error", { error: msg });
-      } finally {
-        try { controller.close(); } catch { /* ya cerrado */ }
+    for await (const evt of stream) {
+      if (evt.type === "content_block_delta" && evt.delta.type === "text_delta") {
+        enviar("chunk", { text: evt.delta.text });
       }
-    },
-  });
+    }
 
-  return new Response(stream, {
-    headers: {
-      "Content-Type": "text/event-stream; charset=utf-8",
-      "Cache-Control": "no-cache, no-transform",
-      Connection: "keep-alive",
-      "X-Accel-Buffering": "no",
-    },
-  });
+    enviar("done", { ok: true });
+  } catch (err: any) {
+    const raw = String(err?.message || err);
+    const lower = raw.toLowerCase();
+    const msg =
+      lower.includes("rate_limit") ? "Se alcanzó el límite de solicitudes. Espera unos segundos."
+      : lower.includes("authentication") || lower.includes("401") ? "La API key no es válida."
+      : lower.includes("overloaded") ? "El modelo está sobrecargado. Reintenta en un momento."
+      : `Error al consultar el modelo: ${raw}`;
+    enviar("error", { error: msg });
+  } finally {
+    res.end();
+  }
 }

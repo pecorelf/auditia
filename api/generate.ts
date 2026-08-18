@@ -1,35 +1,33 @@
-// Generación sin streaming — usada por los espacios con chat interno
-// (Audit Expert y Coach de Auditor). Equivalente serverless de /api/generate.
+// Generación sin streaming — usada por Audit Expert y Coach de Auditor.
 
 import Anthropic from "@anthropic-ai/sdk";
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 
-export const config = { runtime: "nodejs", maxDuration: 60 };
+export const config = { maxDuration: 60 };
 
 const MODEL = process.env.ANTHROPIC_MODEL || "claude-sonnet-4-5";
 const GATE = process.env.DEMO_PASSWORD;
 
-const json = (data: unknown, status = 200) =>
-  new Response(JSON.stringify(data), {
-    status,
-    headers: { "Content-Type": "application/json" },
-  });
-
-export default async function handler(req: Request): Promise<Response> {
-  if (req.method !== "POST") return json({ error: "Método no permitido" }, 405);
-
-  if (GATE && req.headers.get("x-demo-password") !== GATE) {
-    return json({ error: "No autorizado" }, 401);
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  if (req.method !== "POST") {
+    res.status(405).json({ error: "Método no permitido" });
+    return;
+  }
+  if (GATE && req.headers["x-demo-password"] !== GATE) {
+    res.status(401).json({ error: "No autorizado" });
+    return;
   }
   if (!process.env.ANTHROPIC_API_KEY) {
-    return json({ error: "Falta ANTHROPIC_API_KEY en el entorno" }, 500);
+    res.status(500).json({ error: "Falta ANTHROPIC_API_KEY en el entorno de Vercel" });
+    return;
   }
 
-  let body: any;
-  try { body = await req.json(); } catch { return json({ error: "Body inválido" }, 400); }
+  const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
+  const { messages, system, maxTokens = 4096, tools } = body;
 
-  const { messages, system, maxTokens = 4096, tools } = body || {};
   if (!Array.isArray(messages) || messages.length === 0) {
-    return json({ error: "Se requiere el arreglo messages" }, 400);
+    res.status(400).json({ error: "Se requiere el arreglo messages" });
+    return;
   }
 
   const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
@@ -48,7 +46,7 @@ export default async function handler(req: Request): Promise<Response> {
       .map((b: any) => b.text)
       .join("");
 
-    return json({ text, usage: response.usage, stop_reason: response.stop_reason });
+    res.status(200).json({ text, usage: response.usage, stop_reason: response.stop_reason });
   } catch (err: any) {
     const lower = String(err?.message || "").toLowerCase();
     const friendly =
@@ -56,6 +54,6 @@ export default async function handler(req: Request): Promise<Response> {
       : lower.includes("timeout") ? "La generación tomó demasiado. Intenta con un prompt más conciso."
       : lower.includes("authentication") || lower.includes("401") ? "La API key no es válida."
       : err?.message || "Error inesperado";
-    return json({ error: friendly }, err?.status || 500);
+    res.status(err?.status || 500).json({ error: friendly });
   }
 }

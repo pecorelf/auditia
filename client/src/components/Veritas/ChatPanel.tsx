@@ -1,5 +1,6 @@
 // ChatPanel — interfaz del asistente AuditIA.
 // Usa streamClaude directo (no useClaude con cache) por consistencia con CMPC.
+import { esDesarrollo } from "../../lib/api";
 
 import { useEffect, useRef, useState } from "react";
 import { useStore } from "../../store/useStore";
@@ -168,7 +169,13 @@ export function ChatPanel({ killerQuestions, placeholder }: Props) {
           <div className="text-[12px] text-risk-high border border-risk-high/30 bg-red-50 rounded px-3 py-2">
             <strong>Error:</strong> {error}
             <div className="mt-1 text-[11px] text-deloitte-mute">
-              No se pudo contactar al backend. Abre http://localhost:3001/health en el navegador: si no responde, el servidor no está corriendo (revisa que exista el archivo .env con ANTHROPIC_API_KEY y que la consola SERVER siga abierta).
+              {esDesarrollo() ? (
+                <>Abre <code>http://localhost:3001/health</code>: si no responde, el
+                servidor local no está corriendo (revisa el archivo .env y la consola SERVER).</>
+              ) : (
+                <>Abre <code>/api/health</code> en esta misma URL: te dice si la API key y la
+                clave de acceso quedaron configuradas en Vercel.</>
+              )}
             </div>
           </div>
         )}
