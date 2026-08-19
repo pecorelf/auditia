@@ -9,18 +9,19 @@ import {
   serviciosExternos, faenas, multas, detectarHallazgos,
 } from "../data/flotaViajes";
 import { CLP, num, fmtDate } from "../lib/format";
+import { Icono, MarcaAnomalia } from "../components/Iconos";
 
 type Fuente = "vehiculos" | "personas" | "viajes" | "combustible" | "viaticos" | "servicios" | "faenas" | "multas";
 
 const FUENTES: { id: Fuente; nombre: string; descripcion: string; tipo: string; filas: number; icono: string }[] = [
-  { id: "vehiculos",   nombre: "Maestro_Flota_Vehiculos.xlsx",           descripcion: "80 vehículos de apoyo: camionetas, vans y buses de relevo",  tipo: "Excel · estructurado", filas: vehiculos.length, icono: "🚗" },
-  { id: "personas",    nombre: "Personal_Operativo.xlsx",                descripcion: "Dotación, choferes y supervisores por base",              tipo: "Excel · estructurado", filas: personas.length, icono: "👥" },
-  { id: "viajes",      nombre: "Viajes_GPS_FY26.xlsx",                   descripcion: "Distancia y tiempo declarado vs. GPS real",                 tipo: "API GPS · estructurado", filas: viajes.length, icono: "🛰️" },
-  { id: "combustible", nombre: "Cargas_Combustible.xlsx",                descripcion: "Litros, monto, nivel de estanque antes/después",           tipo: "Excel · estructurado", filas: cargasCombustible.length, icono: "⛽" },
-  { id: "viaticos",    nombre: "Rendiciones_Viaticos.pdf",               descripcion: "Alojamiento, alimentación, movilización, anticipos",       tipo: "PDF + Excel · mixto", filas: viaticos.length, icono: "🧾" },
-  { id: "servicios",   nombre: "Uber_Cabify_Facturas.pdf",               descripcion: "Servicios externos de transporte (Uber, Cabify, taxi)",    tipo: "PDF · NO estructurado", filas: serviciosExternos.length, icono: "🚕" },
-  { id: "faenas",  nombre: "Faenas_Asignadas.xlsx",           descripcion: "Faenas asignadas, cuadrilla, costo y cierre en bitácora",       tipo: "Excel · estructurado", filas: faenas.length, icono: "⚓" },
-  { id: "multas",      nombre: "Multas_Transito.pdf",                    descripcion: "Multas de tránsito por vehículo y chofer",                  tipo: "PDF · NO estructurado", filas: multas.length, icono: "🚨" },
+  { id: "vehiculos",   nombre: "Maestro_Flota_Vehiculos.xlsx",           descripcion: "80 vehículos de apoyo: camionetas, vans y buses de relevo",  tipo: "Excel · estructurado", filas: vehiculos.length, icono: "vehiculos" },
+  { id: "personas",    nombre: "Personal_Operativo.xlsx",                descripcion: "Dotación, choferes y supervisores por base",              tipo: "Excel · estructurado", filas: personas.length, icono: "trabajadores" },
+  { id: "viajes",      nombre: "Viajes_GPS_FY26.xlsx",                   descripcion: "Distancia y tiempo declarado vs. GPS real",                 tipo: "API GPS · estructurado", filas: viajes.length, icono: "gps" },
+  { id: "combustible", nombre: "Cargas_Combustible.xlsx",                descripcion: "Litros, monto, nivel de estanque antes/después",           tipo: "Excel · estructurado", filas: cargasCombustible.length, icono: "combustible" },
+  { id: "viaticos",    nombre: "Rendiciones_Viaticos.pdf",               descripcion: "Alojamiento, alimentación, movilización, anticipos",       tipo: "PDF + Excel · mixto", filas: viaticos.length, icono: "liquidaciones" },
+  { id: "servicios",   nombre: "Uber_Cabify_Facturas.pdf",               descripcion: "Servicios externos de transporte (Uber, Cabify, taxi)",    tipo: "PDF · NO estructurado", filas: serviciosExternos.length, icono: "viajes" },
+  { id: "faenas",  nombre: "Faenas_Asignadas.xlsx",           descripcion: "Faenas asignadas, cuadrilla, costo y cierre en bitácora",       tipo: "Excel · estructurado", filas: faenas.length, icono: "turnos" },
+  { id: "multas",      nombre: "Multas_Transito.pdf",                    descripcion: "Multas de tránsito por vehículo y chofer",                  tipo: "PDF · NO estructurado", filas: multas.length, icono: "multas" },
 ];
 
 const PAGE_SIZE_OPTIONS = [50, 100, 250, 500];
@@ -428,10 +429,10 @@ function TablaViajes({ slice }: { slice: typeof viajes }) {
               <td className="px-2 py-1.5 text-right">{v.tiempoDeclaradoHoras}</td>
               <td className="px-2 py-1.5 text-right text-deloitte-mute">{v.tiempoGPSHoras}</td>
               <td className={`px-2 py-1.5 text-right ${anomVeloc ? "font-bold text-risk-highTxt" : ""}`}>
-                {v.velocidadPromedioCalculadaKmH}{anomVeloc && " ⚠"}
+                {v.velocidadPromedioCalculadaKmH}{anomVeloc && <MarcaAnomalia />}
               </td>
               <td className={`px-2 py-1.5 text-right ${anomExceso ? "font-bold text-risk-highTxt" : ""}`}>
-                {v.velocidadMaximaGPS}{anomExceso && " ⚠"}
+                {v.velocidadMaximaGPS}{anomExceso && <MarcaAnomalia />}
               </td>
               <td className="px-2 py-1.5 text-center">
                 {v.fueraDeHorario ? <span className="pill bg-amber-100 text-risk-medTxt">Sí</span> : <span className="text-deloitte-mute">—</span>}
@@ -464,12 +465,12 @@ function TablaCombustible({ slice }: { slice: typeof cargasCombustible }) {
               <td className="px-2 py-1.5 text-[11.5px]">{c.fecha}</td>
               <td className="px-2 py-1.5">{c.estacion}</td>
               <td className="px-2 py-1.5 text-[12px]">{c.ciudad}</td>
-              <td className={`px-2 py-1.5 text-right ${exceso ? "font-bold text-risk-highTxt" : ""}`}>{c.litros}{exceso && " ⚠"}</td>
+              <td className={`px-2 py-1.5 text-right ${exceso ? "font-bold text-risk-highTxt" : ""}`}>{c.litros}{exceso && <MarcaAnomalia />}</td>
               <td className="px-2 py-1.5 text-right">{CLP(c.precioLitro)}</td>
               <td className="px-2 py-1.5 text-right font-semibold">{CLP(c.montoTotal)}</td>
               <td className="px-2 py-1.5 text-right">{c.nivelEstanqueAntesPct}%</td>
               <td className={`px-2 py-1.5 text-right ${anomNivel ? "font-bold text-risk-highTxt" : ""}`}>
-                {c.nivelEstanqueDespuesPct}%{anomNivel && " ⚠"}
+                {c.nivelEstanqueDespuesPct}%{anomNivel && <MarcaAnomalia />}
               </td>
               <td className="px-2 py-1.5">
                 {exceso && <span className="pill bg-red-100 text-risk-highTxt text-[11px]">Exceso</span>}
@@ -507,7 +508,7 @@ function TablaViaticos({ slice }: { slice: typeof viaticos }) {
               <td className="px-2 py-1.5 text-right font-semibold">{CLP(v.monto)}</td>
               <td className="px-2 py-1.5">
                 <span className={`pill ${v.estado === "Rendido" ? "bg-green-100 text-risk-lowTxt" : v.estado === "Anticipo pendiente" ? "bg-amber-100 text-risk-medTxt" : "bg-red-100 text-risk-highTxt"}`}>
-                  {v.estado}{anom && " ⚠"}
+                  {v.estado}{anom && <MarcaAnomalia />}
                 </span>
               </td>
               <td className="px-2 py-1.5 text-[11.5px]">{v.fechaRendicion || <span className="text-deloitte-mute italic">—</span>}</td>
@@ -573,7 +574,7 @@ function TablaFaenas({ slice }: { slice: typeof faenas }) {
               <td className="px-2 py-1.5">
                 {c.confirmadaEnBitacora
                   ? <span className="pill bg-green-100 text-risk-lowTxt">Sí</span>
-                  : <span className={`pill ${anomAire ? "bg-red-100 text-risk-highTxt" : "bg-amber-100 text-risk-medTxt"}`}>No{anomAire && " ⚠"}</span>}
+                  : <span className={`pill ${anomAire ? "bg-red-100 text-risk-highTxt" : "bg-amber-100 text-risk-medTxt"}`}>No{anomAire && <MarcaAnomalia />}</span>}
               </td>
               <td className="px-2 py-1.5 text-right">{c.minutosEmitidos > 0 ? c.minutosEmitidos + " min" : "—"}</td>
             </tr>
@@ -647,7 +648,7 @@ function HallazgoCard({ severidad, titulo, cantidad, unidad, descripcion, normat
             {recomendacion && (
               <div className="mt-2 pt-2 border-t border-deloitte-line/60">
                 <div className="flex items-start gap-1.5">
-                  <span className="text-[12px] flex-shrink-0 mt-0.5">💡</span>
+                  <Icono nombre="recomendacion" size={14} className="text-deloitte-greenTxt flex-shrink-0 mt-0.5" />
                   <div>
                     <div className="text-[11px] uppercase tracking-wider font-bold text-deloitte-greenTxt">Recomendación de AuditIA</div>
                     <p className="text-[12px] text-deloitte-slate leading-snug mt-0.5">{recomendacion}</p>

@@ -11,13 +11,15 @@ import {
   afiliados, ejecutivos, solicitudes, pagos, tramites, cambiosContacto, detectarHallazgos,
 } from "../data/procesosAFP";
 import { CLP, num, fmtDate } from "../lib/format";
+import { Icono, MarcaAnomalia } from "../components/Iconos";
+import { RefPapel } from "../components/RefPapel";
 
 type Proceso = "pagos" | "pension" | "contacto";
 
 const PROCESOS: { id: Proceso; nombre: string; descripcion: string; icono: string }[] = [
-  { id: "pagos",    nombre: "Pagos a clientes",       descripcion: "Duplicidad, movimientos inusuales, cambios de cuenta, pagos vs. solicitudes y autorización de giros", icono: "💸" },
-  { id: "pension",  nombre: "Trámites de pensión",     descripcion: "Cumplimiento de plazos, completitud de requisitos y cumplimiento normativo",                          icono: "📋" },
-  { id: "contacto", nombre: "Datos de contacto",       descripcion: "Datos compartidos, respaldo de autorización y origen de la modificación",                             icono: "📇" },
+  { id: "pagos",    nombre: "Pagos a clientes",       descripcion: "Duplicidad, movimientos inusuales, cambios de cuenta, pagos vs. solicitudes y autorización de giros", icono: "pagos" },
+  { id: "pension",  nombre: "Trámites de pensión",     descripcion: "Cumplimiento de plazos, completitud de requisitos y cumplimiento normativo",                          icono: "tramites" },
+  { id: "contacto", nombre: "Datos de contacto",       descripcion: "Datos compartidos, respaldo de autorización y origen de la modificación",                             icono: "cambiosDatos" },
 ];
 
 export function EspacioAFP() {
@@ -106,11 +108,11 @@ export function EspacioAFP() {
           universo={pagos.length + tramites.length + cambiosContacto.length}
           muestraTradicional={60}
           fuentes={[
-            { nombre: "Solicitudes_Giro.xlsx", filas: solicitudes.length, icono: "📝" },
-            { nombre: "Pagos_Ejecutados.xlsx", filas: pagos.length, icono: "💸" },
-            { nombre: "Tramites_Pension.pdf", filas: tramites.length, icono: "📋" },
-            { nombre: "Log_Cambios_Datos.xlsx", filas: cambiosContacto.length, icono: "📇" },
-            { nombre: "Maestro_Afiliados.xlsx", filas: afiliados.length, icono: "👥" },
+            { nombre: "Solicitudes_Giro.xlsx", filas: solicitudes.length, icono: "solicitudes" },
+            { nombre: "Pagos_Ejecutados.xlsx", filas: pagos.length, icono: "pagos" },
+            { nombre: "Tramites_Pension.pdf", filas: tramites.length, icono: "tramites" },
+            { nombre: "Log_Cambios_Datos.xlsx", filas: cambiosContacto.length, icono: "cambiosDatos" },
+            { nombre: "Maestro_Afiliados.xlsx", filas: afiliados.length, icono: "trabajadores" },
           ]}
           hallazgos={[
             { titulo: "Cadena contacto → cuenta → giro, mismo ejecutivo", severidad: "critica", cantidad: h.cadena.cantidad, montoCLP: h.cadena.montoTotal },
@@ -140,7 +142,7 @@ export function EspacioAFP() {
                 onClick={() => setProceso(p.id)}
                 className={`card p-3 text-left transition-all ${proceso === p.id ? "ring-2 ring-deloitte-green" : "hover:shadow-card"}`}
               >
-                <div className="text-[17px]">{p.icono}</div>
+                <Icono nombre={p.icono} size={20} className="text-deloitte-slate" />
                 <div className="text-[13.5px] font-semibold mt-1 text-deloitte-ink">{p.nombre}</div>
                 <div className="text-[12px] text-deloitte-mute mt-1 leading-snug">{p.descripcion}</div>
               </button>
@@ -152,27 +154,27 @@ export function EspacioAFP() {
         <div className="grid grid-cols-2 gap-3">
           {proceso === "pagos" && (
             <>
-              <Hallazgo sev="critica" titulo="Pagos duplicados al mismo afiliado" cantidad={h.duplicados.cantidad} unidad="pagos"
+              <Hallazgo ref="PAG-01" sev="critica" titulo="Pagos duplicados al mismo afiliado" cantidad={h.duplicados.cantidad} unidad="pagos"
                 desc={`Mismo afiliado, mismo tipo y mismo monto dentro de una semana. Total: ${CLP(h.duplicados.montoTotal)}.`}
                 norma="Control de unicidad de pago por solicitud"
                 reco="Bloqueo automático de un segundo pago con la misma firma dentro de 7 días, con liberación solo por excepción documentada. Recuperar los montos ya girados." />
-              <Hallazgo sev="critica" titulo="Pagos ejecutados sin solicitud registrada" cantidad={h.sinSolicitud.cantidad} unidad="pagos"
+              <Hallazgo ref="PAG-02" sev="critica" titulo="Pagos ejecutados sin solicitud registrada" cantidad={h.sinSolicitud.cantidad} unidad="pagos"
                 desc={`Giros sin ninguna solicitud asociada en el sistema. Total: ${CLP(h.sinSolicitud.montoTotal)}.`}
                 norma="Trazabilidad solicitud–pago"
                 reco="Ningún pago debería poder liquidarse sin solicitud vinculada. Revisar si son cargas manuales o un camino alternativo en el sistema, y quién tiene acceso a él." />
-              <Hallazgo sev="critica" titulo="Quien cambió la cuenta autorizó el giro" cantidad={h.sinSegregacion.cantidad} unidad="casos"
+              <Hallazgo ref="PAG-03" sev="critica" titulo="Quien cambió la cuenta autorizó el giro" cantidad={h.sinSegregacion.cantidad} unidad="casos"
                 desc={`El mismo usuario registró el cambio de cuenta bancaria y autorizó el giro a esa cuenta. Total: ${CLP(h.sinSegregacion.montoTotal)}.`}
                 norma="Segregación de funciones · mecanismo de autorización de giros"
                 reco="Incompatibilidad dura en el sistema: quien modifica datos bancarios no puede autorizar pagos al mismo afiliado. Es el control que corta la cadena completa." />
-              <Hallazgo sev="alta" titulo="Cambio de cuenta días antes de un giro alto" cantidad={h.cuentaAntesDeGiro.cantidad} unidad="casos"
+              <Hallazgo ref="PAG-04" sev="alta" titulo="Cambio de cuenta días antes de un giro alto" cantidad={h.cuentaAntesDeGiro.cantidad} unidad="casos"
                 desc={`Cuenta bancaria modificada dentro de los 10 días previos a un giro sobre CLP 5M. Total: ${CLP(h.cuentaAntesDeGiro.montoTotal)}. No todos son fraude, pero todos deben explicarse.`}
                 norma="Control de cambio de datos bancarios"
                 reco="Período de enfriamiento entre el cambio de cuenta y un giro alto, más confirmación por un canal distinto al que originó el cambio." />
-              <Hallazgo sev="alta" titulo="Giros a colaboradores de la AFP" cantidad={h.aColaboradores.cantidad} unidad="pagos"
+              <Hallazgo ref="PAG-05" sev="alta" titulo="Giros a colaboradores de la AFP" cantidad={h.aColaboradores.cantidad} unidad="pagos"
                 desc={`Pagos a afiliados que además son trabajadores de la administradora. Total: ${CLP(h.aColaboradores.montoTotal)}. Legítimos en principio, pero exigen control reforzado.`}
                 norma="Política de conflicto de interés"
                 reco="Marcar la condición de colaborador en el maestro y enrutar estos giros a una autorización independiente del área comercial." />
-              <Hallazgo sev="media" titulo="Montos muy sobre la mediana del tipo de giro" cantidad={h.montosAtipicos.cantidad} unidad="pagos"
+              <Hallazgo ref="PAG-06" sev="media" titulo="Montos muy sobre la mediana del tipo de giro" cantidad={h.montosAtipicos.cantidad} unidad="pagos"
                 desc="Giros que superan cinco veces la mediana de su propio tipo. No es irregularidad por sí sola: es la lista corta que conviene explicar."
                 norma="Monitoreo de movimientos inusuales"
                 reco="Umbral por tipo de beneficio con revisión de segunda línea sobre los casos que lo superen, en vez de muestreo aleatorio." />
@@ -181,15 +183,15 @@ export function EspacioAFP() {
 
           {proceso === "pension" && (
             <>
-              <Hallazgo sev="critica" titulo="Expedientes resueltos sin documento obligatorio" cantidad={h.sinDocumento.cantidad} unidad="trámites"
+              <Hallazgo ref="PEN-01" sev="critica" titulo="Expedientes resueltos sin documento obligatorio" cantidad={h.sinDocumento.cantidad} unidad="trámites"
                 desc="Trámites aprobados con documentación incompleta según su propio tipo. Incluye dictámenes médicos y certificados de defunción faltantes."
                 norma="Completitud de requisitos · normativa previsional"
                 reco="Cierre de expediente bloqueado hasta que estén todos los documentos del tipo. Revisar los casos resueltos para regularizar antes de una fiscalización." />
-              <Hallazgo sev="alta" titulo="Trámites fuera del plazo normativo" cantidad={h.fueraPlazo.cantidad} unidad="trámites"
+              <Hallazgo ref="PEN-02" sev="alta" titulo="Trámites fuera del plazo normativo" cantidad={h.fueraPlazo.cantidad} unidad="trámites"
                 desc="Trámites resueltos superando el plazo definido para su tipo. Exposición directa ante la Superintendencia y fuente habitual de reclamos."
                 norma="Cumplimiento de plazos · normativa previsional"
                 reco="Alerta al 70% del plazo consumido, no al vencerlo. Analizar si el exceso se concentra en un tipo de trámite o en una sucursal: eso cambia la solución." />
-              <Hallazgo sev="media" titulo="Trámites reprocesados tres o más veces" cantidad={h.reprocesados.cantidad} unidad="trámites"
+              <Hallazgo ref="PEN-03" sev="media" titulo="Trámites reprocesados tres o más veces" cantidad={h.reprocesados.cantidad} unidad="trámites"
                 desc="Expedientes devueltos y reingresados repetidamente. Cada reproceso consume plazo y deteriora la experiencia del afiliado."
                 norma="Eficiencia operacional del proceso"
                 reco="Analizar la causa raíz del reproceso — suele ser un requisito mal solicitado en la primera atención, no un problema del afiliado." />
@@ -198,15 +200,15 @@ export function EspacioAFP() {
 
           {proceso === "contacto" && (
             <>
-              <Hallazgo sev="alta" titulo="Teléfono o email compartido entre afiliados" cantidad={h.contactoCompartido.cantidad} unidad="datos"
+              <Hallazgo ref="DAT-01" sev="alta" titulo="Teléfono o email compartido entre afiliados" cantidad={h.contactoCompartido.cantidad} unidad="datos"
                 desc="Un mismo dato de contacto asociado a varios afiliados sin relación aparente ni misma sucursal. Puede ser familiar directo, o el punto de control de un tercero."
                 norma="Integridad del maestro de afiliados"
                 reco="Validar caso a caso. Control preventivo de unicidad con excepción documentada, y alerta cuando un dato nuevo ya existe en otro afiliado." />
-              <Hallazgo sev="alta" titulo="Modificaciones sin respaldo de autorización" cantidad={h.sinRespaldo.cantidad} unidad="cambios"
+              <Hallazgo ref="DAT-02" sev="alta" titulo="Modificaciones sin respaldo de autorización" cantidad={h.sinRespaldo.cantidad} unidad="cambios"
                 desc="Cambios de datos ejecutados sin respaldo del consentimiento del afiliado. Es el control que habilita el resto de la cadena."
                 norma="Respaldo de autorización para modificaciones"
                 reco="Ningún cambio debería persistir sin respaldo adjunto. Priorizar los que afectan cuenta bancaria: ahí el riesgo es económico inmediato." />
-              <Hallazgo sev="media" titulo="Concentración de modificaciones en un ejecutivo" cantidad={h.concentracion.cantidad} unidad="ejecutivos"
+              <Hallazgo ref="DAT-03" sev="media" titulo="Concentración de modificaciones en un ejecutivo" cantidad={h.concentracion.cantidad} unidad="ejecutivos"
                 desc="Un ejecutivo con un volumen de modificaciones muy sobre la media del equipo. Puede ser carga de trabajo real o acceso mal dimensionado."
                 norma="Identificación del origen de la modificación"
                 reco="Revisar el perfil de acceso y contrastar contra la carga real de atención. El origen de cada cambio debe quedar trazado por usuario, canal y respaldo." />
@@ -244,7 +246,8 @@ function Flecha({ dias }: { dias: number }) {
   );
 }
 
-function Hallazgo({ sev, titulo, cantidad, unidad, desc, norma, reco }: {
+function Hallazgo({ ref: refCodigo, sev, titulo, cantidad, unidad, desc, norma, reco }: {
+  ref: string;
   sev: "critica" | "alta" | "media";
   titulo: string; cantidad: number; unidad: string; desc: string; norma: string; reco: string;
 }) {
@@ -260,14 +263,17 @@ function Hallazgo({ sev, titulo, cantidad, unidad, desc, norma, reco }: {
       <div className="pl-4 pr-4 py-3">
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1">
-            <div className={`text-[11.5px] uppercase tracking-wider font-bold ${st.text}`}>{st.label}</div>
+            <div className="flex items-center gap-2">
+              <RefPapel codigo={refCodigo} />
+              <span className={`text-[11.5px] uppercase tracking-wider font-bold ${st.text}`}>{st.label}</span>
+            </div>
             <div className="text-[14px] font-semibold mt-0.5 text-deloitte-ink leading-tight">{titulo}</div>
             <p className="text-[12.5px] text-deloitte-slate mt-1 leading-snug">{desc}</p>
             <div className="text-[11.5px] text-deloitte-mute italic mt-1.5">
               <span className="font-semibold not-italic text-deloitte-slate">Referencia:</span> {norma}
             </div>
             <div className="mt-2 pt-2 border-t border-deloitte-line/60 flex items-start gap-1.5">
-              <span className="text-[12px] flex-shrink-0 mt-0.5">💡</span>
+              <Icono nombre="recomendacion" size={14} className="text-deloitte-greenTxt flex-shrink-0 mt-0.5" />
               <div>
                 <div className="text-[11px] uppercase tracking-wider font-bold text-deloitte-greenTxt">Recomendación de AuditIA</div>
                 <p className="text-[12px] text-deloitte-slate leading-snug mt-0.5">{reco}</p>

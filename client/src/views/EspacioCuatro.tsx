@@ -10,6 +10,7 @@ import { apiUrl, apiHeaders } from "../lib/api";
 
 import { useState, useRef, useEffect } from "react";
 import { Header } from "../components/Header";
+import { Icono } from "../components/Iconos";
 
 
 type Mode = "setup" | "briefing" | "roleplay";
@@ -333,7 +334,7 @@ function SetupForm(props: any) {
           disabled={!canProceed}
           className="px-5 py-2.5 bg-deloitte-ink text-white text-[14px] font-semibold rounded hover:bg-deloitte-slate disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
         >
-          <span>📋</span> Generar briefing estratégico
+          <Icono nombre="tramites" size={15} /> Generar briefing estratégico
         </button>
         <button
           onClick={onGoRoleplay}
@@ -738,7 +739,7 @@ Genera las pistas para el auditor en el JSON especificado.`;
             ← Configurar
           </button>
           <button onClick={onGoBriefing} className="px-3 py-1.5 border border-deloitte-line text-[13px] rounded hover:border-deloitte-green">
-            📋 Ver briefing
+            <Icono nombre="tramites" size={14} /> Ver briefing
           </button>
           {voiceSupported && (
             <button

@@ -10,15 +10,17 @@ import {
 } from "../data/remuneraciones";
 import { CLP, num, fmtDate } from "../lib/format";
 import { AnalisisEnVivo } from "../components/AnalisisEnVivo";
+import { RefPapel } from "../components/RefPapel";
+import { Icono, MarcaAnomalia } from "../components/Iconos";
 
 type Fuente = "trabajadores" | "turnos" | "liquidaciones" | "finiquitos" | "convenio";
 
 const FUENTES: { id: Fuente; nombre: string; descripcion: string; tipo: string; filas: number; icono: string }[] = [
-  { id: "trabajadores",  nombre: "Maestro_Trabajadores.xlsx",     descripcion: "Contrato, cargo, sede, convenio y datos bancarios", tipo: "Excel · estructurado",   filas: trabajadores.length, icono: "👥" },
-  { id: "turnos",        nombre: "Bitacora_Turnos.xlsx", descripcion: `Guardias y turnos por ${ETIQUETAS.activo.toLowerCase()}, con dotación`,    tipo: "Bitácora · estructurado", filas: turnos.length,       icono: "⚓" },
-  { id: "liquidaciones", nombre: "Liquidaciones_Sueldo.pdf",      descripcion: "Base, horas extra, bonos y descuentos por período", tipo: "PDF + Excel · mixto",     filas: liquidaciones.length, icono: "🧾" },
-  { id: "finiquitos",    nombre: "Finiquitos_Periodo.pdf",        descripcion: "Causal, indemnización y vacaciones proporcionales", tipo: "PDF · NO estructurado",   filas: finiquitos.length,   icono: "📄" },
-  { id: "convenio",      nombre: "Convenio_Colectivo.pdf",   descripcion: "Bonos autorizados y topes vigentes",                tipo: "PDF · NO estructurado",   filas: BONOS_CONVENIO.length, icono: "📘" },
+  { id: "trabajadores",  nombre: "Maestro_Trabajadores.xlsx",     descripcion: "Contrato, cargo, sede, convenio y datos bancarios", tipo: "Excel · estructurado",   filas: trabajadores.length, icono: "trabajadores" },
+  { id: "turnos",        nombre: "Bitacora_Turnos.xlsx", descripcion: `Guardias y turnos por ${ETIQUETAS.activo.toLowerCase()}, con dotación`,    tipo: "Bitácora · estructurado", filas: turnos.length,       icono: "turnos" },
+  { id: "liquidaciones", nombre: "Liquidaciones_Sueldo.pdf",      descripcion: "Base, horas extra, bonos y descuentos por período", tipo: "PDF + Excel · mixto",     filas: liquidaciones.length, icono: "liquidaciones" },
+  { id: "finiquitos",    nombre: "Finiquitos_Periodo.pdf",        descripcion: "Causal, indemnización y vacaciones proporcionales", tipo: "PDF · NO estructurado",   filas: finiquitos.length,   icono: "finiquitos" },
+  { id: "convenio",      nombre: "Convenio_Colectivo.pdf",   descripcion: "Bonos autorizados y topes vigentes",                tipo: "PDF · NO estructurado",   filas: BONOS_CONVENIO.length, icono: "convenio" },
 ];
 
 const PAGE_SIZE_OPTIONS = [50, 100, 250, 500];
@@ -138,7 +140,7 @@ export function EspacioSeis() {
           <LeyendaSeveridad className="mb-3" />
           <div className="grid grid-cols-2 gap-3">
             <HallazgoCard
-              severidad="critica"
+              ref="REM-01"              severidad="critica"
               titulo="Horas extra pagadas sin respaldo en la bitácora de turnos"
               cantidad={hallazgos.heImposibles.cantidad}
               unidad="liquidaciones"
@@ -147,7 +149,7 @@ export function EspacioSeis() {
               recomendacion="Bloquear el pago de horas extra que no tengan turno registrado en bitácora. Exigir validación del supervisor responsable antes del cierre de nómina y auditar los casos detectados con foco en quién autorizó."
             />
             <HallazgoCard
-              severidad="critica"
+              ref="REM-02"              severidad="critica"
               titulo={`${ETIQUETAS.bonoPrincipal} pagado dos veces en el mismo período`}
               cantidad={hallazgos.bonoDuplicado.cantidad}
               unidad="casos"
@@ -156,7 +158,7 @@ export function EspacioSeis() {
               recomendacion="Regla de unicidad por tipo de bono y período en el motor de nómina. Revisar si el duplicado viene de carga manual o de doble interfaz entre operaciones y remuneraciones."
             />
             <HallazgoCard
-              severidad="critica"
+              ref="REM-03"              severidad="critica"
               titulo="Liquidaciones sin ningún turno registrado en el período"
               cantidad={hallazgos.sinTurnos.cantidad}
               unidad="liquidaciones"
@@ -165,7 +167,7 @@ export function EspacioSeis() {
               recomendacion="Cruce mensual obligatorio de nómina contra bitácora antes de liberar el pago. Los casos sin turno deben requerir justificación documentada (licencia, permiso, vacaciones) para procesarse."
             />
             <HallazgoCard
-              severidad="critica"
+              ref="REM-04"              severidad="critica"
               titulo="Pagos posteriores a la fecha de finiquito"
               cantidad={hallazgos.postFiniquito.cantidad}
               unidad="liquidaciones"
@@ -174,7 +176,7 @@ export function EspacioSeis() {
               recomendacion="Baja automática en nómina al registrar el finiquito. Conciliar mensualmente finiquitos firmados contra trabajadores con liquidación emitida."
             />
             <HallazgoCard
-              severidad="alta"
+              ref="REM-05"              severidad="alta"
               titulo={`${ETIQUETAS.bonoDotacion} en turnos bajo dotación mínima`}
               cantidad={hallazgos.bonoDotacionIndebido.cantidad}
               unidad="casos"
@@ -183,7 +185,7 @@ export function EspacioSeis() {
               recomendacion="Condicionar el bono a la dotación efectiva registrada en la faena. Escalar a Operaciones los turnos bajo mínimo: el hallazgo económico es menor que el riesgo de seguridad que revela."
             />
             <HallazgoCard
-              severidad="alta"
+              ref="REM-06"              severidad="alta"
               titulo="Horas extra sobre el tope legal mensual"
               cantidad={hallazgos.sobreTope.cantidad}
               unidad="liquidaciones"
@@ -192,7 +194,7 @@ export function EspacioSeis() {
               recomendacion="Alerta automática al superar el tope en el mes en curso, no al cierre. Analizar si el exceso se concentra en bases con déficit de dotación: es un problema de planificación, no de nómina."
             />
             <HallazgoCard
-              severidad="alta"
+              ref="REM-07"              severidad="alta"
               titulo="Guardias superiores a 16 horas continuas"
               cantidad={hallazgos.guardiasLargas.cantidad}
               unidad="turnos"
@@ -201,7 +203,7 @@ export function EspacioSeis() {
               recomendacion="Bloqueo en la planificación de turnos que superen el límite y reporte semanal al Gerente de Operaciones. Correlacionar estos turnos con incidentes del mismo período."
             />
             <HallazgoCard
-              severidad="alta"
+              ref="REM-08"              severidad="alta"
               titulo="Trabajadores que comparten cuenta bancaria"
               cantidad={hallazgos.cuentasCompartidas.cantidad}
               unidad="cuentas"
@@ -210,7 +212,7 @@ export function EspacioSeis() {
               recomendacion="Validar los casos con Personas. Establecer control preventivo de unicidad de cuenta en el alta de trabajador y revisión trimestral del maestro."
             />
             <HallazgoCard
-              severidad="media"
+              ref="REM-09"              severidad="media"
               titulo="Bonos pagados fuera del convenio colectivo vigente"
               cantidad={hallazgos.fueraConvenio.cantidad}
               unidad="bonos"
@@ -219,7 +221,7 @@ export function EspacioSeis() {
               recomendacion="Catálogo cerrado de conceptos en el motor de nómina, con excepciones que requieran aprobación documentada de Personas y Finanzas."
             />
             <HallazgoCard
-              severidad="media"
+              ref="REM-10"              severidad="media"
               titulo="Líquidos muy por sobre la media del cargo"
               cantidad={hallazgos.saltosLiquido.cantidad}
               unidad="liquidaciones"
@@ -240,7 +242,7 @@ export function EspacioSeis() {
                 onClick={() => switchFuente(f.id)}
                 className={`card p-3 text-left transition-all ${fuente === f.id ? "ring-2 ring-deloitte-green" : "hover:shadow-card"}`}
               >
-                <div className="text-[17px]">{f.icono}</div>
+                <Icono nombre={f.icono} size={20} className="text-deloitte-slate" />
                 <div className="text-[12.5px] font-semibold mt-1 text-deloitte-ink leading-tight">{f.nombre}</div>
                 <div className="text-[11.5px] text-deloitte-mute mt-1 leading-snug">{f.descripcion}</div>
                 <div className="text-[11.5px] text-deloitte-mute mt-1.5 tabular">{num(f.filas)} filas · {f.tipo}</div>
@@ -324,8 +326,8 @@ export function EspacioSeis() {
                           <td className="px-3 py-1.5">{t.tipo}</td>
                           <td className="px-3 py-1.5 tabular">{t.horaInicio}</td>
                           <td className="px-3 py-1.5 tabular">{t.horaFin}</td>
-                          <td className={`px-3 py-1.5 tabular text-right ${larga ? "font-bold text-risk-highTxt" : ""}`}>{t.horas}{larga && " ⚠"}</td>
-                          <td className={`px-3 py-1.5 tabular text-right ${bajaDot ? "font-bold text-risk-highTxt" : ""}`}>{t.dotacionFaena}/{t.dotacionMinima}{bajaDot && " ⚠"}</td>
+                          <td className={`px-3 py-1.5 tabular text-right ${larga ? "font-bold text-risk-highTxt" : ""}`}>{t.horas}{larga && <MarcaAnomalia />}</td>
+                          <td className={`px-3 py-1.5 tabular text-right ${bajaDot ? "font-bold text-risk-highTxt" : ""}`}>{t.dotacionFaena}/{t.dotacionMinima}{bajaDot && <MarcaAnomalia />}</td>
                         </tr>
                       );
                     })}
@@ -351,7 +353,7 @@ export function EspacioSeis() {
                           <td className="px-3 py-1.5">{t?.nombre}</td>
                           <td className="px-3 py-1.5">{t?.cargo}</td>
                           <td className="px-3 py-1.5">{t?.base}</td>
-                          <td className={`px-3 py-1.5 tabular text-right ${anomHE ? "font-bold text-risk-highTxt" : ""}`}>{l.horasExtraPagadas}{anomHE && " ⚠"}</td>
+                          <td className={`px-3 py-1.5 tabular text-right ${anomHE ? "font-bold text-risk-highTxt" : ""}`}>{l.horasExtraPagadas}{anomHE && <MarcaAnomalia />}</td>
                           <td className="px-3 py-1.5 tabular text-right">{CLP(l.montoHorasExtraCLP)}</td>
                           <td className="px-3 py-1.5">
                             {l.bonos.length === 0 ? "—" : l.bonos.map((b, i) => (
@@ -416,7 +418,8 @@ export function EspacioSeis() {
   );
 }
 
-function HallazgoCard({ severidad, titulo, cantidad, unidad, descripcion, normativa, recomendacion }: {
+function HallazgoCard({ ref: refCodigo, severidad, titulo, cantidad, unidad, descripcion, normativa, recomendacion }: {
+  ref: string;
   severidad: "critica" | "alta" | "media";
   titulo: string;
   cantidad: number | null;
@@ -437,7 +440,10 @@ function HallazgoCard({ severidad, titulo, cantidad, unidad, descripcion, normat
       <div className="pl-4 pr-4 py-3">
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1">
-            <div className={`text-[11.5px] uppercase tracking-wider font-bold ${s.text}`}>{s.label}</div>
+            <div className="flex items-center gap-2">
+              <RefPapel codigo={refCodigo} />
+              <span className={`text-[11.5px] uppercase tracking-wider font-bold ${s.text}`}>{s.label}</span>
+            </div>
             <div className="text-[14px] font-semibold mt-0.5 text-deloitte-ink leading-tight">{titulo}</div>
             <p className="text-[12.5px] text-deloitte-slate mt-1 leading-snug">{descripcion}</p>
             <div className="text-[11.5px] text-deloitte-mute italic mt-1.5">
@@ -446,7 +452,7 @@ function HallazgoCard({ severidad, titulo, cantidad, unidad, descripcion, normat
             {recomendacion && (
               <div className="mt-2 pt-2 border-t border-deloitte-line/60">
                 <div className="flex items-start gap-1.5">
-                  <span className="text-[12px] flex-shrink-0 mt-0.5">💡</span>
+                  <Icono nombre="recomendacion" size={14} className="text-deloitte-greenTxt flex-shrink-0 mt-0.5" />
                   <div>
                     <div className="text-[11px] uppercase tracking-wider font-bold text-deloitte-greenTxt">Recomendación de AuditIA</div>
                     <p className="text-[12px] text-deloitte-slate leading-snug mt-0.5">{recomendacion}</p>

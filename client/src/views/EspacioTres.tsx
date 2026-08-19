@@ -6,6 +6,7 @@ import { apiUrl, apiHeaders } from "../lib/api";
 
 import { useState, useRef, useEffect } from "react";
 import { Header } from "../components/Header";
+import { Icono } from "../components/Iconos";
 
 
 type Tab = "consulta" | "generar";
@@ -393,7 +394,7 @@ function TabConsulta() {
           </div>
           {voiceSupported && (
             <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded text-[13px] text-blue-900">
-              <strong>💡 Tip:</strong> Puedes hacer tu consulta hablando. Pulsa el botón del micrófono abajo, formula tu pregunta, y AuditIA te responderá por voz.
+              <strong>Consejo:</strong> Puedes hacer tu consulta hablando. Pulsa el botón del micrófono abajo, formula tu pregunta, y AuditIA te responderá por voz.
             </div>
           )}
         </div>
@@ -871,7 +872,9 @@ function PlanResult({ plan, org, sector, onReset }: { plan: any; org: string; se
           <Section title="Fuentes IAI consultadas">
             <div className="flex flex-wrap gap-1.5">
               {plan.fuentes_iai.map((s: string, i: number) => (
-                <span key={i} className="px-2 py-1 bg-green-50 border border-green-200 text-deloitte-greenTxt rounded text-[12px] font-mono">📄 {s}</span>
+                <span key={i} className="inline-flex items-center gap-1 px-2 py-1 bg-green-50 border border-green-200 text-deloitte-greenTxt rounded text-[12px] font-mono">
+                  <Icono nombre="finiquitos" size={12} />{s}
+                </span>
               ))}
             </div>
           </Section>
@@ -1181,7 +1184,9 @@ function EvalResult({ evaluation, org, sector, onReset }: { evaluation: any; org
           <div className="text-[11.5px] uppercase tracking-wider text-deloitte-mute mb-1.5 font-mono">Fuentes IAI</div>
           <div className="flex flex-wrap gap-1.5">
             {evaluation.fuentes_iai.map((s: string, i: number) => (
-              <span key={i} className="px-2 py-1 bg-green-50 border border-green-200 text-deloitte-greenTxt rounded text-[12px] font-mono">📄 {s}</span>
+              <span key={i} className="inline-flex items-center gap-1 px-2 py-1 bg-green-50 border border-green-200 text-deloitte-greenTxt rounded text-[12px] font-mono">
+                  <Icono nombre="finiquitos" size={12} />{s}
+                </span>
             ))}
           </div>
         </div>

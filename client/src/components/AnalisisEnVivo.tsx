@@ -8,6 +8,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { num, CLP } from "../lib/format";
+import { Icono, MarcaAnomalia } from "./Iconos";
 
 export type FuenteAnim = { nombre: string; filas: number; icono: string };
 export type HallazgoAnim = {
@@ -181,8 +182,8 @@ export function AnalisisEnVivo({ fuentes, hallazgos, universo, muestraTradiciona
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <span className="text-[15px]">{f.icono}</span>
-                  {hecha && <span className="text-deloitte-green text-[13px] font-bold">✓</span>}
+                  <Icono nombre={f.icono} size={18} className="text-deloitte-slate" />
+                  {hecha && <Icono nombre="ok" size={14} strokeWidth={3} className="text-deloitte-greenTxt" />}
                 </div>
                 <div className="text-[12px] font-semibold text-deloitte-ink mt-1 leading-tight truncate">
                   {f.nombre}

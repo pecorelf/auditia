@@ -3,6 +3,7 @@ import { SelectorEscala } from "./ModoPresentacion";
 import { useStore, type Espacio } from "../store/useStore";
 import { Logo, WordmarkAuditIA } from "./Logo";
 import { BRANDING } from "../config/branding";
+import { Icono, MarcaAnomalia } from "./Iconos";
 
 type Item = {
   id: Espacio;
@@ -72,8 +73,9 @@ export function Sidebar() {
     <aside className="sidebar-oscura w-[260px] flex-shrink-0 bg-deloitte-ink text-white flex flex-col">
       {/* Brand */}
       <div className="px-5 py-5 border-b border-white/10">
+        {/* Placa blanca: el logo del cliente se muestra como fue diseñado */}
         <Logo invert />
-        <div className="mt-3">
+        <div className="mt-3.5 pt-3 border-t border-white/[0.07]">
           <WordmarkAuditIA className="text-white" />
           <div className="text-[11.5px] text-white/50 mt-0.5">
             {BRANDING.practice} · IA
@@ -137,7 +139,7 @@ export function Sidebar() {
           >
             <div className="flex items-start gap-3">
               <div className={`text-[12px] mt-0.5 ${espacio === "admin" ? "text-deloitte-green" : "text-white/40 group-hover:text-white/60"}`}>
-                ⚙
+                <Icono nombre="config" size={15} />
               </div>
               <div className="flex-1">
                 <div className={`text-[14px] font-semibold ${espacio === "admin" ? "text-white" : "text-white/85"}`}>
