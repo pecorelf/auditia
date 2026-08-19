@@ -140,7 +140,7 @@ export function EspacioSeis() {
           <LeyendaSeveridad className="mb-3" />
           <div className="grid grid-cols-2 gap-3">
             <HallazgoCard
-              ref="REM-01"              severidad="critica"
+              codigo="REM-01"              severidad="critica"
               titulo="Horas extra pagadas sin respaldo en la bitácora de turnos"
               cantidad={hallazgos.heImposibles.cantidad}
               unidad="liquidaciones"
@@ -149,7 +149,7 @@ export function EspacioSeis() {
               recomendacion="Bloquear el pago de horas extra que no tengan turno registrado en bitácora. Exigir validación del supervisor responsable antes del cierre de nómina y auditar los casos detectados con foco en quién autorizó."
             />
             <HallazgoCard
-              ref="REM-02"              severidad="critica"
+              codigo="REM-02"              severidad="critica"
               titulo={`${ETIQUETAS.bonoPrincipal} pagado dos veces en el mismo período`}
               cantidad={hallazgos.bonoDuplicado.cantidad}
               unidad="casos"
@@ -158,7 +158,7 @@ export function EspacioSeis() {
               recomendacion="Regla de unicidad por tipo de bono y período en el motor de nómina. Revisar si el duplicado viene de carga manual o de doble interfaz entre operaciones y remuneraciones."
             />
             <HallazgoCard
-              ref="REM-03"              severidad="critica"
+              codigo="REM-03"              severidad="critica"
               titulo="Liquidaciones sin ningún turno registrado en el período"
               cantidad={hallazgos.sinTurnos.cantidad}
               unidad="liquidaciones"
@@ -167,7 +167,7 @@ export function EspacioSeis() {
               recomendacion="Cruce mensual obligatorio de nómina contra bitácora antes de liberar el pago. Los casos sin turno deben requerir justificación documentada (licencia, permiso, vacaciones) para procesarse."
             />
             <HallazgoCard
-              ref="REM-04"              severidad="critica"
+              codigo="REM-04"              severidad="critica"
               titulo="Pagos posteriores a la fecha de finiquito"
               cantidad={hallazgos.postFiniquito.cantidad}
               unidad="liquidaciones"
@@ -176,7 +176,7 @@ export function EspacioSeis() {
               recomendacion="Baja automática en nómina al registrar el finiquito. Conciliar mensualmente finiquitos firmados contra trabajadores con liquidación emitida."
             />
             <HallazgoCard
-              ref="REM-05"              severidad="alta"
+              codigo="REM-05"              severidad="alta"
               titulo={`${ETIQUETAS.bonoDotacion} en turnos bajo dotación mínima`}
               cantidad={hallazgos.bonoDotacionIndebido.cantidad}
               unidad="casos"
@@ -185,7 +185,7 @@ export function EspacioSeis() {
               recomendacion="Condicionar el bono a la dotación efectiva registrada en la faena. Escalar a Operaciones los turnos bajo mínimo: el hallazgo económico es menor que el riesgo de seguridad que revela."
             />
             <HallazgoCard
-              ref="REM-06"              severidad="alta"
+              codigo="REM-06"              severidad="alta"
               titulo="Horas extra sobre el tope legal mensual"
               cantidad={hallazgos.sobreTope.cantidad}
               unidad="liquidaciones"
@@ -194,7 +194,7 @@ export function EspacioSeis() {
               recomendacion="Alerta automática al superar el tope en el mes en curso, no al cierre. Analizar si el exceso se concentra en bases con déficit de dotación: es un problema de planificación, no de nómina."
             />
             <HallazgoCard
-              ref="REM-07"              severidad="alta"
+              codigo="REM-07"              severidad="alta"
               titulo="Guardias superiores a 16 horas continuas"
               cantidad={hallazgos.guardiasLargas.cantidad}
               unidad="turnos"
@@ -203,7 +203,7 @@ export function EspacioSeis() {
               recomendacion="Bloqueo en la planificación de turnos que superen el límite y reporte semanal al Gerente de Operaciones. Correlacionar estos turnos con incidentes del mismo período."
             />
             <HallazgoCard
-              ref="REM-08"              severidad="alta"
+              codigo="REM-08"              severidad="alta"
               titulo="Trabajadores que comparten cuenta bancaria"
               cantidad={hallazgos.cuentasCompartidas.cantidad}
               unidad="cuentas"
@@ -212,7 +212,7 @@ export function EspacioSeis() {
               recomendacion="Validar los casos con Personas. Establecer control preventivo de unicidad de cuenta en el alta de trabajador y revisión trimestral del maestro."
             />
             <HallazgoCard
-              ref="REM-09"              severidad="media"
+              codigo="REM-09"              severidad="media"
               titulo="Bonos pagados fuera del convenio colectivo vigente"
               cantidad={hallazgos.fueraConvenio.cantidad}
               unidad="bonos"
@@ -221,7 +221,7 @@ export function EspacioSeis() {
               recomendacion="Catálogo cerrado de conceptos en el motor de nómina, con excepciones que requieran aprobación documentada de Personas y Finanzas."
             />
             <HallazgoCard
-              ref="REM-10"              severidad="media"
+              codigo="REM-10"              severidad="media"
               titulo="Líquidos muy por sobre la media del cargo"
               cantidad={hallazgos.saltosLiquido.cantidad}
               unidad="liquidaciones"
@@ -418,8 +418,8 @@ export function EspacioSeis() {
   );
 }
 
-function HallazgoCard({ ref: refCodigo, severidad, titulo, cantidad, unidad, descripcion, normativa, recomendacion }: {
-  ref: string;
+function HallazgoCard({ codigo: refCodigo, severidad, titulo, cantidad, unidad, descripcion, normativa, recomendacion }: {
+  codigo: string;
   severidad: "critica" | "alta" | "media";
   titulo: string;
   cantidad: number | null;

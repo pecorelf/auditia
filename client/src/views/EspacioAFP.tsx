@@ -154,27 +154,27 @@ export function EspacioAFP() {
         <div className="grid grid-cols-2 gap-3">
           {proceso === "pagos" && (
             <>
-              <Hallazgo ref="PAG-01" sev="critica" titulo="Pagos duplicados al mismo afiliado" cantidad={h.duplicados.cantidad} unidad="pagos"
+              <Hallazgo codigo="PAG-01" sev="critica" titulo="Pagos duplicados al mismo afiliado" cantidad={h.duplicados.cantidad} unidad="pagos"
                 desc={`Mismo afiliado, mismo tipo y mismo monto dentro de una semana. Total: ${CLP(h.duplicados.montoTotal)}.`}
                 norma="Control de unicidad de pago por solicitud"
                 reco="Bloqueo automático de un segundo pago con la misma firma dentro de 7 días, con liberación solo por excepción documentada. Recuperar los montos ya girados." />
-              <Hallazgo ref="PAG-02" sev="critica" titulo="Pagos ejecutados sin solicitud registrada" cantidad={h.sinSolicitud.cantidad} unidad="pagos"
+              <Hallazgo codigo="PAG-02" sev="critica" titulo="Pagos ejecutados sin solicitud registrada" cantidad={h.sinSolicitud.cantidad} unidad="pagos"
                 desc={`Giros sin ninguna solicitud asociada en el sistema. Total: ${CLP(h.sinSolicitud.montoTotal)}.`}
                 norma="Trazabilidad solicitud–pago"
                 reco="Ningún pago debería poder liquidarse sin solicitud vinculada. Revisar si son cargas manuales o un camino alternativo en el sistema, y quién tiene acceso a él." />
-              <Hallazgo ref="PAG-03" sev="critica" titulo="Quien cambió la cuenta autorizó el giro" cantidad={h.sinSegregacion.cantidad} unidad="casos"
+              <Hallazgo codigo="PAG-03" sev="critica" titulo="Quien cambió la cuenta autorizó el giro" cantidad={h.sinSegregacion.cantidad} unidad="casos"
                 desc={`El mismo usuario registró el cambio de cuenta bancaria y autorizó el giro a esa cuenta. Total: ${CLP(h.sinSegregacion.montoTotal)}.`}
                 norma="Segregación de funciones · mecanismo de autorización de giros"
                 reco="Incompatibilidad dura en el sistema: quien modifica datos bancarios no puede autorizar pagos al mismo afiliado. Es el control que corta la cadena completa." />
-              <Hallazgo ref="PAG-04" sev="alta" titulo="Cambio de cuenta días antes de un giro alto" cantidad={h.cuentaAntesDeGiro.cantidad} unidad="casos"
+              <Hallazgo codigo="PAG-04" sev="alta" titulo="Cambio de cuenta días antes de un giro alto" cantidad={h.cuentaAntesDeGiro.cantidad} unidad="casos"
                 desc={`Cuenta bancaria modificada dentro de los 10 días previos a un giro sobre CLP 5M. Total: ${CLP(h.cuentaAntesDeGiro.montoTotal)}. No todos son fraude, pero todos deben explicarse.`}
                 norma="Control de cambio de datos bancarios"
                 reco="Período de enfriamiento entre el cambio de cuenta y un giro alto, más confirmación por un canal distinto al que originó el cambio." />
-              <Hallazgo ref="PAG-05" sev="alta" titulo="Giros a colaboradores de la AFP" cantidad={h.aColaboradores.cantidad} unidad="pagos"
+              <Hallazgo codigo="PAG-05" sev="alta" titulo="Giros a colaboradores de la AFP" cantidad={h.aColaboradores.cantidad} unidad="pagos"
                 desc={`Pagos a afiliados que además son trabajadores de la administradora. Total: ${CLP(h.aColaboradores.montoTotal)}. Legítimos en principio, pero exigen control reforzado.`}
                 norma="Política de conflicto de interés"
                 reco="Marcar la condición de colaborador en el maestro y enrutar estos giros a una autorización independiente del área comercial." />
-              <Hallazgo ref="PAG-06" sev="media" titulo="Montos muy sobre la mediana del tipo de giro" cantidad={h.montosAtipicos.cantidad} unidad="pagos"
+              <Hallazgo codigo="PAG-06" sev="media" titulo="Montos muy sobre la mediana del tipo de giro" cantidad={h.montosAtipicos.cantidad} unidad="pagos"
                 desc="Giros que superan cinco veces la mediana de su propio tipo. No es irregularidad por sí sola: es la lista corta que conviene explicar."
                 norma="Monitoreo de movimientos inusuales"
                 reco="Umbral por tipo de beneficio con revisión de segunda línea sobre los casos que lo superen, en vez de muestreo aleatorio." />
@@ -183,15 +183,15 @@ export function EspacioAFP() {
 
           {proceso === "pension" && (
             <>
-              <Hallazgo ref="PEN-01" sev="critica" titulo="Expedientes resueltos sin documento obligatorio" cantidad={h.sinDocumento.cantidad} unidad="trámites"
+              <Hallazgo codigo="PEN-01" sev="critica" titulo="Expedientes resueltos sin documento obligatorio" cantidad={h.sinDocumento.cantidad} unidad="trámites"
                 desc="Trámites aprobados con documentación incompleta según su propio tipo. Incluye dictámenes médicos y certificados de defunción faltantes."
                 norma="Completitud de requisitos · normativa previsional"
                 reco="Cierre de expediente bloqueado hasta que estén todos los documentos del tipo. Revisar los casos resueltos para regularizar antes de una fiscalización." />
-              <Hallazgo ref="PEN-02" sev="alta" titulo="Trámites fuera del plazo normativo" cantidad={h.fueraPlazo.cantidad} unidad="trámites"
+              <Hallazgo codigo="PEN-02" sev="alta" titulo="Trámites fuera del plazo normativo" cantidad={h.fueraPlazo.cantidad} unidad="trámites"
                 desc="Trámites resueltos superando el plazo definido para su tipo. Exposición directa ante la Superintendencia y fuente habitual de reclamos."
                 norma="Cumplimiento de plazos · normativa previsional"
                 reco="Alerta al 70% del plazo consumido, no al vencerlo. Analizar si el exceso se concentra en un tipo de trámite o en una sucursal: eso cambia la solución." />
-              <Hallazgo ref="PEN-03" sev="media" titulo="Trámites reprocesados tres o más veces" cantidad={h.reprocesados.cantidad} unidad="trámites"
+              <Hallazgo codigo="PEN-03" sev="media" titulo="Trámites reprocesados tres o más veces" cantidad={h.reprocesados.cantidad} unidad="trámites"
                 desc="Expedientes devueltos y reingresados repetidamente. Cada reproceso consume plazo y deteriora la experiencia del afiliado."
                 norma="Eficiencia operacional del proceso"
                 reco="Analizar la causa raíz del reproceso — suele ser un requisito mal solicitado en la primera atención, no un problema del afiliado." />
@@ -200,15 +200,15 @@ export function EspacioAFP() {
 
           {proceso === "contacto" && (
             <>
-              <Hallazgo ref="DAT-01" sev="alta" titulo="Teléfono o email compartido entre afiliados" cantidad={h.contactoCompartido.cantidad} unidad="datos"
+              <Hallazgo codigo="DAT-01" sev="alta" titulo="Teléfono o email compartido entre afiliados" cantidad={h.contactoCompartido.cantidad} unidad="datos"
                 desc="Un mismo dato de contacto asociado a varios afiliados sin relación aparente ni misma sucursal. Puede ser familiar directo, o el punto de control de un tercero."
                 norma="Integridad del maestro de afiliados"
                 reco="Validar caso a caso. Control preventivo de unicidad con excepción documentada, y alerta cuando un dato nuevo ya existe en otro afiliado." />
-              <Hallazgo ref="DAT-02" sev="alta" titulo="Modificaciones sin respaldo de autorización" cantidad={h.sinRespaldo.cantidad} unidad="cambios"
+              <Hallazgo codigo="DAT-02" sev="alta" titulo="Modificaciones sin respaldo de autorización" cantidad={h.sinRespaldo.cantidad} unidad="cambios"
                 desc="Cambios de datos ejecutados sin respaldo del consentimiento del afiliado. Es el control que habilita el resto de la cadena."
                 norma="Respaldo de autorización para modificaciones"
                 reco="Ningún cambio debería persistir sin respaldo adjunto. Priorizar los que afectan cuenta bancaria: ahí el riesgo es económico inmediato." />
-              <Hallazgo ref="DAT-03" sev="media" titulo="Concentración de modificaciones en un ejecutivo" cantidad={h.concentracion.cantidad} unidad="ejecutivos"
+              <Hallazgo codigo="DAT-03" sev="media" titulo="Concentración de modificaciones en un ejecutivo" cantidad={h.concentracion.cantidad} unidad="ejecutivos"
                 desc="Un ejecutivo con un volumen de modificaciones muy sobre la media del equipo. Puede ser carga de trabajo real o acceso mal dimensionado."
                 norma="Identificación del origen de la modificación"
                 reco="Revisar el perfil de acceso y contrastar contra la carga real de atención. El origen de cada cambio debe quedar trazado por usuario, canal y respaldo." />
@@ -246,8 +246,8 @@ function Flecha({ dias }: { dias: number }) {
   );
 }
 
-function Hallazgo({ ref: refCodigo, sev, titulo, cantidad, unidad, desc, norma, reco }: {
-  ref: string;
+function Hallazgo({ codigo: refCodigo, sev, titulo, cantidad, unidad, desc, norma, reco }: {
+  codigo: string;
   sev: "critica" | "alta" | "media";
   titulo: string; cantidad: number; unidad: string; desc: string; norma: string; reco: string;
 }) {
