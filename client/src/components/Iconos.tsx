@@ -12,7 +12,7 @@ import {
   Anchor, Banknote, ClipboardList, Contact, Users, ReceiptText, FileText, BookMarked,
   FilePen, Car, Truck, Fuel, Siren, Satellite, Ship, Wallet, Gauge, ShieldAlert,
   Lightbulb, TriangleAlert, Settings, LogOut, Landmark, Store, Pickaxe, Radio,
-  ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight, X, Check,
+  ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight, X, Check, Lock, LockOpen,
   type LucideIcon,
 } from "lucide-react";
 
@@ -55,6 +55,8 @@ export const ICONOS: Record<string, LucideIcon> = {
   salir: LogOut,
   ok: Check,
   cerrar: X,
+  candado: Lock,
+  candadoAbierto: LockOpen,
   primera: ChevronsLeft,
   anterior: ChevronLeft,
   siguiente: ChevronRight,
