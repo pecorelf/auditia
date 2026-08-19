@@ -10,6 +10,10 @@ import { EspacioSeis } from "./views/EspacioSeis";
 import { EspacioAFP } from "./views/EspacioAFP";
 import { Admin } from "./views/Admin";
 import { getPackActivo } from "./packs";
+import { aplicarEscala, getEscala } from "./components/ModoPresentacion";
+
+// Aplica la escala guardada antes del primer render, para que no haya salto.
+aplicarEscala(getEscala());
 
 export default function App() {
   // Al cambiar de pack, el espacio guardado puede ya no existir en el menú.

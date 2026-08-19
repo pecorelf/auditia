@@ -27,10 +27,10 @@
     @apply transition-shadow hover:shadow-cardHover;
   }
   .pill {
-    @apply inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wider;
+    @apply inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11.5px] font-semibold uppercase tracking-wide;
   }
   .kbd {
-    @apply px-1.5 py-0.5 text-[10px] font-mono bg-deloitte-line text-deloitte-slate rounded border border-deloitte-line;
+    @apply px-1.5 py-0.5 text-[11.5px] font-mono bg-deloitte-line text-deloitte-slate rounded border border-deloitte-line;
   }
   .tabular {
     font-variant-numeric: tabular-nums;
@@ -100,7 +100,7 @@
 
 /* Editorial uppercase tag */
 .eyebrow {
-  @apply text-[10px] uppercase tracking-[0.18em] font-semibold text-deloitte-mute;
+  @apply text-[11px] uppercase tracking-[0.14em] font-semibold text-deloitte-mute;
 }
 
 /* Severity row striping for tables */
@@ -129,7 +129,7 @@
   margin-top: 0.25em;
 }
 .md-content code {
-  @apply font-mono text-[12px] bg-deloitte-paper px-1 py-0.5 rounded;
+  @apply font-mono text-[13px] bg-deloitte-paper px-1 py-0.5 rounded;
 }
 .md-content strong {
   @apply font-semibold text-deloitte-ink;
@@ -142,5 +142,72 @@
   @apply border border-deloitte-line px-2 py-1 text-left;
 }
 .md-content th {
-  @apply bg-deloitte-paper font-semibold uppercase tracking-wide text-[11px];
+  @apply bg-deloitte-paper font-semibold uppercase tracking-wide text-[12px];
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   Foco visible. No existía: recorrer la app con teclado era imposible
+   porque no se veía dónde estaba el cursor.
+   Se usa :focus-visible para que el anillo NO aparezca al hacer clic
+   con el mouse, solo al navegar con teclado.
+   ───────────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #4d7014;
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+.sidebar-oscura :focus-visible {
+  outline-color: #a3d94a;
+}
+
+/* Área mínima de clic: 24px en controles chicos (paginación, cerrar).
+   Antes tenían 14px de alto, por debajo de cualquier guía razonable. */
+.hit-target {
+  min-width: 28px;
+  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Encabezado de tabla fijo al hacer scroll en listados largos.
+   Con 500 filas visibles, perder los títulos de columna obliga a
+   volver arriba para saber qué se está mirando. */
+.tabla-scroll {
+  max-height: 62vh;
+  overflow: auto;
+}
+.tabla-scroll thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #f7f7f5;
+  box-shadow: inset 0 -1px 0 #e5e5e5;
+}
+
+/* Respeta la preferencia del sistema de reducir movimiento. */
+@media (prefers-reduced-motion: reduce) {
+  .dot-pulse, .streaming-caret::after { animation: none !important; }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   Modo presentación. La app se proyecta en salas de reunión, donde
+   el cliente está a varios metros de la pantalla. En vez de mantener
+   dos diseños, se escala todo desde la raíz.
+   ───────────────────────────────────────────────────────────────── */
+:root {
+  --auditia-escala: 1;
+}
+.escala-app {
+  zoom: var(--auditia-escala);
+}
+/* Firefox no soporta zoom: se usa transform como respaldo. */
+@supports not (zoom: 1) {
+  .escala-app {
+    transform: scale(var(--auditia-escala));
+    transform-origin: top left;
+    width: calc(100% / var(--auditia-escala));
+    height: calc(100% / var(--auditia-escala));
+  }
 }

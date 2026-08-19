@@ -61,7 +61,7 @@ export function EspacioCinco() {
   return (
     <>
       <Header
-        eyebrow="Espacio 04 · Gastos, Rendiciones y Traslados"
+        eyebrow="Gastos, rendiciones y traslados"
         title={BRANDING.firmName}
         subtitle="Auditoría continua del gasto operativo en traslados y rendiciones · flota de apoyo + viáticos de relevo + servicios externos, con cruce de GPS y bitácora de faenas"
         meta={[
@@ -74,7 +74,7 @@ export function EspacioCinco() {
         cta={
           <div className="text-right">
             <div className="eyebrow">Período</div>
-            <div className="text-[14px] font-semibold tabular text-deloitte-ink">Oct 2025 – Mar 2026</div>
+            <div className="text-[15px] font-semibold tabular text-deloitte-ink">Oct 2025 – Mar 2026</div>
           </div>
         }
       />
@@ -85,22 +85,22 @@ export function EspacioCinco() {
           <div className="grid grid-cols-5 gap-4">
             <div>
               <div className="eyebrow">Tradicional vs AuditIA</div>
-              <div className="text-[15px] font-semibold mt-0.5 text-deloitte-ink">50 / {num(viajes.length)}</div>
-              <div className="text-[11px] text-deloitte-mute">muestra vs <span className="font-semibold text-deloitte-green">100% cruzado</span></div>
+              <div className="text-[16px] font-semibold mt-0.5 text-deloitte-ink">50 / {num(viajes.length)}</div>
+              <div className="text-[12px] text-deloitte-mute">muestra vs <span className="font-semibold text-deloitte-green">100% cruzado</span></div>
             </div>
             <div>
               <div className="eyebrow">Fuentes cruzadas</div>
-              <div className="text-[15px] font-semibold mt-0.5 tabular text-deloitte-ink">8</div>
-              <div className="text-[11px] text-deloitte-mute">estructuradas + NO estructuradas</div>
+              <div className="text-[16px] font-semibold mt-0.5 tabular text-deloitte-ink">8</div>
+              <div className="text-[12px] text-deloitte-mute">estructuradas + NO estructuradas</div>
             </div>
             <div>
               <div className="eyebrow">Hallazgos críticos</div>
-              <div className="text-[15px] font-semibold mt-0.5 text-risk-high">{totalCriticos} casos</div>
-              <div className="text-[11px] text-deloitte-mute">de fraude o desviación</div>
+              <div className="text-[16px] font-semibold mt-0.5 text-risk-highTxt">{totalCriticos} casos</div>
+              <div className="text-[12px] text-deloitte-mute">de fraude o desviación</div>
             </div>
             <div>
               <div className="eyebrow">Impacto detectado</div>
-              <div className="text-[15px] font-semibold mt-0.5 tabular text-risk-high">
+              <div className="text-[16px] font-semibold mt-0.5 tabular text-risk-highTxt">
                 {CLP(
                   hallazgos.cargasExceso.montoTotal +
                   hallazgos.descargasSospechosas.montoEstimado +
@@ -110,12 +110,12 @@ export function EspacioCinco() {
                   hallazgos.faenasSinBitacora.montoTotal
                 )}
               </div>
-              <div className="text-[11px] text-deloitte-mute">recuperable o mitigable</div>
+              <div className="text-[12px] text-deloitte-mute">recuperable o mitigable</div>
             </div>
             <div>
               <div className="eyebrow">Faenas</div>
-              <div className="text-[15px] font-semibold mt-0.5 tabular text-deloitte-ink">{faenas.length}</div>
-              <div className="text-[11px] text-deloitte-mute">{hallazgos.faenasSinBitacora.cantidad} sin bitácora</div>
+              <div className="text-[16px] font-semibold mt-0.5 tabular text-deloitte-ink">{faenas.length}</div>
+              <div className="text-[12px] text-deloitte-mute">{hallazgos.faenasSinBitacora.cantidad} sin bitácora</div>
             </div>
           </div>
         </div>
@@ -134,19 +134,19 @@ export function EspacioCinco() {
               >
                 <div className="flex items-start justify-between mb-1">
                   <div className="text-[18px]">{a.icono}</div>
-                  <div className={`text-[9px] font-semibold ${fuente === a.id ? "text-deloitte-green" : "text-deloitte-mute"}`}>
+                  <div className={`text-[11px] font-semibold ${fuente === a.id ? "text-deloitte-green" : "text-deloitte-mute"}`}>
                     {fuente === a.id ? "● ACTIVA" : ""}
                   </div>
                 </div>
-                <div className="text-[12px] font-semibold mt-1 text-deloitte-ink leading-tight">
+                <div className="text-[13px] font-semibold mt-1 text-deloitte-ink leading-tight">
                   {a.nombre}
                 </div>
-                <div className="text-[10px] text-deloitte-mute mt-1 leading-tight">{a.descripcion}</div>
-                <div className="mt-2 flex items-center gap-2 text-[9px] uppercase tracking-wider">
+                <div className="text-[11.5px] text-deloitte-mute mt-1 leading-tight">{a.descripcion}</div>
+                <div className="mt-2 flex items-center gap-2 text-[11px] uppercase tracking-wider">
                   <span className="font-bold tabular text-deloitte-ink">{num(a.filas)}</span>
                   <span className="text-deloitte-mute">filas</span>
                 </div>
-                <div className="text-[9px] text-deloitte-greenDark mt-0.5 font-mono uppercase">{a.tipo}</div>
+                <div className="text-[11px] text-deloitte-greenTxt mt-0.5 font-mono uppercase">{a.tipo}</div>
               </button>
             ))}
           </div>
@@ -157,9 +157,9 @@ export function EspacioCinco() {
           <div className="px-4 py-3 border-b border-deloitte-line bg-deloitte-paper/60 flex items-center justify-between">
             <div>
               <div className="eyebrow">Vista previa · fuente activa</div>
-              <div className="text-[13px] font-semibold mt-0.5">{FUENTES.find((a) => a.id === fuente)?.nombre}</div>
+              <div className="text-[14px] font-semibold mt-0.5">{FUENTES.find((a) => a.id === fuente)?.nombre}</div>
             </div>
-            <div className="text-[10px] text-deloitte-mute italic">
+            <div className="text-[11.5px] text-deloitte-mute italic">
               Pídele a AuditIA → cruces entre GPS, viáticos y faenas
             </div>
           </div>
@@ -176,24 +176,24 @@ export function EspacioCinco() {
 
           {/* Paginación */}
           <div className="px-4 py-3 border-t border-deloitte-line bg-deloitte-paper/40 flex items-center justify-between flex-wrap gap-3">
-            <div className="text-[11px] text-deloitte-slate">
+            <div className="text-[12px] text-deloitte-slate">
               Mostrando <span className="font-semibold tabular text-deloitte-ink">{num(startIdx + 1)}–{num(endIdx)}</span>
               {" "}de <span className="font-semibold tabular text-deloitte-ink">{num(totalFilas)}</span> registros
               <span className="text-deloitte-mute"> · AuditIA analiza el universo completo</span>
             </div>
             <div className="flex items-center gap-2">
-              <label className="text-[10px] uppercase tracking-wider text-deloitte-mute">Filas:</label>
-              <select value={pageSize} onChange={(e) => { setPageSize(Number(e.target.value)); setPage(0); }} className="text-[11px] border border-deloitte-line rounded px-2 py-1 bg-white hover:border-deloitte-green focus:border-deloitte-green focus:outline-none tabular">
+              <label className="text-[11.5px] uppercase tracking-wider text-deloitte-mute">Filas:</label>
+              <select value={pageSize} onChange={(e) => { setPageSize(Number(e.target.value)); setPage(0); }} className="text-[12px] border border-deloitte-line rounded px-2 py-1 bg-white hover:border-deloitte-green focus:border-deloitte-green focus:outline-none tabular">
                 {PAGE_SIZE_OPTIONS.map((n) => (<option key={n} value={n}>{n}</option>))}
               </select>
               <div className="flex items-center gap-1 ml-2">
-                <button onClick={() => setPage(0)} disabled={safePage === 0} className="px-2 py-1 text-[12px] border border-deloitte-line rounded hover:border-deloitte-green hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed">«</button>
-                <button onClick={() => setPage(Math.max(0, safePage - 1))} disabled={safePage === 0} className="px-2 py-1 text-[12px] border border-deloitte-line rounded hover:border-deloitte-green hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed">‹</button>
-                <span className="text-[11px] tabular px-2 text-deloitte-slate">
+                <button onClick={() => setPage(0)} disabled={safePage === 0} className="px-2 py-1 text-[13px] border border-deloitte-line rounded hover:border-deloitte-green hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed hit-target" aria-label="Primera página">«</button>
+                <button onClick={() => setPage(Math.max(0, safePage - 1))} disabled={safePage === 0} className="px-2 py-1 text-[13px] border border-deloitte-line rounded hover:border-deloitte-green hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed hit-target" aria-label="Página anterior">‹</button>
+                <span className="text-[12px] tabular px-2 text-deloitte-slate">
                   Pág. <span className="font-semibold text-deloitte-ink">{safePage + 1}</span> / {num(totalPages)}
                 </span>
-                <button onClick={() => setPage(Math.min(totalPages - 1, safePage + 1))} disabled={safePage >= totalPages - 1} className="px-2 py-1 text-[12px] border border-deloitte-line rounded hover:border-deloitte-green hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed">›</button>
-                <button onClick={() => setPage(totalPages - 1)} disabled={safePage >= totalPages - 1} className="px-2 py-1 text-[12px] border border-deloitte-line rounded hover:border-deloitte-green hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed">»</button>
+                <button onClick={() => setPage(Math.min(totalPages - 1, safePage + 1))} disabled={safePage >= totalPages - 1} className="px-2 py-1 text-[13px] border border-deloitte-line rounded hover:border-deloitte-green hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed hit-target" aria-label="Página siguiente">›</button>
+                <button onClick={() => setPage(totalPages - 1)} disabled={safePage >= totalPages - 1} className="px-2 py-1 text-[13px] border border-deloitte-line rounded hover:border-deloitte-green hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed hit-target" aria-label="Última página">»</button>
               </div>
             </div>
           </div>
@@ -331,7 +331,7 @@ export function EspacioCinco() {
 
         {/* Mensaje educativo */}
         <div className="border-l-2 border-deloitte-green pl-4 py-1">
-          <div className="text-[12px] text-deloitte-slate leading-relaxed">
+          <div className="text-[13px] text-deloitte-slate leading-relaxed">
             <span className="font-semibold">El gancho narrativo:</span> este espacio NO es una auditoría anual —
             es <strong>monitoreo continuo</strong> que el propio Gerente de Flota puede consultar cada semana.
             La auditoría interna revisa las alertas escaladas, pero el negocio se hace cargo del control diario.
@@ -351,17 +351,17 @@ export function EspacioCinco() {
 
 function TablaVehiculos({ slice }: { slice: typeof vehiculos }) {
   return (
-    <table className="w-full text-[11.5px] tabular">
+    <table className="w-full text-[12.5px] tabular">
       <thead className="bg-deloitte-paper/40">
         <tr>{["ID","Patente","Tipo","Marca","Modelo","Año","Capacidad L","Rend km/L","Base","Estado","Asignado a"].map((h) => (
-          <th key={h} className="text-left px-2 py-2 font-semibold text-[10px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line whitespace-nowrap">{h}</th>
+          <th key={h} className="text-left px-2 py-2 font-semibold text-[11.5px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line whitespace-nowrap">{h}</th>
         ))}</tr>
       </thead>
       <tbody>
         {slice.map((v) => (
           <tr key={v.id} className="row-striped border-b border-deloitte-line/50">
-            <td className="px-2 py-1.5 font-mono text-[10px]">{v.id}</td>
-            <td className="px-2 py-1.5 font-mono text-[10.5px] font-bold">{v.patente}</td>
+            <td className="px-2 py-1.5 font-mono text-[11.5px]">{v.id}</td>
+            <td className="px-2 py-1.5 font-mono text-[12px] font-bold">{v.patente}</td>
             <td className="px-2 py-1.5">{v.tipo}</td>
             <td className="px-2 py-1.5">{v.marca}</td>
             <td className="px-2 py-1.5">{v.modelo}</td>
@@ -370,9 +370,9 @@ function TablaVehiculos({ slice }: { slice: typeof vehiculos }) {
             <td className="px-2 py-1.5 text-right">{v.rendimientoKmPorLitro}</td>
             <td className="px-2 py-1.5">{v.base}</td>
             <td className="px-2 py-1.5">
-              <span className={`pill ${v.estado === "Activo" ? "bg-green-100 text-risk-low" : v.estado === "Mantención" ? "bg-amber-100 text-risk-med" : "bg-red-100 text-risk-high"}`}>{v.estado}</span>
+              <span className={`pill ${v.estado === "Activo" ? "bg-green-100 text-risk-lowTxt" : v.estado === "Mantención" ? "bg-amber-100 text-risk-medTxt" : "bg-red-100 text-risk-highTxt"}`}>{v.estado}</span>
             </td>
-            <td className="px-2 py-1.5 text-[10px]">{v.asignadoA ? personaById.get(v.asignadoA)?.nombre : <span className="text-deloitte-mute italic">Pool</span>}</td>
+            <td className="px-2 py-1.5 text-[11.5px]">{v.asignadoA ? personaById.get(v.asignadoA)?.nombre : <span className="text-deloitte-mute italic">Pool</span>}</td>
           </tr>
         ))}
       </tbody>
@@ -382,20 +382,20 @@ function TablaVehiculos({ slice }: { slice: typeof vehiculos }) {
 
 function TablaPersonas({ slice }: { slice: typeof personas }) {
   return (
-    <table className="w-full text-[11.5px] tabular">
+    <table className="w-full text-[12.5px] tabular">
       <thead className="bg-deloitte-paper/40">
         <tr>{["ID","RUT","Nombre","Cargo","Unidad","Base"].map((h) => (
-          <th key={h} className="text-left px-2 py-2 font-semibold text-[10px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line whitespace-nowrap">{h}</th>
+          <th key={h} className="text-left px-2 py-2 font-semibold text-[11.5px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line whitespace-nowrap">{h}</th>
         ))}</tr>
       </thead>
       <tbody>
         {slice.map((p) => (
           <tr key={p.id} className="row-striped border-b border-deloitte-line/50">
-            <td className="px-2 py-1.5 font-mono text-[10px]">{p.id}</td>
-            <td className="px-2 py-1.5 text-[10.5px]">{p.rut}</td>
+            <td className="px-2 py-1.5 font-mono text-[11.5px]">{p.id}</td>
+            <td className="px-2 py-1.5 text-[12px]">{p.rut}</td>
             <td className="px-2 py-1.5 font-medium">{p.nombre}</td>
             <td className="px-2 py-1.5">{p.cargo}</td>
-            <td className="px-2 py-1.5 text-[10.5px]">{p.unidad}</td>
+            <td className="px-2 py-1.5 text-[12px]">{p.unidad}</td>
             <td className="px-2 py-1.5">{p.base}</td>
           </tr>
         ))}
@@ -406,10 +406,10 @@ function TablaPersonas({ slice }: { slice: typeof personas }) {
 
 function TablaViajes({ slice }: { slice: typeof viajes }) {
   return (
-    <table className="w-full text-[11.5px] tabular">
+    <table className="w-full text-[12.5px] tabular">
       <thead className="bg-deloitte-paper/40">
         <tr>{["ID","Vehículo","Chofer","Fecha","Ruta","km declarado","km GPS","h declaradas","h GPS","Vel. calc.","Vel. máx GPS","F.semana"].map((h) => (
-          <th key={h} className="text-left px-2 py-2 font-semibold text-[10px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line whitespace-nowrap">{h}</th>
+          <th key={h} className="text-left px-2 py-2 font-semibold text-[11.5px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line whitespace-nowrap">{h}</th>
         ))}</tr>
       </thead>
       <tbody>
@@ -418,23 +418,23 @@ function TablaViajes({ slice }: { slice: typeof viajes }) {
           const anomExceso = v.velocidadMaximaGPS > 150;
           return (
             <tr key={v.id} className={`row-striped border-b border-deloitte-line/50 ${anomVeloc || anomExceso ? "bg-red-50/50" : ""}`}>
-              <td className="px-2 py-1.5 font-mono text-[10px]">{v.id}</td>
-              <td className="px-2 py-1.5 font-mono text-[10px]">{vehiculoById.get(v.vehiculoId)?.patente}</td>
-              <td className="px-2 py-1.5 text-[10.5px]">{personaById.get(v.choferId)?.nombre.split(" ")[0]} {personaById.get(v.choferId)?.nombre.split(" ")[1]}</td>
-              <td className="px-2 py-1.5 text-[10px]">{v.fechaInicio.slice(0, 10)}</td>
-              <td className="px-2 py-1.5 text-[10.5px]">{v.origen} → {v.destino}</td>
+              <td className="px-2 py-1.5 font-mono text-[11.5px]">{v.id}</td>
+              <td className="px-2 py-1.5 font-mono text-[11.5px]">{vehiculoById.get(v.vehiculoId)?.patente}</td>
+              <td className="px-2 py-1.5 text-[12px]">{personaById.get(v.choferId)?.nombre.split(" ")[0]} {personaById.get(v.choferId)?.nombre.split(" ")[1]}</td>
+              <td className="px-2 py-1.5 text-[11.5px]">{v.fechaInicio.slice(0, 10)}</td>
+              <td className="px-2 py-1.5 text-[12px]">{v.origen} → {v.destino}</td>
               <td className="px-2 py-1.5 text-right">{v.distanciaDeclaradaKm}</td>
               <td className="px-2 py-1.5 text-right text-deloitte-mute">{v.distanciaGPSKm}</td>
               <td className="px-2 py-1.5 text-right">{v.tiempoDeclaradoHoras}</td>
               <td className="px-2 py-1.5 text-right text-deloitte-mute">{v.tiempoGPSHoras}</td>
-              <td className={`px-2 py-1.5 text-right ${anomVeloc ? "font-bold text-risk-high" : ""}`}>
+              <td className={`px-2 py-1.5 text-right ${anomVeloc ? "font-bold text-risk-highTxt" : ""}`}>
                 {v.velocidadPromedioCalculadaKmH}{anomVeloc && " ⚠"}
               </td>
-              <td className={`px-2 py-1.5 text-right ${anomExceso ? "font-bold text-risk-high" : ""}`}>
+              <td className={`px-2 py-1.5 text-right ${anomExceso ? "font-bold text-risk-highTxt" : ""}`}>
                 {v.velocidadMaximaGPS}{anomExceso && " ⚠"}
               </td>
               <td className="px-2 py-1.5 text-center">
-                {v.fueraDeHorario ? <span className="pill bg-amber-100 text-risk-med">Sí</span> : <span className="text-deloitte-mute">—</span>}
+                {v.fueraDeHorario ? <span className="pill bg-amber-100 text-risk-medTxt">Sí</span> : <span className="text-deloitte-mute">—</span>}
               </td>
             </tr>
           );
@@ -446,10 +446,10 @@ function TablaViajes({ slice }: { slice: typeof viajes }) {
 
 function TablaCombustible({ slice }: { slice: typeof cargasCombustible }) {
   return (
-    <table className="w-full text-[11.5px] tabular">
+    <table className="w-full text-[12.5px] tabular">
       <thead className="bg-deloitte-paper/40">
         <tr>{["ID","Vehículo","Fecha","Estación","Ciudad","Litros","Precio/L","Total","Nivel antes","Nivel después","Alerta"].map((h) => (
-          <th key={h} className="text-left px-2 py-2 font-semibold text-[10px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line whitespace-nowrap">{h}</th>
+          <th key={h} className="text-left px-2 py-2 font-semibold text-[11.5px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line whitespace-nowrap">{h}</th>
         ))}</tr>
       </thead>
       <tbody>
@@ -459,21 +459,21 @@ function TablaCombustible({ slice }: { slice: typeof cargasCombustible }) {
           const anomNivel = v && c.litros > v.capacidadEstanqueLitros * 0.75 && c.nivelEstanqueDespuesPct < 60;
           return (
             <tr key={c.id} className={`row-striped border-b border-deloitte-line/50 ${exceso || anomNivel ? "bg-red-50/50" : ""}`}>
-              <td className="px-2 py-1.5 font-mono text-[10px]">{c.id}</td>
-              <td className="px-2 py-1.5 font-mono text-[10px]">{v?.patente} <span className="text-deloitte-mute">({v?.capacidadEstanqueLitros}L)</span></td>
-              <td className="px-2 py-1.5 text-[10px]">{c.fecha}</td>
+              <td className="px-2 py-1.5 font-mono text-[11.5px]">{c.id}</td>
+              <td className="px-2 py-1.5 font-mono text-[11.5px]">{v?.patente} <span className="text-deloitte-mute">({v?.capacidadEstanqueLitros}L)</span></td>
+              <td className="px-2 py-1.5 text-[11.5px]">{c.fecha}</td>
               <td className="px-2 py-1.5">{c.estacion}</td>
-              <td className="px-2 py-1.5 text-[10.5px]">{c.ciudad}</td>
-              <td className={`px-2 py-1.5 text-right ${exceso ? "font-bold text-risk-high" : ""}`}>{c.litros}{exceso && " ⚠"}</td>
+              <td className="px-2 py-1.5 text-[12px]">{c.ciudad}</td>
+              <td className={`px-2 py-1.5 text-right ${exceso ? "font-bold text-risk-highTxt" : ""}`}>{c.litros}{exceso && " ⚠"}</td>
               <td className="px-2 py-1.5 text-right">{CLP(c.precioLitro)}</td>
               <td className="px-2 py-1.5 text-right font-semibold">{CLP(c.montoTotal)}</td>
               <td className="px-2 py-1.5 text-right">{c.nivelEstanqueAntesPct}%</td>
-              <td className={`px-2 py-1.5 text-right ${anomNivel ? "font-bold text-risk-high" : ""}`}>
+              <td className={`px-2 py-1.5 text-right ${anomNivel ? "font-bold text-risk-highTxt" : ""}`}>
                 {c.nivelEstanqueDespuesPct}%{anomNivel && " ⚠"}
               </td>
               <td className="px-2 py-1.5">
-                {exceso && <span className="pill bg-red-100 text-risk-high text-[9px]">Exceso</span>}
-                {anomNivel && <span className="pill bg-red-100 text-risk-high text-[9px]">Descarga</span>}
+                {exceso && <span className="pill bg-red-100 text-risk-highTxt text-[11px]">Exceso</span>}
+                {anomNivel && <span className="pill bg-red-100 text-risk-highTxt text-[11px]">Descarga</span>}
               </td>
             </tr>
           );
@@ -485,10 +485,10 @@ function TablaCombustible({ slice }: { slice: typeof cargasCombustible }) {
 
 function TablaViaticos({ slice }: { slice: typeof viaticos }) {
   return (
-    <table className="w-full text-[11.5px] tabular">
+    <table className="w-full text-[12.5px] tabular">
       <thead className="bg-deloitte-paper/40">
         <tr>{["ID","Persona","Fecha viaje","Ciudad","Concepto","Monto","Estado","Fecha rendición","Boleta"].map((h) => (
-          <th key={h} className="text-left px-2 py-2 font-semibold text-[10px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line whitespace-nowrap">{h}</th>
+          <th key={h} className="text-left px-2 py-2 font-semibold text-[11.5px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line whitespace-nowrap">{h}</th>
         ))}</tr>
       </thead>
       <tbody>
@@ -499,19 +499,19 @@ function TablaViaticos({ slice }: { slice: typeof viaticos }) {
           const anom = dias > 60;
           return (
             <tr key={v.id} className={`row-striped border-b border-deloitte-line/50 ${anom ? "bg-amber-50/60" : ""}`}>
-              <td className="px-2 py-1.5 font-mono text-[10px]">{v.id}</td>
-              <td className="px-2 py-1.5 text-[10.5px]">{personaById.get(v.personaId)?.nombre}</td>
-              <td className="px-2 py-1.5 text-[10px]">{v.fechaViaje}</td>
+              <td className="px-2 py-1.5 font-mono text-[11.5px]">{v.id}</td>
+              <td className="px-2 py-1.5 text-[12px]">{personaById.get(v.personaId)?.nombre}</td>
+              <td className="px-2 py-1.5 text-[11.5px]">{v.fechaViaje}</td>
               <td className="px-2 py-1.5">{v.ciudad}</td>
               <td className="px-2 py-1.5">{v.concepto}</td>
               <td className="px-2 py-1.5 text-right font-semibold">{CLP(v.monto)}</td>
               <td className="px-2 py-1.5">
-                <span className={`pill ${v.estado === "Rendido" ? "bg-green-100 text-risk-low" : v.estado === "Anticipo pendiente" ? "bg-amber-100 text-risk-med" : "bg-red-100 text-risk-high"}`}>
+                <span className={`pill ${v.estado === "Rendido" ? "bg-green-100 text-risk-lowTxt" : v.estado === "Anticipo pendiente" ? "bg-amber-100 text-risk-medTxt" : "bg-red-100 text-risk-highTxt"}`}>
                   {v.estado}{anom && " ⚠"}
                 </span>
               </td>
-              <td className="px-2 py-1.5 text-[10px]">{v.fechaRendicion || <span className="text-deloitte-mute italic">—</span>}</td>
-              <td className="px-2 py-1.5 font-mono text-[10px]">{v.boletaId}</td>
+              <td className="px-2 py-1.5 text-[11.5px]">{v.fechaRendicion || <span className="text-deloitte-mute italic">—</span>}</td>
+              <td className="px-2 py-1.5 font-mono text-[11.5px]">{v.boletaId}</td>
             </tr>
           );
         })}
@@ -522,24 +522,24 @@ function TablaViaticos({ slice }: { slice: typeof viaticos }) {
 
 function TablaServicios({ slice }: { slice: typeof serviciosExternos }) {
   return (
-    <table className="w-full text-[11.5px] tabular">
+    <table className="w-full text-[12.5px] tabular">
       <thead className="bg-deloitte-paper/40">
         <tr>{["ID","Persona","Fecha","Proveedor","Categoría","Ciudad","Ruta","Monto"].map((h) => (
-          <th key={h} className="text-left px-2 py-2 font-semibold text-[10px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line whitespace-nowrap">{h}</th>
+          <th key={h} className="text-left px-2 py-2 font-semibold text-[11.5px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line whitespace-nowrap">{h}</th>
         ))}</tr>
       </thead>
       <tbody>
         {slice.map((s) => (
           <tr key={s.id} className={`row-striped border-b border-deloitte-line/50 ${s.categoria === "Premium" ? "bg-amber-50/30" : ""}`}>
-            <td className="px-2 py-1.5 font-mono text-[10px]">{s.id}</td>
-            <td className="px-2 py-1.5 text-[10.5px]">{personaById.get(s.personaId)?.nombre}</td>
-            <td className="px-2 py-1.5 text-[10px]">{s.fecha}</td>
+            <td className="px-2 py-1.5 font-mono text-[11.5px]">{s.id}</td>
+            <td className="px-2 py-1.5 text-[12px]">{personaById.get(s.personaId)?.nombre}</td>
+            <td className="px-2 py-1.5 text-[11.5px]">{s.fecha}</td>
             <td className="px-2 py-1.5 font-medium">{s.proveedor}</td>
             <td className="px-2 py-1.5">
-              <span className={`pill ${s.categoria === "Premium" ? "bg-amber-100 text-risk-med" : "bg-gray-100 text-deloitte-mute"}`}>{s.categoria}</span>
+              <span className={`pill ${s.categoria === "Premium" ? "bg-amber-100 text-risk-medTxt" : "bg-gray-100 text-deloitte-mute"}`}>{s.categoria}</span>
             </td>
             <td className="px-2 py-1.5">{s.ciudad}</td>
-            <td className="px-2 py-1.5 text-[10px]">{s.origen} → {s.destino}</td>
+            <td className="px-2 py-1.5 text-[11.5px]">{s.origen} → {s.destino}</td>
             <td className="px-2 py-1.5 text-right font-semibold">{CLP(s.monto)}</td>
           </tr>
         ))}
@@ -550,10 +550,10 @@ function TablaServicios({ slice }: { slice: typeof serviciosExternos }) {
 
 function TablaFaenas({ slice }: { slice: typeof faenas }) {
   return (
-    <table className="w-full text-[11.5px] tabular">
+    <table className="w-full text-[12.5px] tabular">
       <thead className="bg-deloitte-paper/40">
         <tr>{["ID","Fecha","Evento","Ubicación","Unidad","Equipo","Presupuesto","Ejecutado","En bitácora","Min. faena"].map((h) => (
-          <th key={h} className="text-left px-2 py-2 font-semibold text-[10px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line whitespace-nowrap">{h}</th>
+          <th key={h} className="text-left px-2 py-2 font-semibold text-[11.5px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line whitespace-nowrap">{h}</th>
         ))}</tr>
       </thead>
       <tbody>
@@ -562,18 +562,18 @@ function TablaFaenas({ slice }: { slice: typeof faenas }) {
           const anomSobre = c.costoEjecutadoCLP > c.presupuestoCLP * 1.15;
           return (
             <tr key={c.id} className={`row-striped border-b border-deloitte-line/50 ${anomAire ? "bg-red-50/40" : ""}`}>
-              <td className="px-2 py-1.5 font-mono text-[10px]">{c.id}</td>
-              <td className="px-2 py-1.5 text-[10px]">{c.fecha}</td>
-              <td className="px-2 py-1.5 text-[10.5px]">{c.evento}</td>
+              <td className="px-2 py-1.5 font-mono text-[11.5px]">{c.id}</td>
+              <td className="px-2 py-1.5 text-[11.5px]">{c.fecha}</td>
+              <td className="px-2 py-1.5 text-[12px]">{c.evento}</td>
               <td className="px-2 py-1.5">{c.ubicacion}</td>
-              <td className="px-2 py-1.5 text-[10.5px]">{c.unidad}</td>
+              <td className="px-2 py-1.5 text-[12px]">{c.unidad}</td>
               <td className="px-2 py-1.5 text-center">{c.equipoAsignado.length}</td>
               <td className="px-2 py-1.5 text-right">{CLP(c.presupuestoCLP)}</td>
-              <td className={`px-2 py-1.5 text-right font-semibold ${anomSobre ? "text-risk-med" : ""}`}>{CLP(c.costoEjecutadoCLP)}</td>
+              <td className={`px-2 py-1.5 text-right font-semibold ${anomSobre ? "text-risk-medTxt" : ""}`}>{CLP(c.costoEjecutadoCLP)}</td>
               <td className="px-2 py-1.5">
                 {c.confirmadaEnBitacora
-                  ? <span className="pill bg-green-100 text-risk-low">Sí</span>
-                  : <span className={`pill ${anomAire ? "bg-red-100 text-risk-high" : "bg-amber-100 text-risk-med"}`}>No{anomAire && " ⚠"}</span>}
+                  ? <span className="pill bg-green-100 text-risk-lowTxt">Sí</span>
+                  : <span className={`pill ${anomAire ? "bg-red-100 text-risk-highTxt" : "bg-amber-100 text-risk-medTxt"}`}>No{anomAire && " ⚠"}</span>}
               </td>
               <td className="px-2 py-1.5 text-right">{c.minutosEmitidos > 0 ? c.minutosEmitidos + " min" : "—"}</td>
             </tr>
@@ -586,26 +586,26 @@ function TablaFaenas({ slice }: { slice: typeof faenas }) {
 
 function TablaMultas({ slice }: { slice: typeof multas }) {
   return (
-    <table className="w-full text-[11.5px] tabular">
+    <table className="w-full text-[12.5px] tabular">
       <thead className="bg-deloitte-paper/40">
         <tr>{["ID","Vehículo","Chofer","Fecha","Ubicación","Causa","UTM","Reembolsada"].map((h) => (
-          <th key={h} className="text-left px-2 py-2 font-semibold text-[10px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line whitespace-nowrap">{h}</th>
+          <th key={h} className="text-left px-2 py-2 font-semibold text-[11.5px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line whitespace-nowrap">{h}</th>
         ))}</tr>
       </thead>
       <tbody>
         {slice.map((m) => (
           <tr key={m.id} className={`row-striped border-b border-deloitte-line/50 ${!m.reembolsadaPorChofer ? "bg-amber-50/30" : ""}`}>
-            <td className="px-2 py-1.5 font-mono text-[10px]">{m.id}</td>
-            <td className="px-2 py-1.5 font-mono text-[10px]">{vehiculoById.get(m.vehiculoId)?.patente}</td>
-            <td className="px-2 py-1.5 text-[10.5px]">{personaById.get(m.choferId)?.nombre}</td>
-            <td className="px-2 py-1.5 text-[10px]">{m.fecha}</td>
+            <td className="px-2 py-1.5 font-mono text-[11.5px]">{m.id}</td>
+            <td className="px-2 py-1.5 font-mono text-[11.5px]">{vehiculoById.get(m.vehiculoId)?.patente}</td>
+            <td className="px-2 py-1.5 text-[12px]">{personaById.get(m.choferId)?.nombre}</td>
+            <td className="px-2 py-1.5 text-[11.5px]">{m.fecha}</td>
             <td className="px-2 py-1.5">{m.ubicacion}</td>
             <td className="px-2 py-1.5">{m.causa}</td>
             <td className="px-2 py-1.5 text-right font-semibold">{m.montoUTM.toFixed(1)}</td>
             <td className="px-2 py-1.5">
               {m.reembolsadaPorChofer
-                ? <span className="pill bg-green-100 text-risk-low">Sí</span>
-                : <span className="pill bg-amber-100 text-risk-med">Pendiente</span>}
+                ? <span className="pill bg-green-100 text-risk-lowTxt">Sí</span>
+                : <span className="pill bg-amber-100 text-risk-medTxt">Pendiente</span>}
             </td>
           </tr>
         ))}
@@ -627,9 +627,9 @@ function HallazgoCard({ severidad, titulo, cantidad, unidad, descripcion, normat
   recomendacion: string;
 }) {
   const styles = {
-    critica: { bar: "bg-risk-high", bg: "bg-red-50", text: "text-risk-high", label: "Crítica" },
-    alta:    { bar: "bg-risk-med", bg: "bg-amber-50", text: "text-risk-med", label: "Alta" },
-    media:   { bar: "bg-deloitte-green", bg: "bg-deloitte-paper", text: "text-deloitte-greenDark", label: "Media" },
+    critica: { bar: "bg-risk-high", bg: "bg-red-50", text: "text-risk-highTxt", label: "Crítica" },
+    alta:    { bar: "bg-risk-med", bg: "bg-amber-50", text: "text-risk-medTxt", label: "Alta" },
+    media:   { bar: "bg-deloitte-green", bg: "bg-deloitte-paper", text: "text-deloitte-greenTxt", label: "Media" },
   };
   const s = styles[severidad];
   return (
@@ -638,19 +638,19 @@ function HallazgoCard({ severidad, titulo, cantidad, unidad, descripcion, normat
       <div className="pl-4 pr-4 py-3">
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1">
-            <div className={`text-[10px] uppercase tracking-wider font-bold ${s.text}`}>{s.label}</div>
-            <div className="text-[13px] font-semibold mt-0.5 text-deloitte-ink leading-tight">{titulo}</div>
-            <p className="text-[11.5px] text-deloitte-slate mt-1 leading-snug">{descripcion}</p>
-            <div className="text-[10px] text-deloitte-mute italic mt-1.5">
+            <div className={`text-[11.5px] uppercase tracking-wider font-bold ${s.text}`}>{s.label}</div>
+            <div className="text-[14px] font-semibold mt-0.5 text-deloitte-ink leading-tight">{titulo}</div>
+            <p className="text-[12.5px] text-deloitte-slate mt-1 leading-snug">{descripcion}</p>
+            <div className="text-[11.5px] text-deloitte-mute italic mt-1.5">
               <span className="font-semibold not-italic text-deloitte-slate">Referencia:</span> {normativa}
             </div>
             {recomendacion && (
               <div className="mt-2 pt-2 border-t border-deloitte-line/60">
                 <div className="flex items-start gap-1.5">
-                  <span className="text-[11px] flex-shrink-0 mt-0.5">💡</span>
+                  <span className="text-[12px] flex-shrink-0 mt-0.5">💡</span>
                   <div>
-                    <div className="text-[9px] uppercase tracking-wider font-bold text-deloitte-greenDark">Recomendación de AuditIA</div>
-                    <p className="text-[11px] text-deloitte-slate leading-snug mt-0.5">{recomendacion}</p>
+                    <div className="text-[11px] uppercase tracking-wider font-bold text-deloitte-greenTxt">Recomendación de AuditIA</div>
+                    <p className="text-[12px] text-deloitte-slate leading-snug mt-0.5">{recomendacion}</p>
                   </div>
                 </div>
               </div>
@@ -659,7 +659,7 @@ function HallazgoCard({ severidad, titulo, cantidad, unidad, descripcion, normat
           {cantidad !== null && (
             <div className="text-right">
               <div className={`text-[24px] font-bold tabular ${s.text} leading-none`}>{cantidad}</div>
-              <div className="text-[9px] text-deloitte-mute uppercase tracking-wider">{unidad}</div>
+              <div className="text-[11px] text-deloitte-mute uppercase tracking-wider">{unidad}</div>
             </div>
           )}
         </div>

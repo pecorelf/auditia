@@ -15,8 +15,8 @@ export function KPICard({ label, value, delta, positive, detail }: Props) {
         <div className="text-[26px] font-bold tabular text-deloitte-ink leading-none">{value}</div>
         {hasDelta && (
           <div
-            className={`text-[11px] font-semibold tabular ${
-              positive ? "text-risk-low" : "text-risk-high"
+            className={`text-[12px] font-semibold tabular ${
+              positive ? "text-risk-lowTxt" : "text-risk-highTxt"
             }`}
           >
             {delta! > 0 ? "▲" : "▼"} {Math.abs(delta!).toFixed(1)}%
@@ -24,7 +24,7 @@ export function KPICard({ label, value, delta, positive, detail }: Props) {
         )}
       </div>
       {detail && (
-        <div className="text-[11px] text-deloitte-mute mt-1.5 leading-snug">{detail}</div>
+        <div className="text-[12px] text-deloitte-mute mt-1.5 leading-snug">{detail}</div>
       )}
     </div>
   );

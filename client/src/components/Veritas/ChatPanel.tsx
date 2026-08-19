@@ -82,11 +82,11 @@ export function ChatPanel({ killerQuestions, placeholder }: Props) {
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-full bg-deloitte-ink flex items-center justify-center relative">
             <div className="w-2 h-2 rounded-full bg-deloitte-green absolute bottom-1 right-1" />
-            <span className="text-white text-[10px] font-serif italic">V</span>
+            <span className="text-white text-[11.5px] font-serif italic">V</span>
           </div>
           <div>
-            <div className="text-[13px] font-semibold leading-tight">AuditIA</div>
-            <div className="text-[10px] text-deloitte-mute leading-tight">
+            <div className="text-[14px] font-semibold leading-tight">AuditIA</div>
+            <div className="text-[11.5px] text-deloitte-mute leading-tight">
               {espacio === "uno" ? "Sobre los archivos del cliente" :
                espacio === "procesos" ? "Sobre los tres procesos críticos" :
                espacio === "dos" ? "Sobre el Audit Hub" :
@@ -99,7 +99,7 @@ export function ChatPanel({ killerQuestions, placeholder }: Props) {
         {history.length > 0 && (
           <button
             onClick={reset}
-            className="text-[11px] text-deloitte-mute hover:text-deloitte-ink"
+            className="text-[12px] text-deloitte-mute hover:text-deloitte-ink"
           >
             Nueva conversación
           </button>
@@ -110,7 +110,7 @@ export function ChatPanel({ killerQuestions, placeholder }: Props) {
       <div ref={bodyRef} className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
         {history.length === 0 && !streaming && (
           <div className="space-y-3">
-            <div className="text-[13px] text-deloitte-slate leading-relaxed">
+            <div className="text-[14px] text-deloitte-slate leading-relaxed">
               {placeholder || "Hazme una pregunta sobre los datos que tienes a la vista. Puedo encontrar patrones, comparar, calcular y construir visualizaciones al vuelo."}
             </div>
             <div className="space-y-1.5 pt-1">
@@ -119,7 +119,7 @@ export function ChatPanel({ killerQuestions, placeholder }: Props) {
                 <button
                   key={i}
                   onClick={() => submit(q)}
-                  className="w-full text-left text-[12px] px-3 py-2 rounded border border-deloitte-line bg-white hover:bg-deloitte-paper hover:border-deloitte-green transition-colors"
+                  className="w-full text-left text-[13px] px-3 py-2 rounded border border-deloitte-line bg-white hover:bg-deloitte-paper hover:border-deloitte-green transition-colors"
                 >
                   {q}
                 </button>
@@ -132,12 +132,12 @@ export function ChatPanel({ killerQuestions, placeholder }: Props) {
           <div key={i}>
             {m.role === "user" ? (
               <div className="flex justify-end">
-                <div className="bg-deloitte-ink text-white rounded-lg rounded-br-sm px-3 py-2 max-w-[85%] text-[13px] leading-relaxed">
+                <div className="bg-deloitte-ink text-white rounded-lg rounded-br-sm px-3 py-2 max-w-[85%] text-[14px] leading-relaxed">
                   {m.content}
                 </div>
               </div>
             ) : (
-              <div className="veritas-bubble rounded-r-md px-4 py-3 text-[13px] text-deloitte-slate">
+              <div className="veritas-bubble rounded-r-md px-4 py-3 text-[14px] text-deloitte-slate">
                 <DynamicRenderer text={m.content} />
               </div>
             )}
@@ -145,7 +145,7 @@ export function ChatPanel({ killerQuestions, placeholder }: Props) {
         ))}
 
         {streaming && (
-          <div className="veritas-bubble rounded-r-md px-4 py-3 text-[13px] text-deloitte-slate">
+          <div className="veritas-bubble rounded-r-md px-4 py-3 text-[14px] text-deloitte-slate">
             {streamText ? (
               <>
                 {/* Durante streaming: texto plano sin parseo. Cuando termina,
@@ -160,16 +160,16 @@ export function ChatPanel({ killerQuestions, placeholder }: Props) {
                 <span className="dot-pulse w-1.5 h-1.5 rounded-full bg-deloitte-green inline-block" />
                 <span className="dot-pulse w-1.5 h-1.5 rounded-full bg-deloitte-green inline-block" />
                 <span className="dot-pulse w-1.5 h-1.5 rounded-full bg-deloitte-green inline-block" />
-                <span className="ml-2 text-[11px]">AuditIA está pensando…</span>
+                <span className="ml-2 text-[12px]">AuditIA está pensando…</span>
               </div>
             )}
           </div>
         )}
 
         {error && (
-          <div className="text-[12px] text-risk-high border border-risk-high/30 bg-red-50 rounded px-3 py-2">
+          <div className="text-[13px] text-risk-highTxt border border-risk-high/30 bg-red-50 rounded px-3 py-2">
             <strong>Error:</strong> {error}
-            <div className="mt-1 text-[11px] text-deloitte-mute">
+            <div className="mt-1 text-[12px] text-deloitte-mute">
               {esDesarrollo() ? (
                 <>Abre <code>http://localhost:3001/health</code>: si no responde, el
                 servidor local no está corriendo (revisa el archivo .env y la consola SERVER).</>
@@ -193,13 +193,13 @@ export function ChatPanel({ killerQuestions, placeholder }: Props) {
             placeholder="Pregúntale a AuditIA…"
             rows={1}
             disabled={streaming}
-            className="flex-1 resize-none rounded border border-deloitte-line px-3 py-2 text-[13px] focus:outline-none focus:border-deloitte-green focus:ring-1 focus:ring-deloitte-green/20 disabled:bg-deloitte-paper disabled:text-deloitte-mute"
+            className="flex-1 resize-none rounded border border-deloitte-line px-3 py-2 text-[14px] focus:outline-none focus:border-deloitte-green focus:ring-1 focus:ring-deloitte-green/20 disabled:bg-deloitte-paper disabled:text-deloitte-mute"
             style={{ minHeight: 38, maxHeight: 140 }}
           />
           {streaming ? (
             <button
               onClick={stop}
-              className="px-3 py-2 bg-deloitte-ink text-white rounded text-[12px] font-semibold hover:bg-deloitte-slate"
+              className="px-3 py-2 bg-deloitte-ink text-white rounded text-[13px] font-semibold hover:bg-deloitte-slate"
             >
               Detener
             </button>
@@ -207,13 +207,13 @@ export function ChatPanel({ killerQuestions, placeholder }: Props) {
             <button
               onClick={() => submit()}
               disabled={!input.trim()}
-              className="px-4 py-2 bg-deloitte-green text-deloitte-ink rounded text-[12px] font-semibold hover:bg-deloitte-greenDark disabled:bg-deloitte-line disabled:text-deloitte-mute"
+              className="px-4 py-2 bg-deloitte-green text-deloitte-ink rounded text-[13px] font-semibold hover:bg-deloitte-greenDark disabled:bg-deloitte-line disabled:text-deloitte-mute"
             >
               Enviar
             </button>
           )}
         </div>
-        <div className="text-[10px] text-deloitte-mute mt-1.5 px-1">
+        <div className="text-[11.5px] text-deloitte-mute mt-1.5 px-1">
           Enter para enviar · Shift+Enter para nueva línea. AuditIA opera solo sobre el dataset cargado.
         </div>
       </div>

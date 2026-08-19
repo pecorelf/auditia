@@ -28,7 +28,7 @@ export function Login() {
             <h1 className="font-serif text-5xl font-semibold tracking-tight mt-2 leading-[1.05]">
               El estado del arte de la IA<br />en Auditoría Interna.
             </h1>
-            <p className="text-white/60 mt-5 text-[15px] leading-relaxed max-w-md">
+            <p className="text-white/60 mt-5 text-[16px] leading-relaxed max-w-md">
               Un solo asistente en todos los espacios. Del análisis de datos puntual a la
               planificación estratégica del plan anual.
             </p>
@@ -41,14 +41,14 @@ export function Login() {
               { n: "03", t: "Marcos" },
             ].map((s) => (
               <div key={s.n} className="border-l-2 border-deloitte-green pl-3">
-                <div className="text-white/40 font-mono text-[11px]">{s.n}</div>
-                <div className="text-white text-[13px] font-semibold mt-0.5">{s.t}</div>
+                <div className="text-white/40 font-mono text-[12px]">{s.n}</div>
+                <div className="text-white text-[14px] font-semibold mt-0.5">{s.t}</div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="flex items-center justify-between text-[11px] text-white/40">
+        <div className="flex items-center justify-between text-[12px] text-white/40">
           <WordmarkAuditIA className="text-white/70" />
           <div>© 2026 Deloitte · Uso interno</div>
         </div>
@@ -64,14 +64,14 @@ export function Login() {
           <h2 className="font-serif text-[26px] font-semibold mt-1 mb-1.5 text-deloitte-ink leading-tight">
             Selecciona tu perfil
           </h2>
-          <p className="text-[13px] text-deloitte-mute mb-6">
+          <p className="text-[14px] text-deloitte-mute mb-6">
             Cada perfil entra al mismo portal — los datos son los mismos pero la conversación con
             AuditIA se adapta al rol.
           </p>
 
           {pideClave && (
             <div className="mb-5">
-              <label className="text-[11px] font-semibold text-deloitte-slate block mb-1.5">
+              <label className="text-[12px] font-semibold text-deloitte-slate block mb-1.5">
                 Clave de acceso
               </label>
               <input
@@ -79,7 +79,7 @@ export function Login() {
                 value={clave}
                 onChange={(e) => setClave(e.target.value)}
                 placeholder="Clave compartida del equipo"
-                className="w-full text-[13px] border border-deloitte-line rounded px-3 py-2 bg-white"
+                className="w-full text-[14px] border border-deloitte-line rounded px-3 py-2 bg-white"
               />
             </div>
           )}
@@ -91,19 +91,19 @@ export function Login() {
                 onClick={() => entrar(u.id)}
                 className="w-full text-left p-4 bg-white border border-deloitte-line rounded-md hover:border-deloitte-green hover:shadow-card transition-all flex items-center gap-4 group"
               >
-                <div className="w-10 h-10 rounded-full bg-deloitte-ink text-white flex items-center justify-center font-semibold text-[13px] group-hover:bg-deloitte-green group-hover:text-deloitte-ink transition-colors">
+                <div className="w-10 h-10 rounded-full bg-deloitte-ink text-white flex items-center justify-center font-semibold text-[14px] group-hover:bg-deloitte-green group-hover:text-deloitte-ink transition-colors">
                   {u.avatar}
                 </div>
                 <div className="flex-1">
-                  <div className="text-[14px] font-semibold text-deloitte-ink">{u.name}</div>
-                  <div className="text-[12px] text-deloitte-mute">{u.role}</div>
+                  <div className="text-[15px] font-semibold text-deloitte-ink">{u.name}</div>
+                  <div className="text-[13px] text-deloitte-mute">{u.role}</div>
                 </div>
                 <div className="text-deloitte-mute group-hover:text-deloitte-green text-lg">→</div>
               </button>
             ))}
           </div>
 
-          <div className="mt-6 text-[11px] text-deloitte-mute leading-relaxed border-t border-deloitte-line pt-4">
+          <div className="mt-6 text-[12px] text-deloitte-mute leading-relaxed border-t border-deloitte-line pt-4">
             Para la demo en vivo el moderador puede elegir cualquier perfil — esto solo afecta el
             badge en pantalla, no los datos. Los datos son los mismos en todos los espacios y han
             sido sintetizados para esta demo.

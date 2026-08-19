@@ -28,9 +28,9 @@ type Props = {
 };
 
 const COLOR = {
-  critica: { txt: "text-risk-high", bg: "bg-red-50", brd: "border-red-200", punto: "bg-risk-high" },
-  alta: { txt: "text-risk-med", bg: "bg-amber-50", brd: "border-amber-200", punto: "bg-risk-med" },
-  media: { txt: "text-deloitte-greenDark", bg: "bg-deloitte-paper", brd: "border-deloitte-line", punto: "bg-deloitte-green" },
+  critica: { txt: "text-risk-highTxt", bg: "bg-red-50", brd: "border-red-200", punto: "bg-risk-high" },
+  alta: { txt: "text-risk-medTxt", bg: "bg-amber-50", brd: "border-amber-200", punto: "bg-risk-med" },
+  media: { txt: "text-deloitte-greenTxt", bg: "bg-deloitte-paper", brd: "border-deloitte-line", punto: "bg-deloitte-green" },
 };
 
 export function AnalisisEnVivo({ fuentes, hallazgos, universo, muestraTradicional, onTerminar }: Props) {
@@ -127,7 +127,7 @@ export function AnalisisEnVivo({ fuentes, hallazgos, universo, muestraTradiciona
       <div className="flex items-center justify-between px-5 py-4 border-b border-deloitte-line">
         <div>
           <div className="eyebrow">Análisis con AuditIA</div>
-          <div className="text-[13px] text-deloitte-mute mt-0.5">
+          <div className="text-[14px] text-deloitte-mute mt-0.5">
             {fase === "idle" && `${num(fuentes.length)} fuentes · ${num(universo)} transacciones por cruzar`}
             {fase === "barriendo" && "Recorriendo las fuentes…"}
             {fase === "detectando" && "Detectando patrones…"}
@@ -137,7 +137,7 @@ export function AnalisisEnVivo({ fuentes, hallazgos, universo, muestraTradiciona
         <button
           onClick={arrancar}
           disabled={corriendo}
-          className="text-[12.5px] font-semibold px-4 py-2 rounded bg-deloitte-ink text-white disabled:opacity-40 hover:bg-deloitte-slate transition-colors"
+          className="text-[13.5px] font-semibold px-4 py-2 rounded bg-deloitte-ink text-white disabled:opacity-40 hover:bg-deloitte-slate transition-colors"
         >
           {fase === "idle" ? "Ejecutar análisis" : corriendo ? "Analizando…" : "Ejecutar de nuevo"}
         </button>
@@ -158,7 +158,7 @@ export function AnalisisEnVivo({ fuentes, hallazgos, universo, muestraTradiciona
             <div className="font-mono text-[20px] font-semibold leading-none mt-1 tabular text-white/50">
               {num(muestraTradicional)}
             </div>
-            <div className="text-[10.5px] text-white/40 mt-1">
+            <div className="text-[12px] text-white/40 mt-1">
               {contador > 0 ? `${num(Math.round(contador / muestraTradicional))}× más cobertura` : "de muestra"}
             </div>
           </div>
@@ -181,13 +181,13 @@ export function AnalisisEnVivo({ fuentes, hallazgos, universo, muestraTradiciona
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <span className="text-[14px]">{f.icono}</span>
-                  {hecha && <span className="text-deloitte-green text-[12px] font-bold">✓</span>}
+                  <span className="text-[15px]">{f.icono}</span>
+                  {hecha && <span className="text-deloitte-green text-[13px] font-bold">✓</span>}
                 </div>
-                <div className="text-[10.5px] font-semibold text-deloitte-ink mt-1 leading-tight truncate">
+                <div className="text-[12px] font-semibold text-deloitte-ink mt-1 leading-tight truncate">
                   {f.nombre}
                 </div>
-                <div className="text-[10px] text-deloitte-mute tabular mt-0.5">{num(f.filas)} filas</div>
+                <div className="text-[11.5px] text-deloitte-mute tabular mt-0.5">{num(f.filas)} filas</div>
               </div>
             );
           })}
@@ -197,7 +197,7 @@ export function AnalisisEnVivo({ fuentes, hallazgos, universo, muestraTradiciona
       {/* Hallazgos */}
       <div className="px-5 py-4 min-h-[120px]">
         {fase === "idle" ? (
-          <div className="text-[12px] text-deloitte-mute py-6 text-center">
+          <div className="text-[13px] text-deloitte-mute py-6 text-center">
             Los hallazgos aparecen a medida que se cruzan las fuentes.
           </div>
         ) : (
@@ -211,19 +211,19 @@ export function AnalisisEnVivo({ fuentes, hallazgos, universo, muestraTradiciona
                   style={{ animationDelay: `${Math.min(i, 3) * 20}ms` }}
                 >
                   <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${c.punto}`} />
-                  <div className="flex-1 text-[12px] text-deloitte-ink leading-tight">{h.titulo}</div>
+                  <div className="flex-1 text-[13px] text-deloitte-ink leading-tight">{h.titulo}</div>
                   {h.montoCLP ? (
-                    <div className="text-[11px] tabular text-deloitte-mute">{CLP(h.montoCLP)}</div>
+                    <div className="text-[12px] tabular text-deloitte-mute">{CLP(h.montoCLP)}</div>
                   ) : null}
-                  <div className={`text-[15px] font-bold tabular ${c.txt} w-8 text-right`}>{h.cantidad}</div>
+                  <div className={`text-[16px] font-bold tabular ${c.txt} w-8 text-right`}>{h.cantidad}</div>
                 </div>
               );
             })}
 
             {fase === "listo" && totalMonto > 0 && (
               <div className="anim-entrada flex items-center justify-between border-t border-deloitte-line pt-3 mt-3">
-                <div className="text-[12px] font-semibold text-deloitte-ink">Impacto económico detectado</div>
-                <div className="text-[16px] font-bold tabular text-risk-high">{CLP(totalMonto)}</div>
+                <div className="text-[13px] font-semibold text-deloitte-ink">Impacto económico detectado</div>
+                <div className="text-[17px] font-bold tabular text-risk-highTxt">{CLP(totalMonto)}</div>
               </div>
             )}
           </div>

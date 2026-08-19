@@ -62,7 +62,7 @@ export function EspacioDos() {
   return (
     <>
       <Header
-        eyebrow="Espacio 02 · Monitoreo Continuo"
+        eyebrow="Monitoreo continuo"
         title="Tablero de seguimiento y control"
         subtitle={`Monitoreo continuo del proceso Procure-to-Pay de ${BRANDING.firmName}. Vista permanente para el dueño de proceso — Auditoría Interna solo interviene en casos escalados.`}
         meta={[
@@ -73,10 +73,10 @@ export function EspacioDos() {
         ]}
         cta={
           <div className="flex items-center gap-2">
-            <button className="px-3 py-1.5 border border-deloitte-line rounded text-[12px] hover:border-deloitte-green hover:bg-deloitte-paper">
+            <button className="px-3 py-1.5 border border-deloitte-line rounded text-[13px] hover:border-deloitte-green hover:bg-deloitte-paper">
               Exportar PDF
             </button>
-            <button className="px-3 py-1.5 bg-deloitte-ink text-white rounded text-[12px] font-semibold hover:bg-deloitte-slate">
+            <button className="px-3 py-1.5 bg-deloitte-ink text-white rounded text-[13px] font-semibold hover:bg-deloitte-slate">
               + Reporte personalizado
             </button>
           </div>
@@ -92,36 +92,36 @@ export function EspacioDos() {
             <div className="flex items-center justify-between mb-3">
               <div>
                 <div className="eyebrow">Mi plan de auditoría · compromisos generados</div>
-                <h3 className="text-[15px] font-semibold mt-0.5">
+                <h3 className="text-[16px] font-semibold mt-0.5">
                   {compromisos.length} {compromisos.length === 1 ? "compromiso pendiente de asignación" : "compromisos pendientes de asignación"}
                 </h3>
               </div>
-              <div className="text-[11px] text-deloitte-mute">
+              <div className="text-[12px] text-deloitte-mute">
                 Generados desde Hallazgos Activos · sincronizado con localStorage
               </div>
             </div>
             <div className="space-y-2">
               {compromisos.slice(0, 5).map((c) => (
-                <div key={c.id} className="flex items-start gap-3 p-2.5 bg-deloitte-paper rounded border border-deloitte-line text-[11.5px]">
-                  <div className="flex-shrink-0 font-mono text-[10px] text-deloitte-mute pt-0.5">{c.id}</div>
+                <div key={c.id} className="flex items-start gap-3 p-2.5 bg-deloitte-paper rounded border border-deloitte-line text-[12.5px]">
+                  <div className="flex-shrink-0 font-mono text-[11.5px] text-deloitte-mute pt-0.5">{c.id}</div>
                   <div className="flex-1 min-w-0">
                     <div className="font-semibold text-deloitte-ink leading-tight">{c.titulo}</div>
-                    <div className="text-deloitte-slate text-[11px] mt-0.5">
+                    <div className="text-deloitte-slate text-[12px] mt-0.5">
                       <span className="font-semibold">{c.proceso}</span> · {c.responsableSugerido} · plazo {c.fechaCompromiso}
                     </div>
                   </div>
-                  <span className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
-                    c.severidad === "Crítica" ? "bg-red-100 text-risk-high" : c.severidad === "Alta" ? "bg-amber-100 text-risk-med" : "bg-gray-100 text-deloitte-mute"
+                  <span className={`text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
+                    c.severidad === "Crítica" ? "bg-red-100 text-risk-highTxt" : c.severidad === "Alta" ? "bg-amber-100 text-risk-medTxt" : "bg-gray-100 text-deloitte-mute"
                   }`}>{c.severidad}</span>
                   <button
                     onClick={() => onEliminarCompromiso(c.id)}
-                    className="text-[10px] text-deloitte-mute hover:text-risk-high px-1"
+                    className="text-[11.5px] text-deloitte-mute hover:text-risk-highTxt px-1"
                     title="Eliminar"
-                  >×</button>
+                  aria-label="Cerrar">×</button>
                 </div>
               ))}
               {compromisos.length > 5 && (
-                <div className="text-[11px] text-deloitte-mute pl-2">
+                <div className="text-[12px] text-deloitte-mute pl-2">
                   + {compromisos.length - 5} compromisos más en el plan
                 </div>
               )}
@@ -139,7 +139,7 @@ export function EspacioDos() {
                 Estado actual de compromisos del plan de auditoría
               </h2>
             </div>
-            <div className="text-[11px] text-deloitte-mute">
+            <div className="text-[12px] text-deloitte-mute">
               {seg.resumen.total} hallazgos · 4 años · 8 procesos
             </div>
           </div>
@@ -149,29 +149,29 @@ export function EspacioDos() {
             <button onClick={() => setDrill("abiertos")} className="card p-3 text-left hover:border-deloitte-green hover:shadow-md transition-all cursor-pointer">
               <div className="eyebrow">Abiertos totales</div>
               <div className="text-[22px] font-bold tabular text-deloitte-ink mt-1">{seg.resumen.abiertos}</div>
-              <div className="text-[10px] text-deloitte-mute mt-0.5">de {seg.resumen.total} históricos · ver detalle →</div>
+              <div className="text-[11.5px] text-deloitte-mute mt-0.5">de {seg.resumen.total} históricos · ver detalle →</div>
             </button>
             <button onClick={() => setDrill("vencidos")} className="card p-3 text-left hover:border-deloitte-green hover:shadow-md transition-all cursor-pointer">
               <div className="eyebrow">Vencidos</div>
-              <div className="text-[22px] font-bold tabular text-risk-high mt-1">{seg.resumen.vencidos}</div>
-              <div className="text-[10px] text-deloitte-mute mt-0.5">{seg.resumen.pctVencidos}% de los abiertos · ver →</div>
+              <div className="text-[22px] font-bold tabular text-risk-highTxt mt-1">{seg.resumen.vencidos}</div>
+              <div className="text-[11.5px] text-deloitte-mute mt-0.5">{seg.resumen.pctVencidos}% de los abiertos · ver →</div>
             </button>
             <button onClick={() => setDrill("criticos")} className="card p-3 text-left hover:border-deloitte-green hover:shadow-md transition-all cursor-pointer">
               <div className="eyebrow">Críticos abiertos</div>
-              <div className="text-[22px] font-bold tabular text-risk-high mt-1">{seg.resumen.criticosAbiertos}</div>
-              <div className="text-[10px] text-deloitte-mute mt-0.5">requieren escalamiento · ver →</div>
+              <div className="text-[22px] font-bold tabular text-risk-highTxt mt-1">{seg.resumen.criticosAbiertos}</div>
+              <div className="text-[11.5px] text-deloitte-mute mt-0.5">requieren escalamiento · ver →</div>
             </button>
             <button onClick={() => setDrill("reiterados")} className="card p-3 text-left hover:border-deloitte-green hover:shadow-md transition-all cursor-pointer">
               <div className="eyebrow">Reiterados</div>
-              <div className="text-[22px] font-bold tabular text-risk-med mt-1">{seg.resumen.reiterados}</div>
-              <div className="text-[10px] text-deloitte-mute mt-0.5">repetidos año a año · ver →</div>
+              <div className="text-[22px] font-bold tabular text-risk-medTxt mt-1">{seg.resumen.reiterados}</div>
+              <div className="text-[11.5px] text-deloitte-mute mt-0.5">repetidos año a año · ver →</div>
             </button>
             <button onClick={() => setDrill("cumplimiento")} className="card p-3 text-left hover:border-deloitte-green hover:shadow-md transition-all cursor-pointer">
               <div className="eyebrow">Cumplimiento global</div>
               <div className="text-[22px] font-bold tabular text-deloitte-ink mt-1">
                 {Math.round((seg.resumen.cerrados / seg.resumen.total) * 100)}%
               </div>
-              <div className="text-[10px] text-deloitte-mute mt-0.5">{seg.resumen.cerrados} cerrados · ver →</div>
+              <div className="text-[11.5px] text-deloitte-mute mt-0.5">{seg.resumen.cerrados} cerrados · ver →</div>
             </button>
           </div>
 
@@ -179,7 +179,7 @@ export function EspacioDos() {
           <div className="grid grid-cols-2 gap-4">
             <div className="card p-4">
               <div className="eyebrow">Severidad detectada por año</div>
-              <h3 className="text-[14px] font-semibold mt-0.5 mb-2">Críticos en aumento sostenido</h3>
+              <h3 className="text-[15px] font-semibold mt-0.5 mb-2">Críticos en aumento sostenido</h3>
               <div style={{ width: "100%", height: 220 }}>
                 <ResponsiveContainer>
                   <LineChart data={tendenciaSeveridad} margin={{ top: 8, right: 12, left: 0, bottom: 4 }}>
@@ -193,21 +193,21 @@ export function EspacioDos() {
                   </LineChart>
                 </ResponsiveContainer>
               </div>
-              <div className="text-[10px] text-deloitte-mute mt-2">
+              <div className="text-[11.5px] text-deloitte-mute mt-2">
                 FY26 muestra dato parcial (al 26-may). Proyección sugiere ≥10 críticos al cierre del año.
               </div>
             </div>
 
             <div className="card p-4">
               <div className="eyebrow">Cumplimiento de compromisos por área</div>
-              <h3 className="text-[14px] font-semibold mt-0.5 mb-2">Tecnología y Legal con peor cumplimiento</h3>
+              <h3 className="text-[15px] font-semibold mt-0.5 mb-2">Tecnología y Legal con peor cumplimiento</h3>
               <div className="space-y-2 mt-3">
                 {cumplimientoAreas.map((a) => (
                   <div key={a.area}>
-                    <div className="flex items-center justify-between text-[11px] mb-1">
+                    <div className="flex items-center justify-between text-[12px] mb-1">
                       <span className="font-semibold text-deloitte-slate">{a.area}</span>
                       <span className="tabular text-deloitte-mute">
-                        {a.pct}% <span className="text-risk-high">· {a.vencidos} vencidos</span>
+                        {a.pct}% <span className="text-risk-highTxt">· {a.vencidos} vencidos</span>
                       </span>
                     </div>
                     <div className="h-1.5 bg-deloitte-paper rounded overflow-hidden">
@@ -229,13 +229,13 @@ export function EspacioDos() {
           <div className="grid grid-cols-3 gap-4 mt-4">
             <div className="card p-4 col-span-2">
               <div className="eyebrow">Hallazgos críticos con más de 180 días sin cerrar</div>
-              <h3 className="text-[14px] font-semibold mt-0.5 mb-3">
+              <h3 className="text-[15px] font-semibold mt-0.5 mb-3">
                 {seg.criticosAntiguos.length} casos requieren escalamiento al Comité de Auditoría
               </h3>
               <div className="overflow-hidden border border-deloitte-line rounded">
-                <table className="w-full text-[11px]">
+                <table className="w-full text-[12px]">
                   <thead className="bg-deloitte-paper">
-                    <tr className="text-left text-deloitte-mute uppercase tracking-wide text-[10px]">
+                    <tr className="text-left text-deloitte-mute uppercase tracking-wide text-[11.5px]">
                       <th className="px-3 py-2 font-semibold">ID</th>
                       <th className="px-3 py-2 font-semibold">Hallazgo</th>
                       <th className="px-3 py-2 font-semibold">Responsable</th>
@@ -245,12 +245,12 @@ export function EspacioDos() {
                   <tbody className="divide-y divide-deloitte-line">
                     {seg.criticosAntiguos.slice(0, 6).map((h) => (
                       <tr key={h.id} className="hover:bg-deloitte-paper">
-                        <td className="px-3 py-2 font-mono text-[10px] text-deloitte-mute">{h.id}</td>
+                        <td className="px-3 py-2 font-mono text-[11.5px] text-deloitte-mute">{h.id}</td>
                         <td className="px-3 py-2 text-deloitte-slate">
                           {h.descripcion.length > 80 ? h.descripcion.slice(0, 80) + "…" : h.descripcion}
                         </td>
                         <td className="px-3 py-2 text-deloitte-slate">{h.responsable}</td>
-                        <td className="px-3 py-2 text-right tabular font-semibold text-risk-high">
+                        <td className="px-3 py-2 text-right tabular font-semibold text-risk-highTxt">
                           {h.diasAbierto}
                         </td>
                       </tr>
@@ -262,26 +262,26 @@ export function EspacioDos() {
 
             <div className="card p-4">
               <div className="eyebrow">Responsables sobrecargados</div>
-              <h3 className="text-[14px] font-semibold mt-0.5 mb-3">Carga de compromisos abiertos</h3>
+              <h3 className="text-[15px] font-semibold mt-0.5 mb-3">Carga de compromisos abiertos</h3>
               <div className="space-y-3">
                 {seg.responsablesSobrecargados.slice(0, 5).map((r) => (
-                  <div key={r.nombre} className="flex items-center justify-between text-[12px]">
+                  <div key={r.nombre} className="flex items-center justify-between text-[13px]">
                     <div>
                       <div className="font-semibold text-deloitte-slate">{r.nombre}</div>
-                      <div className="text-[10px] text-deloitte-mute">{r.compromisosAbiertos} compromisos</div>
+                      <div className="text-[11.5px] text-deloitte-mute">{r.compromisosAbiertos} compromisos</div>
                     </div>
-                    <div className="text-[11px] font-semibold text-risk-high tabular">
+                    <div className="text-[12px] font-semibold text-risk-highTxt tabular">
                       {r.compromisosAbiertos >= 8 ? "Sobrecarga" : "Atención"}
                     </div>
                   </div>
                 ))}
                 {seg.responsablesSobrecargados.length === 0 && (
-                  <div className="text-[11px] text-deloitte-mute">
+                  <div className="text-[12px] text-deloitte-mute">
                     No hay responsables con sobrecarga detectada.
                   </div>
                 )}
               </div>
-              <div className="mt-3 pt-3 border-t border-deloitte-line text-[10px] text-deloitte-mute">
+              <div className="mt-3 pt-3 border-t border-deloitte-line text-[11.5px] text-deloitte-mute">
                 AuditIA detecta responsables con &gt;7 compromisos abiertos y recomienda redistribución.
               </div>
             </div>
@@ -291,24 +291,24 @@ export function EspacioDos() {
           {seg.reiteradosDetalle.length > 0 && (
             <div className="card p-4 mt-4 border-l-4" style={{ borderLeftColor: C.riskMed }}>
               <div className="eyebrow">Hallazgos reiterados · alerta de control crónico</div>
-              <h3 className="text-[14px] font-semibold mt-0.5 mb-2">
+              <h3 className="text-[15px] font-semibold mt-0.5 mb-2">
                 {seg.reiteradosDetalle.length} hallazgos se vienen repitiendo año a año sin cerrarse
               </h3>
               <div className="grid grid-cols-2 gap-3 mt-3">
                 {seg.reiteradosDetalle.slice(0, 4).map((h) => (
                   <div key={h.id} className="p-3 bg-deloitte-paper rounded border border-deloitte-line">
                     <div className="flex items-start justify-between mb-1">
-                      <span className="font-mono text-[10px] text-deloitte-mute">{h.id}</span>
-                      <span className={`text-[9px] font-semibold uppercase tracking-wide ${
-                        h.severidad === "Crítica" ? "text-risk-high" : "text-risk-med"
+                      <span className="font-mono text-[11.5px] text-deloitte-mute">{h.id}</span>
+                      <span className={`text-[11px] font-semibold uppercase tracking-wide ${
+                        h.severidad === "Crítica" ? "text-risk-highTxt" : "text-risk-medTxt"
                       }`}>
                         {h.severidad} · {h.proceso}
                       </span>
                     </div>
-                    <div className="text-[11px] text-deloitte-slate leading-tight">
+                    <div className="text-[12px] text-deloitte-slate leading-tight">
                       {h.descripcion.replace(" (REITERADO de HAL-2023-005)", "").replace(" (REITERADO de HAL-2024-018)", "").replace(" (REITERADO de HAL-2023-014)", "").replace(" (REITERADO de HAL-2024-035)", "")}
                     </div>
-                    <div className="text-[10px] text-deloitte-mute mt-2">
+                    <div className="text-[11.5px] text-deloitte-mute mt-2">
                       ↳ Reiterado de <span className="font-mono">{h.hallazgoOrigenId}</span> · Estado: <span className="font-semibold">{h.estado}</span>
                     </div>
                   </div>
@@ -321,7 +321,7 @@ export function EspacioDos() {
         {/* Separador visual entre los dos universos del Hub */}
         <div className="flex items-center gap-4 pt-2">
           <div className="h-px bg-deloitte-line flex-1" />
-          <div className="text-[10px] uppercase tracking-widest text-deloitte-mute font-semibold">
+          <div className="text-[11.5px] uppercase tracking-widest text-deloitte-mute font-semibold">
             Indicadores P2P de control continuo
           </div>
           <div className="h-px bg-deloitte-line flex-1" />
@@ -350,9 +350,9 @@ export function EspacioDos() {
             <div className="flex items-start justify-between mb-3">
               <div>
                 <div className="eyebrow">Excepciones P2P · últimos 6 meses</div>
-                <h3 className="text-[15px] font-semibold mt-0.5">Tendencia descendente, foco en críticas</h3>
+                <h3 className="text-[16px] font-semibold mt-0.5">Tendencia descendente, foco en críticas</h3>
               </div>
-              <div className="flex items-center gap-3 text-[10px]">
+              <div className="flex items-center gap-3 text-[11.5px]">
                 <div className="flex items-center gap-1">
                   <span className="w-2.5 h-2.5 rounded-sm" style={{ background: C.riskHigh }} />
                   Críticas
@@ -389,7 +389,7 @@ export function EspacioDos() {
 
           <div className="card p-4">
             <div className="eyebrow">Hallazgos por categoría</div>
-            <h3 className="text-[15px] font-semibold mt-0.5 mb-2">Top categorías</h3>
+            <h3 className="text-[16px] font-semibold mt-0.5 mb-2">Top categorías</h3>
             <div style={{ width: "100%", height: 220 }}>
               <ResponsiveContainer>
                 <PieChart>
@@ -411,7 +411,7 @@ export function EspacioDos() {
             </div>
             <div className="space-y-1 mt-2">
               {hallazgosCategoria.slice(0, 4).map((h, i) => (
-                <div key={i} className="flex items-center justify-between text-[11px]">
+                <div key={i} className="flex items-center justify-between text-[12px]">
                   <span className="flex items-center gap-1.5">
                     <span
                       className="w-2 h-2 rounded-sm"
@@ -430,7 +430,7 @@ export function EspacioDos() {
         <div className="grid grid-cols-2 gap-4">
           <div className="card p-4">
             <div className="eyebrow">Concentración de gasto · top proveedores</div>
-            <h3 className="text-[15px] font-semibold mt-0.5 mb-3">Concentración top-10: 38,7%</h3>
+            <h3 className="text-[16px] font-semibold mt-0.5 mb-3">Concentración top-10: 38,7%</h3>
             <div style={{ width: "100%", height: 240 }}>
               <ResponsiveContainer>
                 <BarChart layout="vertical" data={concentracionProv} margin={{ top: 0, right: 24, left: 4, bottom: 0 }}>
@@ -450,11 +450,11 @@ export function EspacioDos() {
 
           <div className="card p-4">
             <div className="eyebrow">Cobertura del plan anual · por área</div>
-            <h3 className="text-[15px] font-semibold mt-0.5 mb-3">Áreas con cobertura insuficiente</h3>
+            <h3 className="text-[16px] font-semibold mt-0.5 mb-3">Áreas con cobertura insuficiente</h3>
             <div className="space-y-2.5 mt-3">
               {coberturaAreas.map((a) => (
                 <div key={a.area}>
-                  <div className="flex items-center justify-between text-[12px] mb-1">
+                  <div className="flex items-center justify-between text-[13px] mb-1">
                     <span className="font-semibold text-deloitte-slate">{a.area}</span>
                     <span className="tabular text-deloitte-mute">{a.cobertura}%</span>
                   </div>
@@ -478,10 +478,10 @@ export function EspacioDos() {
           <div className="flex items-start justify-between mb-4">
             <div>
               <div className="eyebrow">Simulador de sensibilidad</div>
-              <h3 className="text-[16px] font-serif font-semibold mt-0.5 text-deloitte-ink">
+              <h3 className="text-[17px] font-serif font-semibold mt-0.5 text-deloitte-ink">
                 ¿Qué pasaría con el riesgo operacional si cambian estas variables?
               </h3>
-              <p className="text-[12px] text-deloitte-mute mt-1 max-w-xl">
+              <p className="text-[13px] text-deloitte-mute mt-1 max-w-xl">
                 Mueve los sliders para ver cómo cambia el índice sintético de riesgo. AuditIA puede contestar
                 preguntas de "qué pasa si…" directamente en el chat.
               </p>
@@ -489,11 +489,11 @@ export function EspacioDos() {
             <div className="text-right">
               <div className="eyebrow">Índice de riesgo</div>
               <div className={`text-[36px] font-bold tabular leading-none mt-0.5 ${
-                riskScore < 30 ? "text-risk-low" : riskScore < 60 ? "text-risk-med" : "text-risk-high"
+                riskScore < 30 ? "text-risk-lowTxt" : riskScore < 60 ? "text-risk-medTxt" : "text-risk-highTxt"
               }`}>
                 {riskScore.toFixed(1)}
               </div>
-              <div className="text-[11px] text-deloitte-mute mt-0.5 tabular">
+              <div className="text-[12px] text-deloitte-mute mt-0.5 tabular">
                 {delta > 0 ? "▲" : delta < 0 ? "▼" : ""} {Math.abs(delta).toFixed(1)} vs baseline
               </div>
             </div>
@@ -502,7 +502,7 @@ export function EspacioDos() {
           <div className="grid grid-cols-2 gap-x-8 gap-y-5">
             {simVariables.map((v) => (
               <div key={v.id}>
-                <div className="flex items-center justify-between text-[12px] mb-1.5">
+                <div className="flex items-center justify-between text-[13px] mb-1.5">
                   <span className="font-semibold text-deloitte-slate">{v.label}</span>
                   <span className="tabular text-deloitte-ink font-semibold">
                     {v.unit === "CLP"
@@ -521,7 +521,7 @@ export function EspacioDos() {
                   }
                   className="w-full accent-deloitte-green"
                 />
-                <div className="flex justify-between text-[10px] text-deloitte-mute mt-0.5 tabular">
+                <div className="flex justify-between text-[11.5px] text-deloitte-mute mt-0.5 tabular">
                   <span>{v.unit === "CLP" ? `CLP ${(v.min / 1_000_000).toFixed(0)}M` : `${v.min}`}</span>
                   <span>{v.unit === "CLP" ? `CLP ${(v.max / 1_000_000).toFixed(0)}M` : `${v.max}`}</span>
                 </div>
@@ -535,9 +535,9 @@ export function EspacioDos() {
           <div className="flex items-center justify-between mb-2">
             <div>
               <div className="eyebrow">Hallazgos activos</div>
-              <h3 className="text-[15px] font-semibold mt-0.5">Detectados por el monitoreo continuo sobre el 100% del universo</h3>
+              <h3 className="text-[16px] font-semibold mt-0.5">Detectados por el monitoreo continuo sobre el 100% del universo</h3>
             </div>
-            <button className="text-[11px] text-deloitte-green font-semibold hover:underline">
+            <button className="text-[12px] text-deloitte-green font-semibold hover:underline">
               Ver todos (14) →
             </button>
           </div>

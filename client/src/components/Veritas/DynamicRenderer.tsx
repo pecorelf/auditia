@@ -31,8 +31,8 @@ function fmt(v: any, kind?: string) {
 
 function SpecBlock({ spec }: { spec: any }) {
   const palette = COLORS.chart;
-  const title = spec.title ? <div className="text-[13px] font-semibold mb-2 text-deloitte-ink">{spec.title}</div> : null;
-  const note = spec.note ? <div className="text-[11px] text-deloitte-mute mt-2 italic">{spec.note}</div> : null;
+  const title = spec.title ? <div className="text-[14px] font-semibold mb-2 text-deloitte-ink">{spec.title}</div> : null;
+  const note = spec.note ? <div className="text-[12px] text-deloitte-mute mt-2 italic">{spec.note}</div> : null;
 
   // Table
   if (spec.kind === "table" && Array.isArray(spec.data) && spec.data.length > 0) {
@@ -41,11 +41,11 @@ function SpecBlock({ spec }: { spec: any }) {
       <div className="my-3 border border-deloitte-line rounded-md bg-white overflow-hidden">
         {title && <div className="px-3 py-2 border-b border-deloitte-line bg-deloitte-paper">{title}</div>}
         <div className="overflow-x-auto">
-          <table className="w-full text-[12px] tabular">
+          <table className="w-full text-[13px] tabular">
             <thead>
               <tr className="bg-deloitte-paper">
                 {cols.map((c) => (
-                  <th key={c} className="text-left px-3 py-2 font-semibold uppercase tracking-wide text-[10px] text-deloitte-mute">
+                  <th key={c} className="text-left px-3 py-2 font-semibold uppercase tracking-wide text-[11.5px] text-deloitte-mute">
                     {c.replace(/_/g, " ")}
                   </th>
                 ))}
@@ -78,7 +78,7 @@ function SpecBlock({ spec }: { spec: any }) {
             <div key={i} className="card p-3">
               <div className="eyebrow">{k.label}</div>
               <div className="text-xl font-bold mt-1 tabular text-deloitte-ink">{fmt(k.value, spec.format)}</div>
-              {k.detail && <div className="text-[11px] text-deloitte-mute mt-0.5">{k.detail}</div>}
+              {k.detail && <div className="text-[12px] text-deloitte-mute mt-0.5">{k.detail}</div>}
             </div>
           ))}
         </div>
@@ -151,7 +151,7 @@ function SpecBlock({ spec }: { spec: any }) {
   }
 
   return (
-    <div className="my-3 p-3 bg-amber-50 border border-amber-200 rounded text-[12px] text-amber-900">
+    <div className="my-3 p-3 bg-amber-50 border border-amber-200 rounded text-[13px] text-amber-900">
       Visualización no reconocida (kind: {String(spec.kind)})
     </div>
   );

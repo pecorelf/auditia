@@ -3,6 +3,7 @@
 
 import { useState, useMemo } from "react";
 import { Header } from "../components/Header";
+import { LeyendaSeveridad } from "../components/LeyendaSeveridad";
 import { BRANDING } from "../config/branding";
 import {
   trabajadores, turnos, liquidaciones, finiquitos, detectarHallazgos, BONOS_CONVENIO, ETIQUETAS,
@@ -76,7 +77,7 @@ export function EspacioSeis() {
         cta={
           <div className="text-right">
             <div className="eyebrow">Período</div>
-            <div className="text-[14px] font-semibold tabular text-deloitte-ink">Oct 2025 – Mar 2026</div>
+            <div className="text-[15px] font-semibold tabular text-deloitte-ink">Oct 2025 – Mar 2026</div>
           </div>
         }
       />
@@ -87,28 +88,28 @@ export function EspacioSeis() {
           <div className="grid grid-cols-5 gap-4">
             <div>
               <div className="eyebrow">Tradicional vs AuditIA</div>
-              <div className="text-[15px] font-semibold mt-0.5 text-deloitte-ink">40 / {num(liquidaciones.length)}</div>
-              <div className="text-[11px] text-deloitte-mute">muestra vs <span className="font-semibold text-deloitte-green">100% cruzado</span></div>
+              <div className="text-[16px] font-semibold mt-0.5 text-deloitte-ink">40 / {num(liquidaciones.length)}</div>
+              <div className="text-[12px] text-deloitte-mute">muestra vs <span className="font-semibold text-deloitte-green">100% cruzado</span></div>
             </div>
             <div>
               <div className="eyebrow">Fuentes cruzadas</div>
-              <div className="text-[15px] font-semibold mt-0.5 tabular text-deloitte-ink">5</div>
-              <div className="text-[11px] text-deloitte-mute">estructuradas + NO estructuradas</div>
+              <div className="text-[16px] font-semibold mt-0.5 tabular text-deloitte-ink">5</div>
+              <div className="text-[12px] text-deloitte-mute">estructuradas + NO estructuradas</div>
             </div>
             <div>
               <div className="eyebrow">Hallazgos críticos</div>
-              <div className="text-[15px] font-semibold mt-0.5 text-risk-high">{totalCriticos} casos</div>
-              <div className="text-[11px] text-deloitte-mute">pago sin respaldo operativo</div>
+              <div className="text-[16px] font-semibold mt-0.5 text-risk-highTxt">{totalCriticos} casos</div>
+              <div className="text-[12px] text-deloitte-mute">pago sin respaldo operativo</div>
             </div>
             <div>
               <div className="eyebrow">Impacto detectado</div>
-              <div className="text-[15px] font-semibold mt-0.5 tabular text-risk-high">{CLP(impactoCLP)}</div>
-              <div className="text-[11px] text-deloitte-mute">en 6 meses</div>
+              <div className="text-[16px] font-semibold mt-0.5 tabular text-risk-highTxt">{CLP(impactoCLP)}</div>
+              <div className="text-[12px] text-deloitte-mute">en 6 meses</div>
             </div>
             <div>
               <div className="eyebrow">Riesgo laboral</div>
-              <div className="text-[15px] font-semibold mt-0.5 text-risk-med">{hallazgos.guardiasLargas.cantidad} guardias</div>
-              <div className="text-[11px] text-deloitte-mute">&gt; 16 h continuas</div>
+              <div className="text-[16px] font-semibold mt-0.5 text-risk-medTxt">{hallazgos.guardiasLargas.cantidad} guardias</div>
+              <div className="text-[12px] text-deloitte-mute">&gt; 16 h continuas</div>
             </div>
           </div>
         </div>
@@ -134,6 +135,7 @@ export function EspacioSeis() {
         {/* Hallazgos */}
         <div>
           <div className="eyebrow mb-2">Hallazgos detectados por AuditIA</div>
+          <LeyendaSeveridad className="mb-3" />
           <div className="grid grid-cols-2 gap-3">
             <HallazgoCard
               severidad="critica"
@@ -238,10 +240,10 @@ export function EspacioSeis() {
                 onClick={() => switchFuente(f.id)}
                 className={`card p-3 text-left transition-all ${fuente === f.id ? "ring-2 ring-deloitte-green" : "hover:shadow-card"}`}
               >
-                <div className="text-[16px]">{f.icono}</div>
-                <div className="text-[11.5px] font-semibold mt-1 text-deloitte-ink leading-tight">{f.nombre}</div>
-                <div className="text-[10px] text-deloitte-mute mt-1 leading-snug">{f.descripcion}</div>
-                <div className="text-[10px] text-deloitte-mute mt-1.5 tabular">{num(f.filas)} filas · {f.tipo}</div>
+                <div className="text-[17px]">{f.icono}</div>
+                <div className="text-[12.5px] font-semibold mt-1 text-deloitte-ink leading-tight">{f.nombre}</div>
+                <div className="text-[11.5px] text-deloitte-mute mt-1 leading-snug">{f.descripcion}</div>
+                <div className="text-[11.5px] text-deloitte-mute mt-1.5 tabular">{num(f.filas)} filas · {f.tipo}</div>
               </button>
             ))}
           </div>
@@ -250,7 +252,7 @@ export function EspacioSeis() {
         {/* Tabla */}
         <div className="card">
           <div className="flex items-center justify-between px-4 py-3 border-b border-deloitte-line">
-            <div className="text-[12px] font-semibold text-deloitte-ink">
+            <div className="text-[13px] font-semibold text-deloitte-ink">
               {FUENTES.find((f) => f.id === fuente)!.nombre}
               <span className="text-deloitte-mute font-normal ml-2 tabular">
                 {num(startIdx + 1)}–{num(endIdx)} de {num(totalFilas)}
@@ -260,22 +262,22 @@ export function EspacioSeis() {
               <select
                 value={pageSize}
                 onChange={(e) => { setPageSize(Number(e.target.value)); setPage(0); }}
-                className="text-[11px] border border-deloitte-line rounded px-2 py-1 bg-white"
+                className="text-[12px] border border-deloitte-line rounded px-2 py-1 bg-white"
               >
                 {PAGE_SIZE_OPTIONS.map((n) => <option key={n} value={n}>{n} filas</option>)}
               </select>
-              <div className="flex items-center gap-1 text-[11px]">
-                <button onClick={() => setPage(0)} disabled={safePage === 0} className="px-1.5 py-0.5 disabled:opacity-30">«</button>
-                <button onClick={() => setPage(safePage - 1)} disabled={safePage === 0} className="px-1.5 py-0.5 disabled:opacity-30">‹</button>
+              <div className="flex items-center gap-1 text-[12px]">
+                <button onClick={() => setPage(0)} disabled={safePage === 0} className="px-1.5 py-0.5 disabled:opacity-30 hit-target" aria-label="Primera página">«</button>
+                <button onClick={() => setPage(safePage - 1)} disabled={safePage === 0} className="px-1.5 py-0.5 disabled:opacity-30 hit-target" aria-label="Página anterior">‹</button>
                 <span className="tabular px-1">Pág {safePage + 1}/{totalPages}</span>
-                <button onClick={() => setPage(safePage + 1)} disabled={safePage >= totalPages - 1} className="px-1.5 py-0.5 disabled:opacity-30">›</button>
-                <button onClick={() => setPage(totalPages - 1)} disabled={safePage >= totalPages - 1} className="px-1.5 py-0.5 disabled:opacity-30">»</button>
+                <button onClick={() => setPage(safePage + 1)} disabled={safePage >= totalPages - 1} className="px-1.5 py-0.5 disabled:opacity-30 hit-target" aria-label="Página siguiente">›</button>
+                <button onClick={() => setPage(totalPages - 1)} disabled={safePage >= totalPages - 1} className="px-1.5 py-0.5 disabled:opacity-30 hit-target" aria-label="Última página">»</button>
               </div>
             </div>
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="w-full text-[11.5px]">
+          <div className="overflow-x-auto tabla-scroll">
+            <table className="w-full text-[12.5px]">
               {fuente === "trabajadores" && (
                 <>
                   <thead className="bg-deloitte-paper text-deloitte-mute">
@@ -294,7 +296,7 @@ export function EspacioSeis() {
                         <td className="px-3 py-1.5">{t.convenio}</td>
                         <td className="px-3 py-1.5 tabular text-right">{CLP(t.sueldoBaseCLP)}</td>
                         <td className="px-3 py-1.5">
-                          <span className={`pill ${t.estado === "Activo" ? "bg-deloitte-paper text-deloitte-slate" : "bg-amber-100 text-risk-med"}`}>{t.estado}</span>
+                          <span className={`pill ${t.estado === "Activo" ? "bg-deloitte-paper text-deloitte-slate" : "bg-amber-100 text-risk-medTxt"}`}>{t.estado}</span>
                         </td>
                       </tr>
                     ))}
@@ -322,8 +324,8 @@ export function EspacioSeis() {
                           <td className="px-3 py-1.5">{t.tipo}</td>
                           <td className="px-3 py-1.5 tabular">{t.horaInicio}</td>
                           <td className="px-3 py-1.5 tabular">{t.horaFin}</td>
-                          <td className={`px-3 py-1.5 tabular text-right ${larga ? "font-bold text-risk-high" : ""}`}>{t.horas}{larga && " ⚠"}</td>
-                          <td className={`px-3 py-1.5 tabular text-right ${bajaDot ? "font-bold text-risk-high" : ""}`}>{t.dotacionFaena}/{t.dotacionMinima}{bajaDot && " ⚠"}</td>
+                          <td className={`px-3 py-1.5 tabular text-right ${larga ? "font-bold text-risk-highTxt" : ""}`}>{t.horas}{larga && " ⚠"}</td>
+                          <td className={`px-3 py-1.5 tabular text-right ${bajaDot ? "font-bold text-risk-highTxt" : ""}`}>{t.dotacionFaena}/{t.dotacionMinima}{bajaDot && " ⚠"}</td>
                         </tr>
                       );
                     })}
@@ -349,11 +351,11 @@ export function EspacioSeis() {
                           <td className="px-3 py-1.5">{t?.nombre}</td>
                           <td className="px-3 py-1.5">{t?.cargo}</td>
                           <td className="px-3 py-1.5">{t?.base}</td>
-                          <td className={`px-3 py-1.5 tabular text-right ${anomHE ? "font-bold text-risk-high" : ""}`}>{l.horasExtraPagadas}{anomHE && " ⚠"}</td>
+                          <td className={`px-3 py-1.5 tabular text-right ${anomHE ? "font-bold text-risk-highTxt" : ""}`}>{l.horasExtraPagadas}{anomHE && " ⚠"}</td>
                           <td className="px-3 py-1.5 tabular text-right">{CLP(l.montoHorasExtraCLP)}</td>
                           <td className="px-3 py-1.5">
                             {l.bonos.length === 0 ? "—" : l.bonos.map((b, i) => (
-                              <span key={i} className={`pill mr-1 ${BONOS_CONVENIO.includes(b.tipo) ? "bg-deloitte-paper text-deloitte-slate" : "bg-red-100 text-risk-high"}`}>{b.tipo}</span>
+                              <span key={i} className={`pill mr-1 ${BONOS_CONVENIO.includes(b.tipo) ? "bg-deloitte-paper text-deloitte-slate" : "bg-red-100 text-risk-highTxt"}`}>{b.tipo}</span>
                             ))}
                           </td>
                           <td className="px-3 py-1.5 tabular text-right font-semibold">{CLP(l.liquidoCLP)}</td>
@@ -424,9 +426,9 @@ function HallazgoCard({ severidad, titulo, cantidad, unidad, descripcion, normat
   recomendacion: string;
 }) {
   const styles = {
-    critica: { bar: "bg-risk-high", bg: "bg-red-50", text: "text-risk-high", label: "Crítica" },
-    alta:    { bar: "bg-risk-med", bg: "bg-amber-50", text: "text-risk-med", label: "Alta" },
-    media:   { bar: "bg-deloitte-green", bg: "bg-deloitte-paper", text: "text-deloitte-greenDark", label: "Media" },
+    critica: { bar: "bg-risk-high", bg: "bg-red-50", text: "text-risk-highTxt", label: "Crítica" },
+    alta:    { bar: "bg-risk-med", bg: "bg-amber-50", text: "text-risk-medTxt", label: "Alta" },
+    media:   { bar: "bg-deloitte-green", bg: "bg-deloitte-paper", text: "text-deloitte-greenTxt", label: "Media" },
   };
   const s = styles[severidad];
   return (
@@ -435,19 +437,19 @@ function HallazgoCard({ severidad, titulo, cantidad, unidad, descripcion, normat
       <div className="pl-4 pr-4 py-3">
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1">
-            <div className={`text-[10px] uppercase tracking-wider font-bold ${s.text}`}>{s.label}</div>
-            <div className="text-[13px] font-semibold mt-0.5 text-deloitte-ink leading-tight">{titulo}</div>
-            <p className="text-[11.5px] text-deloitte-slate mt-1 leading-snug">{descripcion}</p>
-            <div className="text-[10px] text-deloitte-mute italic mt-1.5">
+            <div className={`text-[11.5px] uppercase tracking-wider font-bold ${s.text}`}>{s.label}</div>
+            <div className="text-[14px] font-semibold mt-0.5 text-deloitte-ink leading-tight">{titulo}</div>
+            <p className="text-[12.5px] text-deloitte-slate mt-1 leading-snug">{descripcion}</p>
+            <div className="text-[11.5px] text-deloitte-mute italic mt-1.5">
               <span className="font-semibold not-italic text-deloitte-slate">Referencia:</span> {normativa}
             </div>
             {recomendacion && (
               <div className="mt-2 pt-2 border-t border-deloitte-line/60">
                 <div className="flex items-start gap-1.5">
-                  <span className="text-[11px] flex-shrink-0 mt-0.5">💡</span>
+                  <span className="text-[12px] flex-shrink-0 mt-0.5">💡</span>
                   <div>
-                    <div className="text-[9px] uppercase tracking-wider font-bold text-deloitte-greenDark">Recomendación de AuditIA</div>
-                    <p className="text-[11px] text-deloitte-slate leading-snug mt-0.5">{recomendacion}</p>
+                    <div className="text-[11px] uppercase tracking-wider font-bold text-deloitte-greenTxt">Recomendación de AuditIA</div>
+                    <p className="text-[12px] text-deloitte-slate leading-snug mt-0.5">{recomendacion}</p>
                   </div>
                 </div>
               </div>
@@ -456,7 +458,7 @@ function HallazgoCard({ severidad, titulo, cantidad, unidad, descripcion, normat
           {cantidad !== null && (
             <div className="text-right">
               <div className={`text-[24px] font-bold tabular ${s.text} leading-none`}>{cantidad}</div>
-              <div className="text-[9px] text-deloitte-mute uppercase tracking-wider">{unidad}</div>
+              <div className="text-[11px] text-deloitte-mute uppercase tracking-wider">{unidad}</div>
             </div>
           )}
         </div>

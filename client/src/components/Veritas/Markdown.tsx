@@ -112,7 +112,7 @@ export function Markdown({ text }: { text: string }) {
       }
       i++; // skip closing ```
       blocks.push(
-        <pre key={key++} className="bg-deloitte-paper border border-deloitte-line rounded p-3 my-2 overflow-x-auto text-[12px] font-mono">
+        <pre key={key++} className="bg-deloitte-paper border border-deloitte-line rounded p-3 my-2 overflow-x-auto text-[13px] font-mono">
           {collected.join("\n")}
         </pre>
       );

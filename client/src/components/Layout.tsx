@@ -75,7 +75,7 @@ export function Layout({ children }: Props) {
   const showSideChat = espacio === "uno" || espacio === "dos" || espacio === "cinco" || espacio === "seis" || espacio === "procesos";
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="escala-app flex h-screen overflow-hidden">
       <Sidebar />
 
       {/* Contenido principal */}
@@ -94,7 +94,7 @@ export function Layout({ children }: Props) {
             <div className="h-full relative">
               <button
                 onClick={() => setChatOpen(false)}
-                className="absolute -left-3 top-4 z-10 w-6 h-6 rounded-full bg-white border border-deloitte-line text-deloitte-mute hover:text-deloitte-ink shadow-card flex items-center justify-center text-[11px]"
+                className="absolute -left-3 top-4 z-10 w-6 h-6 rounded-full bg-white border border-deloitte-line text-deloitte-mute hover:text-deloitte-ink shadow-card flex items-center justify-center text-[12px]"
                 title="Ocultar AuditIA"
               >
                 ›
@@ -109,9 +109,9 @@ export function Layout({ children }: Props) {
             >
               <div className="w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center relative">
                 <div className="w-1.5 h-1.5 rounded-full bg-deloitte-green absolute bottom-0.5 right-0.5" />
-                <span className="text-white font-serif italic text-[11px]">A</span>
+                <span className="text-white font-serif italic text-[12px]">A</span>
               </div>
-              <div className="text-[10px] uppercase tracking-[0.2em] font-semibold text-white/80" style={{ writingMode: "vertical-rl" }}>
+              <div className="text-[11.5px] uppercase tracking-[0.2em] font-semibold text-white/80" style={{ writingMode: "vertical-rl" }}>
                 AuditIA
               </div>
             </button>

@@ -16,7 +16,7 @@ export function Header({ eyebrow, title, subtitle, meta, cta }: Props) {
             {title}
           </h1>
           {subtitle && (
-            <p className="text-[13px] text-deloitte-mute mt-1.5 max-w-2xl">{subtitle}</p>
+            <p className="text-[14px] text-deloitte-mute mt-1.5 max-w-2xl">{subtitle}</p>
           )}
         </div>
         {cta}
@@ -25,10 +25,10 @@ export function Header({ eyebrow, title, subtitle, meta, cta }: Props) {
         <div className="flex items-center gap-6 mt-5">
           {meta.map((m, i) => (
             <div key={i}>
-              <div className="text-[10px] uppercase tracking-wider text-deloitte-mute font-semibold">
+              <div className="text-[11.5px] uppercase tracking-wider text-deloitte-mute font-semibold">
                 {m.label}
               </div>
-              <div className="text-[13px] font-semibold text-deloitte-ink mt-0.5 tabular">{m.value}</div>
+              <div className="text-[14px] font-semibold text-deloitte-ink mt-0.5 tabular">{m.value}</div>
             </div>
           ))}
         </div>

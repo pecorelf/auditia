@@ -161,7 +161,7 @@ export function EspacioCuatro() {
   return (
     <>
       <Header
-        eyebrow="Espacio 05 · Coach de Auditor"
+        eyebrow="Coach de Auditor"
         title="Preparación de reuniones con stakeholders"
         subtitle="Tu coach personal para abordar conversaciones difíciles sobre hallazgos de auditoría. Genera un briefing estratégico o practica con el stakeholder simulado."
         meta={[
@@ -221,7 +221,7 @@ function SetupForm(props: any) {
   return (
     <div className="px-8 py-6 max-w-4xl space-y-5">
       <div className="card p-3 bg-deloitte-paper/40 border-l-2 border-deloitte-green">
-        <div className="text-[12px] text-deloitte-slate">
+        <div className="text-[13px] text-deloitte-slate">
           Configura el contexto de la reunión. Cuanto más específico, mejor el briefing. Una vez listo, puedes <strong>generar un briefing estratégico</strong> o <strong>practicar con un stakeholder simulado</strong>.
         </div>
       </div>
@@ -289,7 +289,7 @@ function SetupForm(props: any) {
             <div className="eyebrow">Hallazgos a presentar</div>
             <button
               onClick={addFinding}
-              className="text-[11px] text-deloitte-greenDark font-semibold hover:underline"
+              className="text-[12px] text-deloitte-greenTxt font-semibold hover:underline"
             >+ agregar hallazgo</button>
           </div>
           <div className="space-y-2">
@@ -299,8 +299,8 @@ function SetupForm(props: any) {
                   value={f.severidad}
                   onChange={(e) => updateFinding(i, "severidad", e.target.value)}
                   className={`form-input w-32 flex-shrink-0 ${
-                    f.severidad === "Crítica" ? "border-risk-high text-risk-high" :
-                    f.severidad === "Alta" ? "border-risk-med text-risk-med" : "text-deloitte-slate"
+                    f.severidad === "Crítica" ? "border-risk-high text-risk-highTxt" :
+                    f.severidad === "Alta" ? "border-risk-med text-risk-medTxt" : "text-deloitte-slate"
                   }`}
                 >
                   <option value="Crítica">Crítica</option>
@@ -317,9 +317,9 @@ function SetupForm(props: any) {
                 {findings.length > 1 && (
                   <button
                     onClick={() => removeFinding(i)}
-                    className="px-2 text-deloitte-mute hover:text-risk-high"
+                    className="px-2 text-deloitte-mute hover:text-risk-highTxt"
                     title="Eliminar"
-                  >×</button>
+                  aria-label="Cerrar">×</button>
                 )}
               </div>
             ))}
@@ -331,21 +331,21 @@ function SetupForm(props: any) {
         <button
           onClick={onGoBriefing}
           disabled={!canProceed}
-          className="px-5 py-2.5 bg-deloitte-ink text-white text-[13px] font-semibold rounded hover:bg-deloitte-slate disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+          className="px-5 py-2.5 bg-deloitte-ink text-white text-[14px] font-semibold rounded hover:bg-deloitte-slate disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
         >
           <span>📋</span> Generar briefing estratégico
         </button>
         <button
           onClick={onGoRoleplay}
           disabled={!canProceed}
-          className="px-5 py-2.5 bg-deloitte-green text-white text-[13px] font-semibold rounded hover:bg-deloitte-greenDark disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+          className="px-5 py-2.5 bg-deloitte-green text-white text-[14px] font-semibold rounded hover:bg-deloitte-greenDark disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
         >
           <span>🎭</span> Practicar conversación (roleplay)
         </button>
       </div>
 
       {!canProceed && (
-        <div className="text-[11px] text-deloitte-mute italic">
+        <div className="text-[12px] text-deloitte-mute italic">
           Completa el cargo del stakeholder y al menos un hallazgo para continuar.
         </div>
       )}
@@ -356,8 +356,8 @@ function SetupForm(props: any) {
 function Field({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-1.5 mb-1">
-      <label className="text-[11px] font-semibold text-deloitte-slate uppercase tracking-wider">
-        {label} {required && <span className="text-risk-high">*</span>}
+      <label className="text-[12px] font-semibold text-deloitte-slate uppercase tracking-wider">
+        {label} {required && <span className="text-risk-highTxt">*</span>}
       </label>
       {children}
     </div>
@@ -419,17 +419,17 @@ Genera el briefing en la estructura especificada.`;
       <div className="flex items-center justify-between">
         <div>
           <div className="eyebrow">Briefing estratégico · Reunión con {profile.nombre || profile.cargo}</div>
-          <div className="text-[12px] text-deloitte-slate mt-0.5">
+          <div className="text-[13px] text-deloitte-slate mt-0.5">
             Personalidad: <span className="font-semibold">{profile.personalidad}</span> · {findings.length} {findings.length === 1 ? "hallazgo" : "hallazgos"}
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <button onClick={onBack} className="px-3 py-1.5 border border-deloitte-line text-[12px] rounded hover:border-deloitte-green">
+          <button onClick={onBack} className="px-3 py-1.5 border border-deloitte-line text-[13px] rounded hover:border-deloitte-green">
             ← Configurar
           </button>
           <button
             onClick={onGoRoleplay}
-            className="px-3 py-1.5 bg-deloitte-green text-white text-[12px] font-semibold rounded hover:bg-deloitte-greenDark flex items-center gap-1"
+            className="px-3 py-1.5 bg-deloitte-green text-white text-[13px] font-semibold rounded hover:bg-deloitte-greenDark flex items-center gap-1"
           >
             🎭 Practicar →
           </button>
@@ -437,14 +437,14 @@ Genera el briefing en la estructura especificada.`;
       </div>
 
       {loading && (
-        <div className="card p-8 text-center text-deloitte-mute text-[13px] font-mono">
+        <div className="card p-8 text-center text-deloitte-mute text-[14px] font-mono">
           <div className="inline-block w-4 h-4 border-2 border-deloitte-line border-t-deloitte-green rounded-full animate-spin mr-2 align-middle"></div>
           Preparando tu briefing estratégico...
         </div>
       )}
 
       {error && (
-        <div className="p-3 bg-red-50 border-l-2 border-risk-high text-[12px] text-risk-high rounded">
+        <div className="p-3 bg-red-50 border-l-2 border-risk-high text-[13px] text-risk-highTxt rounded">
           {error}
           <button onClick={generate} className="ml-3 underline font-semibold">Reintentar</button>
         </div>
@@ -453,10 +453,10 @@ Genera el briefing en la estructura especificada.`;
       {briefing && !loading && (
         <div className="card p-6">
           <div
-            className="text-[13px] leading-relaxed text-deloitte-slate prose-coach"
+            className="text-[14px] leading-relaxed text-deloitte-slate prose-coach"
             dangerouslySetInnerHTML={{ __html: formatBriefing(briefing) }}
           />
-          <div className="mt-5 pt-4 border-t border-deloitte-line text-[11px] text-deloitte-mute italic">
+          <div className="mt-5 pt-4 border-t border-deloitte-line text-[12px] text-deloitte-mute italic">
             Tip: cuando termines de leer, haz click en <strong>"Practicar"</strong> arriba para tener una conversación simulada con el stakeholder y ensayar antes de la reunión real.
           </div>
         </div>
@@ -728,24 +728,24 @@ Genera las pistas para el auditor en el JSON especificado.`;
       <div className="flex items-center justify-between">
         <div>
           <div className="eyebrow">Roleplay · estás conversando con {profile.nombre || profile.cargo}</div>
-          <div className="text-[12px] text-deloitte-slate mt-0.5">
+          <div className="text-[13px] text-deloitte-slate mt-0.5">
             Personalidad: <span className="font-semibold">{profile.personalidad}</span> · {profile.cargo}
-            {voiceSupported && voiceEnabled && <span className="text-deloitte-greenDark"> · 🔊 voz activada</span>}
+            {voiceSupported && voiceEnabled && <span className="text-deloitte-greenTxt"> · 🔊 voz activada</span>}
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <button onClick={onBack} className="px-3 py-1.5 border border-deloitte-line text-[12px] rounded hover:border-deloitte-green">
+          <button onClick={onBack} className="px-3 py-1.5 border border-deloitte-line text-[13px] rounded hover:border-deloitte-green">
             ← Configurar
           </button>
-          <button onClick={onGoBriefing} className="px-3 py-1.5 border border-deloitte-line text-[12px] rounded hover:border-deloitte-green">
+          <button onClick={onGoBriefing} className="px-3 py-1.5 border border-deloitte-line text-[13px] rounded hover:border-deloitte-green">
             📋 Ver briefing
           </button>
           {voiceSupported && (
             <button
               onClick={() => { if (isSpeaking) stopSpeaking(); setVoiceEnabled(!voiceEnabled); }}
-              className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-[10px] font-semibold uppercase tracking-wider transition-colors ${
+              className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-[11.5px] font-semibold uppercase tracking-wider transition-colors ${
                 voiceEnabled
-                  ? "bg-deloitte-green/10 text-deloitte-greenDark border border-deloitte-green/30"
+                  ? "bg-deloitte-green/10 text-deloitte-greenTxt border border-deloitte-green/30"
                   : "bg-deloitte-paper text-deloitte-mute border border-deloitte-line"
               }`}
               title={voiceEnabled ? "Voz activada · click para silenciar" : "Voz desactivada"}
@@ -756,7 +756,7 @@ Genera las pistas para el auditor en el JSON especificado.`;
           )}
           <button
             onClick={() => setHintsEnabled(!hintsEnabled)}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-[10px] font-semibold uppercase tracking-wider transition-colors ${
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-[11.5px] font-semibold uppercase tracking-wider transition-colors ${
               hintsEnabled
                 ? "bg-amber-100 text-amber-800 border border-amber-300"
                 : "bg-deloitte-paper text-deloitte-mute border border-deloitte-line"
@@ -771,7 +771,7 @@ Genera las pistas para el auditor en el JSON especificado.`;
 
       {/* Roleplay context card */}
       <div className="card p-3 bg-amber-50 border-l-2 border-amber-400">
-        <div className="text-[12px] text-deloitte-slate leading-relaxed">
+        <div className="text-[13px] text-deloitte-slate leading-relaxed">
           <strong>🎭 Modo roleplay con coaching activo.</strong> El sistema interpreta a <strong>{profile.nombre || profile.cargo}</strong> con personalidad <em>{profile.personalidad}</em>. Después de cada respuesta del stakeholder, el coach te dará pistas sobre cómo manejar el siguiente turno. Podés desactivar las pistas con el botón 💡 arriba.
         </div>
       </div>
@@ -782,11 +782,11 @@ Genera las pistas para el auditor en el JSON especificado.`;
           <div key={i}>
             <div className={`flex gap-3 ${m.role === "user" ? "justify-end" : ""}`}>
               {m.role === "assistant" && (
-                <div className="w-9 h-9 rounded-full bg-deloitte-ink text-white flex items-center justify-center text-[11px] font-bold flex-shrink-0 mt-1">
+                <div className="w-9 h-9 rounded-full bg-deloitte-ink text-white flex items-center justify-center text-[12px] font-bold flex-shrink-0 mt-1">
                   {profile.nombre ? profile.nombre.split(" ").map((p: string) => p[0]).slice(0, 2).join("") : "ST"}
                 </div>
               )}
-              <div className={`max-w-[75%] px-4 py-2.5 rounded-lg text-[13px] leading-relaxed ${
+              <div className={`max-w-[75%] px-4 py-2.5 rounded-lg text-[14px] leading-relaxed ${
                 m.role === "user"
                   ? "bg-deloitte-green text-white rounded-br-sm"
                   : "bg-white border border-deloitte-line text-deloitte-slate rounded-bl-sm"
@@ -796,13 +796,13 @@ Genera las pistas para el auditor en el JSON especificado.`;
                     {[5, 12, 8, 14, 6, 10, 5].map((h, k) => (
                       <span key={k} className="w-0.5 bg-deloitte-greenDark rounded animate-pulse" style={{ height: `${h}px`, animationDelay: `${k * 0.08}s`, animationDuration: "0.6s" }} />
                     ))}
-                    <button onClick={stopSpeaking} className="ml-2 text-[10px] text-deloitte-mute hover:text-risk-high underline">silenciar</button>
+                    <button onClick={stopSpeaking} className="ml-2 text-[11.5px] text-deloitte-mute hover:text-risk-highTxt underline">silenciar</button>
                   </div>
                 )}
                 {m.content}
               </div>
               {m.role === "user" && (
-                <div className="w-9 h-9 rounded-full bg-deloitte-paper border border-deloitte-line text-deloitte-mute flex items-center justify-center text-[11px] flex-shrink-0 mt-1">Tú</div>
+                <div className="w-9 h-9 rounded-full bg-deloitte-paper border border-deloitte-line text-deloitte-mute flex items-center justify-center text-[12px] flex-shrink-0 mt-1">Tú</div>
               )}
             </div>
 
@@ -819,10 +819,10 @@ Genera las pistas para el auditor en el JSON especificado.`;
         ))}
         {loading && (
           <div className="flex gap-3">
-            <div className="w-9 h-9 rounded-full bg-deloitte-ink text-white flex items-center justify-center text-[11px] font-bold flex-shrink-0 mt-1">
+            <div className="w-9 h-9 rounded-full bg-deloitte-ink text-white flex items-center justify-center text-[12px] font-bold flex-shrink-0 mt-1">
               {profile.nombre ? profile.nombre.split(" ").map((p: string) => p[0]).slice(0, 2).join("") : "ST"}
             </div>
-            <div className="bg-white border border-deloitte-line px-4 py-2.5 rounded-lg text-[12px] text-deloitte-mute font-mono">
+            <div className="bg-white border border-deloitte-line px-4 py-2.5 rounded-lg text-[13px] text-deloitte-mute font-mono">
               {profile.nombre || "El stakeholder"} está pensando…
             </div>
           </div>
@@ -830,11 +830,11 @@ Genera las pistas para el auditor en el JSON especificado.`;
       </div>
 
       {error && (
-        <div className="p-3 bg-red-50 border-l-2 border-risk-high text-[12px] text-risk-high rounded">{error}</div>
+        <div className="p-3 bg-red-50 border-l-2 border-risk-high text-[13px] text-risk-highTxt rounded">{error}</div>
       )}
 
       {voiceMessage && (
-        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 bg-deloitte-ink text-white px-4 py-2 rounded-lg shadow-lg text-[12px] font-mono z-50">
+        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 bg-deloitte-ink text-white px-4 py-2 rounded-lg shadow-lg text-[13px] font-mono z-50">
           {voiceMessage}
         </div>
       )}
@@ -853,7 +853,7 @@ Genera las pistas para el auditor en el JSON especificado.`;
           placeholder={isRecording ? "Escuchando... habla ahora" : "Tu turno: ¿qué le dices?"}
           rows={2}
           disabled={loading || isRecording}
-          className="flex-1 px-3 py-2 text-[13px] border-none focus:outline-none resize-none bg-transparent"
+          className="flex-1 px-3 py-2 text-[14px] border-none focus:outline-none resize-none bg-transparent"
         />
         {voiceSupported && (
           <button
@@ -881,13 +881,13 @@ Genera las pistas para el auditor en el JSON especificado.`;
         <button
           onClick={() => send()}
           disabled={loading || !input.trim() || isRecording}
-          className="px-4 py-2 bg-deloitte-ink text-white text-[12px] font-semibold rounded hover:bg-deloitte-slate disabled:opacity-50"
+          className="px-4 py-2 bg-deloitte-ink text-white text-[13px] font-semibold rounded hover:bg-deloitte-slate disabled:opacity-50"
         >
           {loading ? "..." : "Decir"}
         </button>
       </div>
 
-      <div className="text-[10px] text-deloitte-mute font-mono px-1">
+      <div className="text-[11.5px] text-deloitte-mute font-mono px-1">
         {isRecording
           ? "🔴 Grabando... pausa cuando termines de hablar."
           : voiceSupported
@@ -919,15 +919,15 @@ function CoachHintCard({ hint, loading, error, stakeholderName }: {
         <div className="pl-4 pr-4 py-3">
           {/* Header */}
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-[14px]">💡</span>
-            <span className="text-[10px] font-bold text-amber-800 uppercase tracking-wider">
+            <span className="text-[15px]">💡</span>
+            <span className="text-[11.5px] font-bold text-amber-800 uppercase tracking-wider">
               Coach · pistas para tu próximo turno
             </span>
           </div>
 
           {/* Loading */}
           {loading && (
-            <div className="flex items-center gap-2 text-[12px] text-amber-700 font-mono py-1">
+            <div className="flex items-center gap-2 text-[13px] text-amber-700 font-mono py-1">
               <div className="w-3 h-3 border-2 border-amber-300 border-t-amber-600 rounded-full animate-spin" />
               <span>Coach analizando cómo respondió {stakeholderName}…</span>
             </div>
@@ -935,41 +935,41 @@ function CoachHintCard({ hint, loading, error, stakeholderName }: {
 
           {/* Error */}
           {error && !loading && (
-            <div className="text-[11.5px] text-amber-900/70 italic">
+            <div className="text-[12.5px] text-amber-900/70 italic">
               No se pudo generar la pista para este turno ({error}).
             </div>
           )}
 
           {/* Hint content */}
           {hint && !loading && (
-            <div className="space-y-2 text-[12.5px] leading-relaxed">
+            <div className="space-y-2 text-[13.5px] leading-relaxed">
               {hint.lectura && (
                 <div>
-                  <div className="text-[10px] font-bold text-amber-700 uppercase tracking-wider mb-0.5">Lectura</div>
+                  <div className="text-[11.5px] font-bold text-amber-700 uppercase tracking-wider mb-0.5">Lectura</div>
                   <div className="text-deloitte-slate">{hint.lectura}</div>
                 </div>
               )}
 
               {hint.siguiente_movimiento && (
                 <div>
-                  <div className="text-[10px] font-bold text-amber-700 uppercase tracking-wider mb-0.5">Siguiente movimiento</div>
+                  <div className="text-[11.5px] font-bold text-amber-700 uppercase tracking-wider mb-0.5">Siguiente movimiento</div>
                   <div className="text-deloitte-slate">{hint.siguiente_movimiento}</div>
                 </div>
               )}
 
               {hint.frase_sugerida && (
                 <div className="bg-white/60 border border-amber-200 rounded px-2.5 py-1.5">
-                  <div className="text-[10px] font-bold text-amber-700 uppercase tracking-wider mb-0.5">Frase sugerida</div>
+                  <div className="text-[11.5px] font-bold text-amber-700 uppercase tracking-wider mb-0.5">Frase sugerida</div>
                   <div className="text-deloitte-ink italic">"{hint.frase_sugerida.replace(/^["']|["']$/g, "")}"</div>
                 </div>
               )}
 
               {hint.alerta && (
                 <div className="flex items-start gap-1.5 pt-1 border-t border-amber-200/60">
-                  <span className="text-[12px] flex-shrink-0">⚠️</span>
+                  <span className="text-[13px] flex-shrink-0">⚠️</span>
                   <div>
-                    <div className="text-[10px] font-bold text-risk-high uppercase tracking-wider">Cuidado</div>
-                    <div className="text-[12px] text-risk-high/90">{hint.alerta}</div>
+                    <div className="text-[11.5px] font-bold text-risk-highTxt uppercase tracking-wider">Cuidado</div>
+                    <div className="text-[13px] text-risk-highTxt/90">{hint.alerta}</div>
                   </div>
                 </div>
               )}

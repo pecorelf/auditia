@@ -65,7 +65,7 @@ export function Admin() {
         {/* Industria */}
         <div className="card p-5">
           <div className="eyebrow">Industria</div>
-          <p className="text-[12px] text-deloitte-mute mt-1 mb-3">
+          <p className="text-[13px] text-deloitte-mute mt-1 mb-3">
             Define el vocabulario completo de la demo: cargos, proveedores, categorías de gasto y los
             casos plantados. El motor de detección es el mismo para todas.
           </p>
@@ -82,13 +82,13 @@ export function Admin() {
               >
                 <div className="flex items-center justify-between gap-3">
                   <div>
-                    <div className="text-[13px] font-semibold text-deloitte-ink">{p.industria}</div>
-                    <div className="text-[11px] text-deloitte-mute mt-0.5">
+                    <div className="text-[14px] font-semibold text-deloitte-ink">{p.industria}</div>
+                    <div className="text-[12px] text-deloitte-mute mt-0.5">
                       Cliente de referencia: {p.cliente}
                     </div>
                   </div>
                   {packId === p.id && (
-                    <span className="pill bg-deloitte-green/15 text-deloitte-greenDark">Seleccionado</span>
+                    <span className="pill bg-deloitte-green/15 text-deloitte-greenTxt">Seleccionado</span>
                   )}
                 </div>
               </button>
@@ -99,29 +99,29 @@ export function Admin() {
         {/* Marca */}
         <div className="card p-5">
           <div className="eyebrow">Marca del cliente</div>
-          <p className="text-[12px] text-deloitte-mute mt-1 mb-4">
+          <p className="text-[13px] text-deloitte-mute mt-1 mb-4">
             Opcional. Permite mostrar el pack de {packSel.industria.split(" · ")[0].toLowerCase()} con
             el nombre y el logo del prospecto, sin crear un pack nuevo.
           </p>
 
           <div className="grid grid-cols-2 gap-5">
             <div>
-              <label className="text-[11px] font-semibold text-deloitte-slate block mb-1.5">
+              <label className="text-[12px] font-semibold text-deloitte-slate block mb-1.5">
                 Nombre del cliente
               </label>
               <input
                 value={cliente}
                 onChange={(e) => setCliente(e.target.value)}
                 placeholder={packSel.cliente}
-                className="w-full text-[13px] border border-deloitte-line rounded px-3 py-2 bg-white"
+                className="w-full text-[14px] border border-deloitte-line rounded px-3 py-2 bg-white"
               />
-              <div className="text-[10.5px] text-deloitte-mute mt-1.5">
+              <div className="text-[12px] text-deloitte-mute mt-1.5">
                 Vacío = usa {packSel.cliente}
               </div>
             </div>
 
             <div>
-              <label className="text-[11px] font-semibold text-deloitte-slate block mb-1.5">
+              <label className="text-[12px] font-semibold text-deloitte-slate block mb-1.5">
                 Logo
               </label>
               <div className="flex items-center gap-3">
@@ -129,7 +129,7 @@ export function Admin() {
                   {logo ? (
                     <img src={logo} alt="Logo" className="max-h-10 max-w-[88px] object-contain" />
                   ) : (
-                    <span className="text-[10px] text-deloitte-mute">sin logo</span>
+                    <span className="text-[11.5px] text-deloitte-mute">sin logo</span>
                   )}
                 </div>
                 <div className="flex-1">
@@ -137,24 +137,24 @@ export function Admin() {
                     type="file"
                     accept="image/*"
                     onChange={(e) => onLogo(e.target.files?.[0])}
-                    className="block w-full text-[11px] file:mr-2 file:py-1.5 file:px-3 file:rounded file:border file:border-deloitte-line file:bg-white file:text-[11px] file:cursor-pointer"
+                    className="block w-full text-[12px] file:mr-2 file:py-1.5 file:px-3 file:rounded file:border file:border-deloitte-line file:bg-white file:text-[12px] file:cursor-pointer"
                   />
                   {logo && (
                     <button
                       onClick={() => setLogo(undefined)}
-                      className="text-[10.5px] text-deloitte-mute hover:text-risk-high mt-1"
+                      className="text-[12px] text-deloitte-mute hover:text-risk-highTxt mt-1"
                     >
                       Quitar logo
                     </button>
                   )}
                 </div>
               </div>
-              <div className="text-[10.5px] text-deloitte-mute mt-1.5">PNG o SVG, hasta 400 KB</div>
+              <div className="text-[12px] text-deloitte-mute mt-1.5">PNG o SVG, hasta 400 KB</div>
             </div>
           </div>
 
           {error && (
-            <div className="mt-3 text-[11.5px] text-risk-high bg-red-50 border border-red-200 rounded px-3 py-2">
+            <div className="mt-3 text-[12.5px] text-risk-highTxt bg-red-50 border border-red-200 rounded px-3 py-2">
               {error}
             </div>
           )}
@@ -165,22 +165,22 @@ export function Admin() {
           <button
             onClick={aplicar}
             disabled={!sucio}
-            className="text-[12.5px] font-semibold px-5 py-2.5 rounded bg-deloitte-green text-white disabled:opacity-40 disabled:cursor-not-allowed hover:bg-deloitte-greenDark transition-colors"
+            className="text-[13.5px] font-semibold px-5 py-2.5 rounded bg-deloitte-green text-white disabled:opacity-40 disabled:cursor-not-allowed hover:bg-deloitte-greenDark transition-colors"
           >
             Aplicar y recargar
           </button>
           <button
             onClick={restaurar}
-            className="text-[12.5px] px-4 py-2.5 rounded border border-deloitte-line text-deloitte-slate hover:border-deloitte-mute"
+            className="text-[13.5px] px-4 py-2.5 rounded border border-deloitte-line text-deloitte-slate hover:border-deloitte-mute"
           >
             Restaurar marca del pack
           </button>
           {sucio && (
-            <span className="text-[11.5px] text-risk-med">Hay cambios sin aplicar</span>
+            <span className="text-[12.5px] text-risk-medTxt">Hay cambios sin aplicar</span>
           )}
         </div>
 
-        <div className="text-[11px] text-deloitte-mute leading-relaxed border-t border-deloitte-line pt-4">
+        <div className="text-[12px] text-deloitte-mute leading-relaxed border-t border-deloitte-line pt-4">
           La configuración se guarda en este navegador. Al aplicar, la app se recarga para regenerar
           los datasets con el vocabulario del pack elegido.
         </div>

@@ -4,6 +4,7 @@
 
 import { useState, useMemo } from "react";
 import { Header } from "../components/Header";
+import { LeyendaSeveridad } from "../components/LeyendaSeveridad";
 import { BRANDING } from "../config/branding";
 import { AnalisisEnVivo } from "../components/AnalisisEnVivo";
 import {
@@ -49,37 +50,37 @@ export function EspacioAFP() {
           <div className="bg-risk-high text-white px-5 py-3">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-[10px] uppercase tracking-wider font-bold opacity-80">
+                <div className="text-[11.5px] uppercase tracking-wider font-bold opacity-80">
                   Hallazgo que ningún proceso detecta por separado
                 </div>
-                <div className="text-[16px] font-bold mt-0.5">
+                <div className="text-[17px] font-bold mt-0.5">
                   Cadena contacto → cuenta bancaria → giro, ejecutada por el mismo ejecutivo
                 </div>
               </div>
               <div className="text-right">
                 <div className="text-[26px] font-bold tabular leading-none">{h.cadena.cantidad}</div>
-                <div className="text-[9px] uppercase tracking-wider opacity-80">casos</div>
+                <div className="text-[11px] uppercase tracking-wider opacity-80">casos</div>
               </div>
             </div>
           </div>
 
           <div className="bg-red-50 px-5 py-4">
-            <p className="text-[12.5px] text-deloitte-slate leading-snug mb-4">
+            <p className="text-[13.5px] text-deloitte-slate leading-snug mb-4">
               Cada paso, por sí solo, es una transacción legítima que pasa todos los controles de su
               proceso. El patrón solo existe al cruzar los tres. Total involucrado:{" "}
-              <strong className="text-risk-high">{CLP(h.cadena.montoTotal)}</strong>.
+              <strong className="text-risk-highTxt">{CLP(h.cadena.montoTotal)}</strong>.
             </p>
 
             {h.cadena.casos.slice(0, 2).map((c: any, i: number) => (
               <div key={i} className="bg-white border border-red-200 rounded p-3 mb-2">
                 <div className="flex items-center justify-between mb-2.5">
-                  <div className="text-[12px]">
+                  <div className="text-[13px]">
                     <span className="text-deloitte-mute">Afiliado:</span>{" "}
                     <strong className="text-deloitte-ink">{c.afiliado}</strong>
                     <span className="text-deloitte-mute"> · ejecutivo:</span>{" "}
-                    <strong className="text-risk-high">{c.ejecutivo}</strong>
+                    <strong className="text-risk-highTxt">{c.ejecutivo}</strong>
                   </div>
-                  <div className="text-[13px] font-bold tabular text-risk-high">{CLP(c.montoCLP)}</div>
+                  <div className="text-[14px] font-bold tabular text-risk-highTxt">{CLP(c.montoCLP)}</div>
                 </div>
 
                 <div className="flex items-stretch gap-1.5">
@@ -93,7 +94,7 @@ export function EspacioAFP() {
             ))}
 
             {h.cadena.casos.length > 2 && (
-              <div className="text-[11px] text-deloitte-mute mt-1">
+              <div className="text-[12px] text-deloitte-mute mt-1">
                 y {h.cadena.casos.length - 2} casos más con el mismo patrón — pregúntale a AuditIA por el detalle.
               </div>
             )}
@@ -131,6 +132,7 @@ export function EspacioAFP() {
         {/* Selector de proceso */}
         <div>
           <div className="eyebrow mb-2">Hallazgos por proceso</div>
+          <LeyendaSeveridad className="mb-3" />
           <div className="grid grid-cols-3 gap-3">
             {PROCESOS.map((p) => (
               <button
@@ -138,9 +140,9 @@ export function EspacioAFP() {
                 onClick={() => setProceso(p.id)}
                 className={`card p-3 text-left transition-all ${proceso === p.id ? "ring-2 ring-deloitte-green" : "hover:shadow-card"}`}
               >
-                <div className="text-[16px]">{p.icono}</div>
-                <div className="text-[12.5px] font-semibold mt-1 text-deloitte-ink">{p.nombre}</div>
-                <div className="text-[10.5px] text-deloitte-mute mt-1 leading-snug">{p.descripcion}</div>
+                <div className="text-[17px]">{p.icono}</div>
+                <div className="text-[13.5px] font-semibold mt-1 text-deloitte-ink">{p.nombre}</div>
+                <div className="text-[12px] text-deloitte-mute mt-1 leading-snug">{p.descripcion}</div>
               </button>
             ))}
           </div>
@@ -222,11 +224,11 @@ function PasoCadena({ n, titulo, fecha, nota, alerta }: {
   return (
     <div className={`flex-1 border rounded px-2.5 py-2 ${alerta ? "border-red-300 bg-red-50/60" : "border-deloitte-line bg-white"}`}>
       <div className="flex items-center gap-1.5">
-        <span className={`w-4 h-4 rounded-full text-[9px] font-bold flex items-center justify-center ${alerta ? "bg-risk-high text-white" : "bg-deloitte-paper text-deloitte-slate"}`}>{n}</span>
-        <span className="text-[10px] tabular text-deloitte-mute">{fmtDate(fecha)}</span>
+        <span className={`w-4 h-4 rounded-full text-[11px] font-bold flex items-center justify-center ${alerta ? "bg-risk-high text-white" : "bg-deloitte-paper text-deloitte-slate"}`}>{n}</span>
+        <span className="text-[11.5px] tabular text-deloitte-mute">{fmtDate(fecha)}</span>
       </div>
-      <div className="text-[11.5px] font-semibold text-deloitte-ink mt-1 leading-tight">{titulo}</div>
-      <div className={`text-[10px] mt-0.5 leading-tight ${alerta ? "text-risk-high font-medium" : "text-deloitte-mute"}`}>{nota}</div>
+      <div className="text-[12.5px] font-semibold text-deloitte-ink mt-1 leading-tight">{titulo}</div>
+      <div className={`text-[11.5px] mt-0.5 leading-tight ${alerta ? "text-risk-highTxt font-medium" : "text-deloitte-mute"}`}>{nota}</div>
     </div>
   );
 }
@@ -234,8 +236,8 @@ function PasoCadena({ n, titulo, fecha, nota, alerta }: {
 function Flecha({ dias }: { dias: number }) {
   return (
     <div className="flex flex-col items-center justify-center px-1 flex-shrink-0">
-      <div className="text-[14px] text-deloitte-mute leading-none">→</div>
-      <div className="text-[9px] text-deloitte-mute tabular mt-0.5 whitespace-nowrap">
+      <div className="text-[15px] text-deloitte-mute leading-none">→</div>
+      <div className="text-[11px] text-deloitte-mute tabular mt-0.5 whitespace-nowrap">
         {dias === 1 ? "1 día" : `${dias} días`}
       </div>
     </div>
@@ -247,9 +249,9 @@ function Hallazgo({ sev, titulo, cantidad, unidad, desc, norma, reco }: {
   titulo: string; cantidad: number; unidad: string; desc: string; norma: string; reco: string;
 }) {
   const st = {
-    critica: { bar: "bg-risk-high", bg: "bg-red-50", text: "text-risk-high", label: "Crítica" },
-    alta: { bar: "bg-risk-med", bg: "bg-amber-50", text: "text-risk-med", label: "Alta" },
-    media: { bar: "bg-deloitte-green", bg: "bg-deloitte-paper", text: "text-deloitte-greenDark", label: "Media" },
+    critica: { bar: "bg-risk-high", bg: "bg-red-50", text: "text-risk-highTxt", label: "Crítica" },
+    alta: { bar: "bg-risk-med", bg: "bg-amber-50", text: "text-risk-medTxt", label: "Alta" },
+    media: { bar: "bg-deloitte-green", bg: "bg-deloitte-paper", text: "text-deloitte-greenTxt", label: "Media" },
   }[sev];
 
   return (
@@ -258,23 +260,23 @@ function Hallazgo({ sev, titulo, cantidad, unidad, desc, norma, reco }: {
       <div className="pl-4 pr-4 py-3">
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1">
-            <div className={`text-[10px] uppercase tracking-wider font-bold ${st.text}`}>{st.label}</div>
-            <div className="text-[13px] font-semibold mt-0.5 text-deloitte-ink leading-tight">{titulo}</div>
-            <p className="text-[11.5px] text-deloitte-slate mt-1 leading-snug">{desc}</p>
-            <div className="text-[10px] text-deloitte-mute italic mt-1.5">
+            <div className={`text-[11.5px] uppercase tracking-wider font-bold ${st.text}`}>{st.label}</div>
+            <div className="text-[14px] font-semibold mt-0.5 text-deloitte-ink leading-tight">{titulo}</div>
+            <p className="text-[12.5px] text-deloitte-slate mt-1 leading-snug">{desc}</p>
+            <div className="text-[11.5px] text-deloitte-mute italic mt-1.5">
               <span className="font-semibold not-italic text-deloitte-slate">Referencia:</span> {norma}
             </div>
             <div className="mt-2 pt-2 border-t border-deloitte-line/60 flex items-start gap-1.5">
-              <span className="text-[11px] flex-shrink-0 mt-0.5">💡</span>
+              <span className="text-[12px] flex-shrink-0 mt-0.5">💡</span>
               <div>
-                <div className="text-[9px] uppercase tracking-wider font-bold text-deloitte-greenDark">Recomendación de AuditIA</div>
-                <p className="text-[11px] text-deloitte-slate leading-snug mt-0.5">{reco}</p>
+                <div className="text-[11px] uppercase tracking-wider font-bold text-deloitte-greenTxt">Recomendación de AuditIA</div>
+                <p className="text-[12px] text-deloitte-slate leading-snug mt-0.5">{reco}</p>
               </div>
             </div>
           </div>
           <div className="text-right">
             <div className={`text-[24px] font-bold tabular ${st.text} leading-none`}>{cantidad}</div>
-            <div className="text-[9px] text-deloitte-mute uppercase tracking-wider">{unidad}</div>
+            <div className="text-[11px] text-deloitte-mute uppercase tracking-wider">{unidad}</div>
           </div>
         </div>
       </div>

@@ -107,7 +107,7 @@ export function EspacioTres() {
   return (
     <>
       <Header
-        eyebrow="Espacio 03 · Audit Expert"
+        eyebrow="Audit Expert"
         title="Mejores prácticas y regulaciones"
         subtitle="Asistente experto con acceso a la Fábrica de Pensamiento del IAI España, NGAI y normativa chilena. Genera y evalúa planes de auditoría."
         meta={[
@@ -137,7 +137,7 @@ function TabButton({ active, onClick, children }: { active: boolean; onClick: ()
   return (
     <button
       onClick={onClick}
-      className={`px-4 py-2 text-[12.5px] font-semibold border-b-2 transition-all ${
+      className={`px-4 py-2 text-[13.5px] font-semibold border-b-2 transition-all ${
         active
           ? "border-deloitte-green text-deloitte-ink"
           : "border-transparent text-deloitte-mute hover:text-deloitte-ink"
@@ -356,7 +356,7 @@ function TabConsulta() {
   return (
     <div className="px-8 py-6 space-y-4 max-w-5xl">
       <div className="card p-3 bg-deloitte-paper/40 border-l-2 border-deloitte-green flex items-start justify-between gap-4">
-        <div className="text-[11px] text-deloitte-slate flex-1">
+        <div className="text-[12px] text-deloitte-slate flex-1">
           <span className="font-semibold">Fuente activa:</span> Fábrica de Pensamiento · auditoresinternos.es
           <span className="text-deloitte-mute"> · AuditIA consulta los documentos públicos del IAI España y normativa chilena para responder.</span>
         </div>
@@ -364,9 +364,9 @@ function TabConsulta() {
         {voiceSupported && (
           <button
             onClick={toggleVoiceOutput}
-            className={`flex-shrink-0 flex items-center gap-1.5 px-2.5 py-1 rounded text-[10px] font-semibold uppercase tracking-wider transition-colors ${
+            className={`flex-shrink-0 flex items-center gap-1.5 px-2.5 py-1 rounded text-[11.5px] font-semibold uppercase tracking-wider transition-colors ${
               voiceEnabled
-                ? "bg-deloitte-green/10 text-deloitte-greenDark border border-deloitte-green/30"
+                ? "bg-deloitte-green/10 text-deloitte-greenTxt border border-deloitte-green/30"
                 : "bg-deloitte-paper text-deloitte-mute border border-deloitte-line"
             }`}
             title={voiceEnabled ? "Voz activada · click para silenciar" : "Voz desactivada · click para activar"}
@@ -385,14 +385,14 @@ function TabConsulta() {
               <button
                 key={i}
                 onClick={() => send(e)}
-                className="text-left p-3 bg-white border border-deloitte-line rounded hover:border-deloitte-green hover:bg-deloitte-paper transition-all text-[12.5px] text-deloitte-slate"
+                className="text-left p-3 bg-white border border-deloitte-line rounded hover:border-deloitte-green hover:bg-deloitte-paper transition-all text-[13.5px] text-deloitte-slate"
               >
                 <span className="text-deloitte-green mr-1">→</span> {e}
               </button>
             ))}
           </div>
           {voiceSupported && (
-            <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded text-[12px] text-blue-900">
+            <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded text-[13px] text-blue-900">
               <strong>💡 Tip:</strong> Puedes hacer tu consulta hablando. Pulsa el botón del micrófono abajo, formula tu pregunta, y AuditIA te responderá por voz.
             </div>
           )}
@@ -404,9 +404,9 @@ function TabConsulta() {
         {conversation.map((m, i) => (
           <div key={i} className={`flex gap-3 ${m.role === "user" ? "justify-end" : ""}`}>
             {m.role === "assistant" && (
-              <div className="w-7 h-7 rounded bg-deloitte-ink text-deloitte-green flex items-center justify-center text-[9px] font-bold flex-shrink-0 mt-1 font-mono">AI</div>
+              <div className="w-7 h-7 rounded bg-deloitte-ink text-deloitte-green flex items-center justify-center text-[11px] font-bold flex-shrink-0 mt-1 font-mono">AI</div>
             )}
-            <div className={`max-w-[80%] px-4 py-2.5 rounded-lg text-[13px] leading-relaxed ${
+            <div className={`max-w-[80%] px-4 py-2.5 rounded-lg text-[14px] leading-relaxed ${
               m.role === "user"
                 ? "bg-deloitte-ink text-white rounded-br-sm"
                 : m.viaVoz
@@ -414,7 +414,7 @@ function TabConsulta() {
                   : "bg-deloitte-paper border-l-2 border-deloitte-green text-deloitte-slate rounded-bl-sm"
             }`}>
               {m.viaVoz && m.role === "assistant" && (
-                <div className="flex items-center gap-1.5 text-[10px] text-blue-700 font-mono mb-1.5">
+                <div className="flex items-center gap-1.5 text-[11.5px] text-blue-700 font-mono mb-1.5">
                   <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-500" />
                   respuesta por voz
                   {isSpeaking && i === conversation.length - 1 && (
@@ -426,7 +426,7 @@ function TabConsulta() {
                 </div>
               )}
               {m.viaVoz && m.role === "user" && (
-                <div className="flex items-center gap-1.5 text-[10px] text-white/60 font-mono mb-1 justify-end">
+                <div className="flex items-center gap-1.5 text-[11.5px] text-white/60 font-mono mb-1 justify-end">
                   <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-400" />
                   vía voz
                 </div>
@@ -441,14 +441,14 @@ function TabConsulta() {
               )}
             </div>
             {m.role === "user" && (
-              <div className="w-7 h-7 rounded bg-deloitte-paper border border-deloitte-line text-deloitte-mute flex items-center justify-center text-[11px] flex-shrink-0 mt-1">👤</div>
+              <div className="w-7 h-7 rounded bg-deloitte-paper border border-deloitte-line text-deloitte-mute flex items-center justify-center text-[12px] flex-shrink-0 mt-1">👤</div>
             )}
           </div>
         ))}
         {loading && (
           <div className="flex gap-3">
-            <div className="w-7 h-7 rounded bg-deloitte-ink text-deloitte-green flex items-center justify-center text-[9px] font-bold flex-shrink-0 mt-1 font-mono">AI</div>
-            <div className="bg-deloitte-paper border-l-2 border-deloitte-green px-4 py-2.5 rounded-lg text-[12px] text-deloitte-mute font-mono">
+            <div className="w-7 h-7 rounded bg-deloitte-ink text-deloitte-green flex items-center justify-center text-[11px] font-bold flex-shrink-0 mt-1 font-mono">AI</div>
+            <div className="bg-deloitte-paper border-l-2 border-deloitte-green px-4 py-2.5 rounded-lg text-[13px] text-deloitte-mute font-mono">
               Consultando Fábrica de Pensamiento...
             </div>
           </div>
@@ -456,13 +456,13 @@ function TabConsulta() {
       </div>
 
       {error && (
-        <div className="p-3 bg-red-50 border-l-2 border-risk-high text-[12px] text-risk-high rounded">
+        <div className="p-3 bg-red-50 border-l-2 border-risk-high text-[13px] text-risk-highTxt rounded">
           {error}
         </div>
       )}
 
       {voiceMessage && (
-        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 bg-deloitte-ink text-white px-4 py-2 rounded-lg shadow-lg text-[12px] font-mono z-50">
+        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 bg-deloitte-ink text-white px-4 py-2 rounded-lg shadow-lg text-[13px] font-mono z-50">
           {voiceMessage}
         </div>
       )}
@@ -481,7 +481,7 @@ function TabConsulta() {
           placeholder={isRecording ? "Escuchando... habla ahora" : "Pregunta al experto en auditoría interna, o usa el micrófono"}
           rows={2}
           disabled={loading || isRecording}
-          className="flex-1 px-3 py-2 text-[13px] border-none focus:outline-none resize-none bg-transparent"
+          className="flex-1 px-3 py-2 text-[14px] border-none focus:outline-none resize-none bg-transparent"
         />
 
         {/* Botón micrófono */}
@@ -512,14 +512,14 @@ function TabConsulta() {
         <button
           onClick={() => send()}
           disabled={loading || !input.trim() || isRecording}
-          className="px-4 py-2 bg-deloitte-green text-white text-[12px] font-semibold rounded hover:bg-deloitte-greenDark disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-4 py-2 bg-deloitte-green text-white text-[13px] font-semibold rounded hover:bg-deloitte-greenDark disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? "..." : "Consultar"}
         </button>
       </div>
 
       {voiceSupported && (
-        <div className="text-[10px] text-deloitte-mute font-mono px-1">
+        <div className="text-[11.5px] text-deloitte-mute font-mono px-1">
           {isRecording
             ? "🔴 Grabando... el reconocimiento se detiene al hacer pausa o al pulsar de nuevo el micrófono."
             : "Enter · enviar  |  Shift+Enter · nueva línea  |  🎤 · hablar con el experto"}
@@ -623,7 +623,7 @@ Responde solo con el JSON estructurado especificado.`;
       {!result && (
         <>
           <div className="card p-3 bg-deloitte-paper/40 border-l-2 border-deloitte-green mb-5">
-            <div className="text-[12px] text-deloitte-slate">
+            <div className="text-[13px] text-deloitte-slate">
               Describe el engagement. AuditIA consultará buenas prácticas del IAI España y generará un plan estructurado con <strong>objetivos, alcance, riesgos, metodología, fases, recursos, papeles de trabajo y entregables</strong>.
             </div>
           </div>
@@ -660,7 +660,7 @@ Responde solo con el JSON estructurado especificado.`;
           </div>
 
           {error && (
-            <div className="mt-4 p-3 bg-red-50 border-l-2 border-risk-high text-[12px] text-risk-high rounded">
+            <div className="mt-4 p-3 bg-red-50 border-l-2 border-risk-high text-[13px] text-risk-highTxt rounded">
               {error}
             </div>
           )}
@@ -669,11 +669,11 @@ Responde solo con el JSON estructurado especificado.`;
             <button
               onClick={run}
               disabled={loading}
-              className="px-6 py-2.5 bg-deloitte-green text-white text-[13px] font-semibold rounded hover:bg-deloitte-greenDark disabled:opacity-50"
+              className="px-6 py-2.5 bg-deloitte-green text-white text-[14px] font-semibold rounded hover:bg-deloitte-greenDark disabled:opacity-50"
             >
               {loading ? "⏳ Consultando IAI España y generando..." : "✨ Generar plan con IA"}
             </button>
-            <button onClick={() => setForm({ organizacion: "", sector: "", tipoAuditoria: "", periodo: "", briefing: "", contexto: "" })} className="px-4 py-2.5 border border-deloitte-line text-[13px] rounded hover:border-deloitte-mute">
+            <button onClick={() => setForm({ organizacion: "", sector: "", tipoAuditoria: "", periodo: "", briefing: "", contexto: "" })} className="px-4 py-2.5 border border-deloitte-line text-[14px] rounded hover:border-deloitte-mute">
               Limpiar
             </button>
           </div>
@@ -688,8 +688,8 @@ Responde solo con el JSON estructurado especificado.`;
 function Field({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-1.5 mb-1">
-      <label className="text-[11px] font-semibold text-deloitte-slate uppercase tracking-wider">
-        {label} {required && <span className="text-risk-high">*</span>}
+      <label className="text-[12px] font-semibold text-deloitte-slate uppercase tracking-wider">
+        {label} {required && <span className="text-risk-highTxt">*</span>}
       </label>
       {children}
     </div>
@@ -704,14 +704,14 @@ function PlanResult({ plan, org, sector, onReset }: { plan: any; org: string; se
           <div className="eyebrow">Plan generado · {org} · {sector}</div>
           <h2 className="text-[18px] font-serif font-semibold text-deloitte-ink mt-1">{plan.titulo || "Plan de Auditoría"}</h2>
         </div>
-        <button onClick={onReset} className="px-3 py-1.5 border border-deloitte-line text-[12px] rounded hover:border-deloitte-green">
+        <button onClick={onReset} className="px-3 py-1.5 border border-deloitte-line text-[13px] rounded hover:border-deloitte-green">
           ← Nuevo plan
         </button>
       </div>
 
       <div className="card overflow-hidden">
         <Section title="Resumen ejecutivo">
-          <p className="text-[13px] leading-relaxed text-deloitte-slate">{plan.resumen_ejecutivo}</p>
+          <p className="text-[14px] leading-relaxed text-deloitte-slate">{plan.resumen_ejecutivo}</p>
         </Section>
 
         {plan.objetivos?.length > 0 && (
@@ -719,8 +719,8 @@ function PlanResult({ plan, org, sector, onReset }: { plan: any; org: string; se
             <div className="space-y-2">
               {plan.objetivos.map((o: any, i: number) => (
                 <div key={i} className="flex gap-3 p-2.5 bg-deloitte-paper/40 rounded border border-deloitte-line">
-                  <div className="w-6 h-6 rounded-full bg-deloitte-ink text-white text-[11px] font-bold flex items-center justify-center flex-shrink-0">{o.numero || i + 1}</div>
-                  <div className="text-[12.5px]">
+                  <div className="w-6 h-6 rounded-full bg-deloitte-ink text-white text-[12px] font-bold flex items-center justify-center flex-shrink-0">{o.numero || i + 1}</div>
+                  <div className="text-[13.5px]">
                     <div className="font-semibold text-deloitte-ink">{o.titulo}</div>
                     <div className="text-deloitte-slate mt-0.5">{o.descripcion}</div>
                   </div>
@@ -732,9 +732,9 @@ function PlanResult({ plan, org, sector, onReset }: { plan: any; org: string; se
 
         {plan.alcance && (
           <Section title="Alcance">
-            <div className="grid grid-cols-2 gap-4 text-[12.5px]">
+            <div className="grid grid-cols-2 gap-4 text-[13.5px]">
               <div>
-                <div className="text-[10px] font-bold text-deloitte-green uppercase tracking-wider mb-2">Incluye</div>
+                <div className="text-[11.5px] font-bold text-deloitte-green uppercase tracking-wider mb-2">Incluye</div>
                 {(plan.alcance.incluye || []).map((i: string, k: number) => (
                   <div key={k} className="py-1 pl-4 relative text-deloitte-slate">
                     <span className="absolute left-0 text-deloitte-green font-bold">✓</span>{i}
@@ -742,10 +742,10 @@ function PlanResult({ plan, org, sector, onReset }: { plan: any; org: string; se
                 ))}
               </div>
               <div>
-                <div className="text-[10px] font-bold text-risk-high uppercase tracking-wider mb-2">Excluye</div>
+                <div className="text-[11.5px] font-bold text-risk-highTxt uppercase tracking-wider mb-2">Excluye</div>
                 {(plan.alcance.excluye || []).map((i: string, k: number) => (
                   <div key={k} className="py-1 pl-4 relative text-deloitte-mute">
-                    <span className="absolute left-0 text-risk-high">✗</span>{i}
+                    <span className="absolute left-0 text-risk-highTxt">✗</span>{i}
                   </div>
                 ))}
               </div>
@@ -758,10 +758,10 @@ function PlanResult({ plan, org, sector, onReset }: { plan: any; org: string; se
             <div className="space-y-1.5">
               {plan.riesgos_clave.map((r: any, i: number) => (
                 <div key={i} className="flex items-center gap-3 p-2 border border-deloitte-line rounded bg-white">
-                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider ${
-                    r.nivel === "Alto" ? "bg-red-100 text-risk-high" : r.nivel === "Medio" ? "bg-amber-100 text-risk-med" : "bg-green-100 text-risk-low"
+                  <span className={`text-[11.5px] font-bold px-2 py-0.5 rounded uppercase tracking-wider ${
+                    r.nivel === "Alto" ? "bg-red-100 text-risk-highTxt" : r.nivel === "Medio" ? "bg-amber-100 text-risk-medTxt" : "bg-green-100 text-risk-lowTxt"
                   }`}>{r.nivel}</span>
-                  <div className="text-[12.5px] text-deloitte-slate flex-1">
+                  <div className="text-[13.5px] text-deloitte-slate flex-1">
                     <strong className="text-deloitte-ink">{r.riesgo}</strong> — {r.enfoque}
                   </div>
                 </div>
@@ -772,7 +772,7 @@ function PlanResult({ plan, org, sector, onReset }: { plan: any; org: string; se
 
         {plan.metodologia && (
           <Section title="Metodología">
-            <p className="text-[13px] leading-relaxed text-deloitte-slate">{plan.metodologia}</p>
+            <p className="text-[14px] leading-relaxed text-deloitte-slate">{plan.metodologia}</p>
           </Section>
         )}
 
@@ -781,13 +781,13 @@ function PlanResult({ plan, org, sector, onReset }: { plan: any; org: string; se
             <div className="space-y-2">
               {plan.fases.map((f: any, i: number) => (
                 <div key={i} className="flex gap-3 p-2.5 border border-deloitte-line rounded bg-deloitte-paper/40">
-                  <div className="w-20 flex-shrink-0 text-[11px] font-bold text-deloitte-green uppercase tracking-wider font-mono">{f.fase}</div>
-                  <div className="flex-1 text-[12.5px] text-deloitte-slate">
+                  <div className="w-20 flex-shrink-0 text-[12px] font-bold text-deloitte-green uppercase tracking-wider font-mono">{f.fase}</div>
+                  <div className="flex-1 text-[13.5px] text-deloitte-slate">
                     {(f.actividades || []).map((a: string, k: number) => (
                       <div key={k} className="py-0.5">› {a}</div>
                     ))}
                   </div>
-                  <div className="text-[11px] text-deloitte-mute font-mono">{f.duracion}</div>
+                  <div className="text-[12px] text-deloitte-mute font-mono">{f.duracion}</div>
                 </div>
               ))}
             </div>
@@ -796,23 +796,23 @@ function PlanResult({ plan, org, sector, onReset }: { plan: any; org: string; se
 
         {plan.recursos && (
           <Section title="Recursos">
-            <div className="space-y-2 text-[12.5px]">
+            <div className="space-y-2 text-[13.5px]">
               {plan.recursos.equipo?.length > 0 && (
                 <div>
-                  <div className="text-[10px] uppercase tracking-wider text-deloitte-mute mb-1">Equipo</div>
+                  <div className="text-[11.5px] uppercase tracking-wider text-deloitte-mute mb-1">Equipo</div>
                   <div className="flex flex-wrap gap-1">
                     {plan.recursos.equipo.map((e: string, k: number) => (
-                      <span key={k} className="px-2 py-1 bg-deloitte-paper border border-deloitte-line rounded text-[11px]">{e}</span>
+                      <span key={k} className="px-2 py-1 bg-deloitte-paper border border-deloitte-line rounded text-[12px]">{e}</span>
                     ))}
                   </div>
                 </div>
               )}
               {plan.recursos.herramientas?.length > 0 && (
                 <div>
-                  <div className="text-[10px] uppercase tracking-wider text-deloitte-mute mb-1">Herramientas</div>
+                  <div className="text-[11.5px] uppercase tracking-wider text-deloitte-mute mb-1">Herramientas</div>
                   <div className="flex flex-wrap gap-1">
                     {plan.recursos.herramientas.map((h: string, k: number) => (
-                      <span key={k} className="px-2 py-1 bg-green-50 border border-green-200 text-deloitte-greenDark rounded text-[11px]">{h}</span>
+                      <span key={k} className="px-2 py-1 bg-green-50 border border-green-200 text-deloitte-greenTxt rounded text-[12px]">{h}</span>
                     ))}
                   </div>
                 </div>
@@ -830,12 +830,12 @@ function PlanResult({ plan, org, sector, onReset }: { plan: any; org: string; se
               {plan.papeles_de_trabajo.map((p: any, i: number) => (
                 <div key={i} className="p-3 border border-deloitte-line rounded bg-white">
                   <div className="flex items-start gap-3">
-                    <span className="text-[10px] font-mono font-bold text-deloitte-green bg-green-50 border border-green-200 px-2 py-0.5 rounded uppercase tracking-wider">{p.codigo || `PT-${i+1}`}</span>
+                    <span className="text-[11.5px] font-mono font-bold text-deloitte-green bg-green-50 border border-green-200 px-2 py-0.5 rounded uppercase tracking-wider">{p.codigo || `PT-${i+1}`}</span>
                     <div className="flex-1">
-                      <div className="text-[13px] font-semibold text-deloitte-ink">{p.titulo}</div>
-                      <div className="text-[12px] text-deloitte-slate mt-1">{p.descripcion}</div>
+                      <div className="text-[14px] font-semibold text-deloitte-ink">{p.titulo}</div>
+                      <div className="text-[13px] text-deloitte-slate mt-1">{p.descripcion}</div>
                       {p.evidencia_esperada && (
-                        <div className="text-[11px] text-deloitte-greenDark mt-1.5 italic">
+                        <div className="text-[12px] text-deloitte-greenTxt mt-1.5 italic">
                           → Evidencia esperada: {p.evidencia_esperada}
                         </div>
                       )}
@@ -850,7 +850,7 @@ function PlanResult({ plan, org, sector, onReset }: { plan: any; org: string; se
         {plan.criterios_evaluacion?.length > 0 && (
           <Section title="Criterios de evaluación">
             {plan.criterios_evaluacion.map((c: string, i: number) => (
-              <div key={i} className="py-1 pl-4 relative text-[12.5px] text-deloitte-slate">
+              <div key={i} className="py-1 pl-4 relative text-[13.5px] text-deloitte-slate">
                 <span className="absolute left-0 text-deloitte-green">›</span>{c}
               </div>
             ))}
@@ -860,7 +860,7 @@ function PlanResult({ plan, org, sector, onReset }: { plan: any; org: string; se
         {plan.entregables?.length > 0 && (
           <Section title="Entregables">
             {plan.entregables.map((e: string, i: number) => (
-              <div key={i} className="py-1 pl-4 relative text-[12.5px] text-deloitte-slate">
+              <div key={i} className="py-1 pl-4 relative text-[13.5px] text-deloitte-slate">
                 <span className="absolute left-0 text-deloitte-green font-bold">›</span>{e}
               </div>
             ))}
@@ -871,7 +871,7 @@ function PlanResult({ plan, org, sector, onReset }: { plan: any; org: string; se
           <Section title="Fuentes IAI consultadas">
             <div className="flex flex-wrap gap-1.5">
               {plan.fuentes_iai.map((s: string, i: number) => (
-                <span key={i} className="px-2 py-1 bg-green-50 border border-green-200 text-deloitte-greenDark rounded text-[11px] font-mono">📄 {s}</span>
+                <span key={i} className="px-2 py-1 bg-green-50 border border-green-200 text-deloitte-greenTxt rounded text-[12px] font-mono">📄 {s}</span>
               ))}
             </div>
           </Section>
@@ -886,7 +886,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
     <div className="px-5 py-4 border-b border-deloitte-line last:border-b-0">
       <div className="flex items-center gap-2 mb-3">
         <span className="inline-block w-1 h-3.5 bg-deloitte-green rounded"></span>
-        <div className="text-[10px] font-bold text-deloitte-greenDark uppercase tracking-widest font-mono">{title}</div>
+        <div className="text-[11.5px] font-bold text-deloitte-greenTxt uppercase tracking-widest font-mono">{title}</div>
       </div>
       <div>{children}</div>
     </div>
@@ -994,7 +994,7 @@ Responde solo con el JSON estructurado.`;
       {!result && (
         <>
           <div className="card p-3 bg-deloitte-paper/40 border-l-2 border-deloitte-green mb-5">
-            <div className="text-[12px] text-deloitte-slate">
+            <div className="text-[13px] text-deloitte-slate">
               Compara tu plan con las buenas prácticas del IAI España y las Normas Globales. Recibirás un <strong>score por dimensiones, hallazgos clasificados por severidad y recomendaciones priorizadas</strong>.
             </div>
           </div>
@@ -1040,7 +1040,7 @@ Responde solo con el JSON estructurado.`;
           </div>
 
           <div className="mt-4">
-            <div className="text-[11px] font-semibold text-deloitte-slate uppercase tracking-wider mb-2">Elementos del plan presentes (marca los que apliquen)</div>
+            <div className="text-[12px] font-semibold text-deloitte-slate uppercase tracking-wider mb-2">Elementos del plan presentes (marca los que apliquen)</div>
             <div className="grid grid-cols-2 gap-2">
               {elementosOpciones.map((e) => {
                 const on = form.elementos.includes(e.key);
@@ -1052,10 +1052,10 @@ Responde solo con el JSON estructurado.`;
                       on ? "border-deloitte-green bg-green-50" : "border-deloitte-line bg-white hover:border-deloitte-mute"
                     }`}
                   >
-                    <div className={`w-4 h-4 border-2 rounded mt-0.5 flex-shrink-0 flex items-center justify-center text-[10px] text-white ${
+                    <div className={`w-4 h-4 border-2 rounded mt-0.5 flex-shrink-0 flex items-center justify-center text-[11.5px] text-white ${
                       on ? "bg-deloitte-green border-deloitte-green" : "border-deloitte-line"
                     }`}>{on && "✓"}</div>
-                    <div className="text-[11.5px] leading-tight">
+                    <div className="text-[12.5px] leading-tight">
                       <div className="font-semibold text-deloitte-ink">{e.title}</div>
                       <div className="text-deloitte-mute mt-0.5">{e.desc}</div>
                     </div>
@@ -1066,14 +1066,14 @@ Responde solo con el JSON estructurado.`;
           </div>
 
           {error && (
-            <div className="mt-4 p-3 bg-red-50 border-l-2 border-risk-high text-[12px] text-risk-high rounded">{error}</div>
+            <div className="mt-4 p-3 bg-red-50 border-l-2 border-risk-high text-[13px] text-risk-highTxt rounded">{error}</div>
           )}
 
           <div className="mt-5 flex gap-3">
-            <button onClick={run} disabled={loading} className="px-6 py-2.5 bg-deloitte-green text-white text-[13px] font-semibold rounded hover:bg-deloitte-greenDark disabled:opacity-50">
+            <button onClick={run} disabled={loading} className="px-6 py-2.5 bg-deloitte-green text-white text-[14px] font-semibold rounded hover:bg-deloitte-greenDark disabled:opacity-50">
               {loading ? "⏳ Analizando contra mejores prácticas..." : "⚡ Evaluar con IA"}
             </button>
-            <button onClick={() => setForm({ organizacion: "", sector: "", equipo: "", madurez: "", plan: "", areas: "", elementos: [] })} className="px-4 py-2.5 border border-deloitte-line text-[13px] rounded hover:border-deloitte-mute">
+            <button onClick={() => setForm({ organizacion: "", sector: "", equipo: "", madurez: "", plan: "", areas: "", elementos: [] })} className="px-4 py-2.5 border border-deloitte-line text-[14px] rounded hover:border-deloitte-mute">
               Limpiar
             </button>
           </div>
@@ -1086,11 +1086,11 @@ Responde solo con el JSON estructurado.`;
 }
 
 function EvalResult({ evaluation, org, sector, onReset }: { evaluation: any; org: string; sector: string; onReset: () => void }) {
-  const scoreClass = evaluation.score_global >= 70 ? "text-risk-low border-risk-low bg-green-50"
-    : evaluation.score_global >= 40 ? "text-risk-med border-risk-med bg-amber-50"
-    : "text-risk-high border-risk-high bg-red-50";
+  const scoreClass = evaluation.score_global >= 70 ? "text-risk-lowTxt border-risk-low bg-green-50"
+    : evaluation.score_global >= 40 ? "text-risk-medTxt border-risk-med bg-amber-50"
+    : "text-risk-highTxt border-risk-high bg-red-50";
 
-  const sevMap: any = { alta: "text-risk-high", media: "text-risk-med", baja: "text-risk-low" };
+  const sevMap: any = { alta: "text-risk-highTxt", media: "text-risk-medTxt", baja: "text-risk-lowTxt" };
 
   return (
     <div>
@@ -1098,7 +1098,7 @@ function EvalResult({ evaluation, org, sector, onReset }: { evaluation: any; org
         <div>
           <div className="eyebrow">Evaluación · {org} · {sector}</div>
         </div>
-        <button onClick={onReset} className="px-3 py-1.5 border border-deloitte-line text-[12px] rounded hover:border-deloitte-green">
+        <button onClick={onReset} className="px-3 py-1.5 border border-deloitte-line text-[13px] rounded hover:border-deloitte-green">
           ← Nueva evaluación
         </button>
       </div>
@@ -1106,30 +1106,30 @@ function EvalResult({ evaluation, org, sector, onReset }: { evaluation: any; org
       <div className={`card p-5 mb-4 flex items-center gap-6 border-l-4 ${scoreClass}`}>
         <div className="text-center">
           <div className="text-[42px] font-bold tabular leading-none">{evaluation.score_global}</div>
-          <div className="text-[10px] text-deloitte-mute uppercase tracking-wider">/100</div>
+          <div className="text-[11.5px] text-deloitte-mute uppercase tracking-wider">/100</div>
         </div>
         <div className="flex-1">
-          <div className="text-[16px] font-semibold text-deloitte-ink">{evaluation.nivel}</div>
-          <div className="text-[12.5px] text-deloitte-slate mt-1">{evaluation.resumen}</div>
+          <div className="text-[17px] font-semibold text-deloitte-ink">{evaluation.nivel}</div>
+          <div className="text-[13.5px] text-deloitte-slate mt-1">{evaluation.resumen}</div>
         </div>
       </div>
 
       {evaluation.dimensiones?.length > 0 && (
         <div>
-          <div className="text-[10px] font-bold text-deloitte-slate uppercase tracking-wider mb-2 border-b-2 border-deloitte-green inline-block pb-0.5">Dimensiones evaluadas</div>
+          <div className="text-[11.5px] font-bold text-deloitte-slate uppercase tracking-wider mb-2 border-b-2 border-deloitte-green inline-block pb-0.5">Dimensiones evaluadas</div>
           <div className="grid grid-cols-2 gap-2.5 mt-2 mb-5">
             {evaluation.dimensiones.map((d: any, i: number) => {
               const color = d.score >= 70 ? "#16A34A" : d.score >= 40 ? "#F59E0B" : "#DC2626";
               return (
                 <div key={i} className="card p-3">
                   <div className="flex items-center justify-between mb-2">
-                    <div className="text-[11.5px] font-semibold text-deloitte-ink">{d.nombre}</div>
-                    <div className="text-[12px] font-bold tabular" style={{ color }}>{d.score}/100</div>
+                    <div className="text-[12.5px] font-semibold text-deloitte-ink">{d.nombre}</div>
+                    <div className="text-[13px] font-bold tabular" style={{ color }}>{d.score}/100</div>
                   </div>
                   <div className="h-1 bg-deloitte-paper rounded overflow-hidden mb-2">
                     <div className="h-full" style={{ width: `${d.score}%`, background: color }} />
                   </div>
-                  <div className="text-[11px] text-deloitte-slate leading-snug">{d.comentario}</div>
+                  <div className="text-[12px] text-deloitte-slate leading-snug">{d.comentario}</div>
                 </div>
               );
             })}
@@ -1139,7 +1139,7 @@ function EvalResult({ evaluation, org, sector, onReset }: { evaluation: any; org
 
       {evaluation.hallazgos?.length > 0 && (
         <div className="mb-5">
-          <div className="text-[10px] font-bold text-deloitte-slate uppercase tracking-wider mb-2 border-b-2 border-deloitte-green inline-block pb-0.5">Hallazgos</div>
+          <div className="text-[11.5px] font-bold text-deloitte-slate uppercase tracking-wider mb-2 border-b-2 border-deloitte-green inline-block pb-0.5">Hallazgos</div>
           <div className="space-y-2 mt-2">
             {evaluation.hallazgos.map((h: any, i: number) => (
               <div key={i} className="card p-3 flex gap-3">
@@ -1147,9 +1147,9 @@ function EvalResult({ evaluation, org, sector, onReset }: { evaluation: any; org
                   h.severidad === "alta" ? "bg-risk-high" : h.severidad === "media" ? "bg-risk-med" : "bg-risk-low"
                 }`} />
                 <div className="flex-1">
-                  <div className="text-[13px] font-semibold text-deloitte-ink">{h.titulo}</div>
-                  <div className="text-[12px] text-deloitte-slate mt-1">{h.descripcion}</div>
-                  <div className={`text-[11.5px] mt-1.5 italic ${sevMap[h.severidad] || ""}`}>
+                  <div className="text-[14px] font-semibold text-deloitte-ink">{h.titulo}</div>
+                  <div className="text-[13px] text-deloitte-slate mt-1">{h.descripcion}</div>
+                  <div className={`text-[12.5px] mt-1.5 italic ${sevMap[h.severidad] || ""}`}>
                     → {h.recomendacion}
                   </div>
                 </div>
@@ -1161,12 +1161,12 @@ function EvalResult({ evaluation, org, sector, onReset }: { evaluation: any; org
 
       {evaluation.recomendaciones?.length > 0 && (
         <div className="mb-5">
-          <div className="text-[10px] font-bold text-deloitte-slate uppercase tracking-wider mb-2 border-b-2 border-deloitte-green inline-block pb-0.5">Recomendaciones priorizadas</div>
+          <div className="text-[11.5px] font-bold text-deloitte-slate uppercase tracking-wider mb-2 border-b-2 border-deloitte-green inline-block pb-0.5">Recomendaciones priorizadas</div>
           <div className="space-y-2 mt-2">
             {evaluation.recomendaciones.map((r: any, i: number) => (
               <div key={i} className="flex gap-3 p-3 bg-green-50 border border-green-200 rounded">
-                <div className="w-6 h-6 rounded-full bg-deloitte-green text-white text-[11px] font-bold flex items-center justify-center flex-shrink-0">{i + 1}</div>
-                <div className="text-[12.5px]">
+                <div className="w-6 h-6 rounded-full bg-deloitte-green text-white text-[12px] font-bold flex items-center justify-center flex-shrink-0">{i + 1}</div>
+                <div className="text-[13.5px]">
                   <div className="font-semibold text-deloitte-ink">{r.titulo}</div>
                   <div className="text-deloitte-slate mt-0.5">{r.detalle}</div>
                 </div>
@@ -1178,10 +1178,10 @@ function EvalResult({ evaluation, org, sector, onReset }: { evaluation: any; org
 
       {evaluation.fuentes_iai?.length > 0 && (
         <div>
-          <div className="text-[10px] uppercase tracking-wider text-deloitte-mute mb-1.5 font-mono">Fuentes IAI</div>
+          <div className="text-[11.5px] uppercase tracking-wider text-deloitte-mute mb-1.5 font-mono">Fuentes IAI</div>
           <div className="flex flex-wrap gap-1.5">
             {evaluation.fuentes_iai.map((s: string, i: number) => (
-              <span key={i} className="px-2 py-1 bg-green-50 border border-green-200 text-deloitte-greenDark rounded text-[11px] font-mono">📄 {s}</span>
+              <span key={i} className="px-2 py-1 bg-green-50 border border-green-200 text-deloitte-greenTxt rounded text-[12px] font-mono">📄 {s}</span>
             ))}
           </div>
         </div>

@@ -53,7 +53,7 @@ export function EspacioUno() {
   return (
     <>
       <Header
-        eyebrow="Espacio 01 · Engagement de auditoría"
+        eyebrow="Pagos a proveedores · engagement"
         title={BRANDING.firmName}
         subtitle={`Engagement Procure-to-Pay cruzado con Nómina · FY 2025-26 · ${BRANDING.sector}`}
         meta={[
@@ -66,7 +66,7 @@ export function EspacioUno() {
         cta={
           <div className="text-right">
             <div className="eyebrow">Período audit.</div>
-            <div className="text-[14px] font-semibold tabular text-deloitte-ink">Ene 2025 – May 2026</div>
+            <div className="text-[15px] font-semibold tabular text-deloitte-ink">Ene 2025 – May 2026</div>
           </div>
         }
       />
@@ -77,30 +77,30 @@ export function EspacioUno() {
           <div className="grid grid-cols-4 gap-4">
             <div>
               <div className="eyebrow">Fase actual</div>
-              <div className="text-[15px] font-semibold mt-0.5 text-deloitte-ink">Pruebas analíticas</div>
-              <div className="text-[11px] text-deloitte-mute">Semana 3 de 6</div>
+              <div className="text-[16px] font-semibold mt-0.5 text-deloitte-ink">Pruebas analíticas</div>
+              <div className="text-[12px] text-deloitte-mute">Semana 3 de 6</div>
             </div>
             <div>
               <div className="eyebrow">Universo bajo análisis</div>
-              <div className="text-[15px] font-semibold mt-0.5 tabular text-deloitte-ink">
+              <div className="text-[16px] font-semibold mt-0.5 tabular text-deloitte-ink">
                 {CLP(facturas.reduce((a, f) => a + f.monto, 0))}
               </div>
-              <div className="text-[11px] text-deloitte-mute">{num(facturas.length)} facturas</div>
+              <div className="text-[12px] text-deloitte-mute">{num(facturas.length)} facturas</div>
             </div>
             <div>
               <div className="eyebrow">Hallazgos preliminares</div>
-              <div className="text-[15px] font-semibold mt-0.5 text-risk-high">
+              <div className="text-[16px] font-semibold mt-0.5 text-risk-highTxt">
                 {Object.values(ctx.hallazgos).filter((h: any) => h.severidad === "Crítica").reduce((a: number, h: any) => a + h.cantidad, 0)} críticos
               </div>
-              <div className="text-[11px] text-deloitte-mute">Pendiente investigación</div>
+              <div className="text-[12px] text-deloitte-mute">Pendiente investigación</div>
             </div>
             <div>
               <div className="eyebrow">Estado data</div>
-              <div className="text-[15px] font-semibold mt-0.5 text-deloitte-ink flex items-center gap-1.5">
+              <div className="text-[16px] font-semibold mt-0.5 text-deloitte-ink flex items-center gap-1.5">
                 <span className="inline-block w-2 h-2 rounded-full bg-risk-low" />
                 AuditIA conectado
               </div>
-              <div className="text-[11px] text-deloitte-mute">Los 4 archivos indexados</div>
+              <div className="text-[12px] text-deloitte-mute">Los 4 archivos indexados</div>
             </div>
           </div>
         </div>
@@ -118,18 +118,18 @@ export function EspacioUno() {
                 }`}
               >
                 <div className="flex items-start justify-between">
-                  <div className="font-mono text-[10px] text-deloitte-mute uppercase tracking-wide">
+                  <div className="font-mono text-[11.5px] text-deloitte-mute uppercase tracking-wide">
                     .xlsx
                   </div>
-                  <div className={`text-[10px] font-semibold ${archivo === a.id ? "text-deloitte-green" : "text-deloitte-mute"}`}>
+                  <div className={`text-[11.5px] font-semibold ${archivo === a.id ? "text-deloitte-green" : "text-deloitte-mute"}`}>
                     {archivo === a.id ? "● ACTIVO" : ""}
                   </div>
                 </div>
-                <div className="text-[13px] font-semibold mt-2 text-deloitte-ink leading-tight">
+                <div className="text-[14px] font-semibold mt-2 text-deloitte-ink leading-tight">
                   {a.nombre}
                 </div>
-                <div className="text-[11px] text-deloitte-mute mt-1">{a.descripcion}</div>
-                <div className="flex items-center gap-3 mt-3 text-[10px] uppercase tracking-wider">
+                <div className="text-[12px] text-deloitte-mute mt-1">{a.descripcion}</div>
+                <div className="flex items-center gap-3 mt-3 text-[11.5px] uppercase tracking-wider">
                   <span className="text-deloitte-mute">
                     <span className="font-bold tabular text-deloitte-ink">{num(a.filas)}</span> filas
                   </span>
@@ -145,33 +145,33 @@ export function EspacioUno() {
           <div className="px-4 py-3 border-b border-deloitte-line bg-deloitte-paper/60 flex items-center justify-between">
             <div>
               <div className="eyebrow">Vista previa · primeras filas</div>
-              <div className="text-[13px] font-semibold mt-0.5">{ARCHIVOS.find((a) => a.id === archivo)?.nombre}</div>
+              <div className="text-[14px] font-semibold mt-0.5">{ARCHIVOS.find((a) => a.id === archivo)?.nombre}</div>
             </div>
-            <div className="text-[10px] text-deloitte-mute italic">
+            <div className="text-[11.5px] text-deloitte-mute italic">
               Pídele a AuditIA → análisis sobre el dataset completo
             </div>
           </div>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto tabla-scroll">
             {archivo === "prov" && (
-              <table className="w-full text-[12px] tabular">
+              <table className="w-full text-[13px] tabular">
                 <thead className="bg-deloitte-paper/40">
                   <tr>
                     {["ID","RUT","Razón Social","Categoría","Banco","Cuenta","Estado","Fecha alta"].map((h) => (
-                      <th key={h} className="text-left px-3 py-2 font-semibold text-[10px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line">{h}</th>
+                      <th key={h} className="text-left px-3 py-2 font-semibold text-[11.5px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line">{h}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
                   {sliceProv.map((p) => (
                     <tr key={p.id} className="row-striped border-b border-deloitte-line/50">
-                      <td className="px-3 py-1.5 font-mono text-[11px]">{p.id}</td>
+                      <td className="px-3 py-1.5 font-mono text-[12px]">{p.id}</td>
                       <td className="px-3 py-1.5">{fmtRUT(p.rut)}</td>
                       <td className="px-3 py-1.5">{p.razonSocial}</td>
                       <td className="px-3 py-1.5">{p.categoria}</td>
                       <td className="px-3 py-1.5">{p.banco}</td>
-                      <td className="px-3 py-1.5 font-mono text-[11px]">{p.cuentaBanco}</td>
+                      <td className="px-3 py-1.5 font-mono text-[12px]">{p.cuentaBanco}</td>
                       <td className="px-3 py-1.5">
-                        <span className={`pill ${p.estado === "Activo" ? "bg-green-100 text-risk-low" : p.estado === "Bloqueado" ? "bg-red-100 text-risk-high" : "bg-gray-100 text-deloitte-mute"}`}>
+                        <span className={`pill ${p.estado === "Activo" ? "bg-green-100 text-risk-lowTxt" : p.estado === "Bloqueado" ? "bg-red-100 text-risk-highTxt" : "bg-gray-100 text-deloitte-mute"}`}>
                           {p.estado}
                         </span>
                       </td>
@@ -183,25 +183,25 @@ export function EspacioUno() {
             )}
 
             {archivo === "oc" && (
-              <table className="w-full text-[12px] tabular">
+              <table className="w-full text-[13px] tabular">
                 <thead className="bg-deloitte-paper/40">
                   <tr>
                     {["ID OC","Fecha","Proveedor","Área","Monto","Aprobador","Estado"].map((h) => (
-                      <th key={h} className="text-left px-3 py-2 font-semibold text-[10px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line">{h}</th>
+                      <th key={h} className="text-left px-3 py-2 font-semibold text-[11.5px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line">{h}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
                   {sliceOC.map((oc) => (
                     <tr key={oc.id} className="row-striped border-b border-deloitte-line/50">
-                      <td className="px-3 py-1.5 font-mono text-[11px]">{oc.id}</td>
+                      <td className="px-3 py-1.5 font-mono text-[12px]">{oc.id}</td>
                       <td className="px-3 py-1.5">{fmtDate(oc.fecha)}</td>
-                      <td className="px-3 py-1.5 font-mono text-[11px]">{oc.proveedorId}</td>
+                      <td className="px-3 py-1.5 font-mono text-[12px]">{oc.proveedorId}</td>
                       <td className="px-3 py-1.5">{oc.area}</td>
                       <td className="px-3 py-1.5 text-right">{CLP(oc.monto)}</td>
                       <td className="px-3 py-1.5">{oc.aprobador}</td>
                       <td className="px-3 py-1.5">
-                        <span className={`pill ${oc.estado === "Aprobada" ? "bg-green-100 text-risk-low" : "bg-gray-100 text-deloitte-mute"}`}>
+                        <span className={`pill ${oc.estado === "Aprobada" ? "bg-green-100 text-risk-lowTxt" : "bg-gray-100 text-deloitte-mute"}`}>
                           {oc.estado}
                         </span>
                       </td>
@@ -212,26 +212,26 @@ export function EspacioUno() {
             )}
 
             {archivo === "fact" && (
-              <table className="w-full text-[12px] tabular">
+              <table className="w-full text-[13px] tabular">
                 <thead className="bg-deloitte-paper/40">
                   <tr>
                     {["ID Factura","Fecha","Proveedor","OC asociada","Monto","Estado","Fecha pago"].map((h) => (
-                      <th key={h} className="text-left px-3 py-2 font-semibold text-[10px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line">{h}</th>
+                      <th key={h} className="text-left px-3 py-2 font-semibold text-[11.5px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line">{h}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
                   {sliceFact.map((f) => (
                     <tr key={f.id} className="row-striped border-b border-deloitte-line/50">
-                      <td className="px-3 py-1.5 font-mono text-[11px]">{f.id}</td>
+                      <td className="px-3 py-1.5 font-mono text-[12px]">{f.id}</td>
                       <td className="px-3 py-1.5">{fmtDate(f.fecha)}</td>
-                      <td className="px-3 py-1.5 font-mono text-[11px]">{f.proveedorId}</td>
-                      <td className="px-3 py-1.5 font-mono text-[11px]">
-                        {f.ocId || <span className="text-risk-high italic">(sin OC)</span>}
+                      <td className="px-3 py-1.5 font-mono text-[12px]">{f.proveedorId}</td>
+                      <td className="px-3 py-1.5 font-mono text-[12px]">
+                        {f.ocId || <span className="text-risk-highTxt italic">(sin OC)</span>}
                       </td>
                       <td className="px-3 py-1.5 text-right">{CLP(f.monto)}</td>
                       <td className="px-3 py-1.5">
-                        <span className={`pill ${f.estado === "Pagada" ? "bg-green-100 text-risk-low" : f.estado === "Vencida" ? "bg-red-100 text-risk-high" : "bg-amber-100 text-risk-med"}`}>
+                        <span className={`pill ${f.estado === "Pagada" ? "bg-green-100 text-risk-lowTxt" : f.estado === "Vencida" ? "bg-red-100 text-risk-highTxt" : "bg-amber-100 text-risk-medTxt"}`}>
                           {f.estado}
                         </span>
                       </td>
@@ -243,24 +243,24 @@ export function EspacioUno() {
             )}
 
             {archivo === "emp" && (
-              <table className="w-full text-[12px] tabular">
+              <table className="w-full text-[13px] tabular">
                 <thead className="bg-deloitte-paper/40">
                   <tr>
                     {["ID","RUT","Nombre","Área","Cargo","Banco","Cuenta","Ingreso"].map((h) => (
-                      <th key={h} className="text-left px-3 py-2 font-semibold text-[10px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line">{h}</th>
+                      <th key={h} className="text-left px-3 py-2 font-semibold text-[11.5px] uppercase tracking-wider text-deloitte-mute border-b border-deloitte-line">{h}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
                   {sliceEmp.map((e) => (
                     <tr key={e.id} className="row-striped border-b border-deloitte-line/50">
-                      <td className="px-3 py-1.5 font-mono text-[11px]">{e.id}</td>
+                      <td className="px-3 py-1.5 font-mono text-[12px]">{e.id}</td>
                       <td className="px-3 py-1.5">{fmtRUT(e.rut)}</td>
                       <td className="px-3 py-1.5">{e.nombre}</td>
                       <td className="px-3 py-1.5">{e.area}</td>
                       <td className="px-3 py-1.5">{e.cargo}</td>
                       <td className="px-3 py-1.5">{e.banco}</td>
-                      <td className="px-3 py-1.5 font-mono text-[11px]">{e.cuentaBanco}</td>
+                      <td className="px-3 py-1.5 font-mono text-[12px]">{e.cuentaBanco}</td>
                       <td className="px-3 py-1.5">{fmtDate(e.fechaIngreso)}</td>
                     </tr>
                   ))}
@@ -269,17 +269,17 @@ export function EspacioUno() {
             )}
           </div>
           <div className="px-4 py-3 border-t border-deloitte-line bg-deloitte-paper/40 flex items-center justify-between flex-wrap gap-3">
-            <div className="text-[11px] text-deloitte-slate">
+            <div className="text-[12px] text-deloitte-slate">
               Mostrando <span className="font-semibold tabular text-deloitte-ink">{num(startIdx + 1)}–{num(endIdx)}</span>
               {" "}de <span className="font-semibold tabular text-deloitte-ink">{num(totalFilas)}</span> registros
               <span className="text-deloitte-mute"> · AuditIA analiza el dataset completo, no solo lo visible</span>
             </div>
             <div className="flex items-center gap-2">
-              <label className="text-[10px] uppercase tracking-wider text-deloitte-mute">Filas:</label>
+              <label className="text-[11.5px] uppercase tracking-wider text-deloitte-mute">Filas:</label>
               <select
                 value={pageSize}
                 onChange={(e) => { setPageSize(Number(e.target.value)); setPage(0); }}
-                className="text-[11px] border border-deloitte-line rounded px-2 py-1 bg-white hover:border-deloitte-green focus:border-deloitte-green focus:outline-none tabular"
+                className="text-[12px] border border-deloitte-line rounded px-2 py-1 bg-white hover:border-deloitte-green focus:border-deloitte-green focus:outline-none tabular"
               >
                 {PAGE_SIZE_OPTIONS.map((n) => (
                   <option key={n} value={n}>{n}</option>
@@ -289,28 +289,28 @@ export function EspacioUno() {
                 <button
                   onClick={() => setPage(0)}
                   disabled={safePage === 0}
-                  className="px-2 py-1 text-[12px] border border-deloitte-line rounded hover:border-deloitte-green hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="px-2 py-1 text-[13px] border border-deloitte-line rounded hover:border-deloitte-green hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed hit-target" aria-label="Primera página"
                   title="Primera página"
                 >«</button>
                 <button
                   onClick={() => setPage(Math.max(0, safePage - 1))}
                   disabled={safePage === 0}
-                  className="px-2 py-1 text-[12px] border border-deloitte-line rounded hover:border-deloitte-green hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="px-2 py-1 text-[13px] border border-deloitte-line rounded hover:border-deloitte-green hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed hit-target" aria-label="Página anterior"
                   title="Anterior"
                 >‹</button>
-                <span className="text-[11px] tabular px-2 text-deloitte-slate">
+                <span className="text-[12px] tabular px-2 text-deloitte-slate">
                   Pág. <span className="font-semibold text-deloitte-ink">{safePage + 1}</span> / {num(totalPages)}
                 </span>
                 <button
                   onClick={() => setPage(Math.min(totalPages - 1, safePage + 1))}
                   disabled={safePage >= totalPages - 1}
-                  className="px-2 py-1 text-[12px] border border-deloitte-line rounded hover:border-deloitte-green hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="px-2 py-1 text-[13px] border border-deloitte-line rounded hover:border-deloitte-green hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed hit-target" aria-label="Página siguiente"
                   title="Siguiente"
                 >›</button>
                 <button
                   onClick={() => setPage(totalPages - 1)}
                   disabled={safePage >= totalPages - 1}
-                  className="px-2 py-1 text-[12px] border border-deloitte-line rounded hover:border-deloitte-green hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="px-2 py-1 text-[13px] border border-deloitte-line rounded hover:border-deloitte-green hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed hit-target" aria-label="Última página"
                   title="Última página"
                 >»</button>
               </div>
@@ -320,7 +320,7 @@ export function EspacioUno() {
 
         {/* Mensaje de orientación */}
         <div className="border-l-2 border-deloitte-green pl-4 py-1">
-          <div className="text-[12px] text-deloitte-slate leading-relaxed">
+          <div className="text-[13px] text-deloitte-slate leading-relaxed">
             <span className="font-semibold">El flujo del auditor:</span> en lugar de exportar a Excel y armar
             tablas dinámicas durante 3 días, pregúntale a AuditIA directamente. AuditIA tiene los 4 archivos
             indexados y puede correr cruces, agregaciones y detecciones de patrones al vuelo.

@@ -31,7 +31,7 @@ export function Logo({ className = "", invert = false }: { className?: string; i
 export function WordmarkAuditIA({ className = "" }: { className?: string }) {
   return (
     <div className={`inline-flex items-baseline gap-1.5 ${className}`}>
-      <span className="font-serif italic text-[15px] tracking-tight">AuditIA</span>
+      <span className="font-serif italic text-[16px] tracking-tight">AuditIA</span>
       <span className="inline-block w-1 h-1 rounded-full bg-deloitte-green" />
     </div>
   );
