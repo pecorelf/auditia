@@ -7,7 +7,6 @@ import { Icono, MarcaAnomalia } from "./Iconos";
 
 type Item = {
   id: Espacio;
-  number: string;
   title: string;
   subtitle: string;
 };
@@ -15,43 +14,36 @@ type Item = {
 const ITEMS: Item[] = [
   {
     id: "procesos",
-    number: "01",
     title: "Procesos Críticos",
     subtitle: "Pagos, pensiones y datos de afiliados",
   },
   {
     id: "uno",
-    number: "01",
     title: "Pagos a Proveedores",
     subtitle: "Proveedores, órdenes de compra y facturas",
   },
   {
     id: "dos",
-    number: "02",
     title: "Monitoreo Continuo",
     subtitle: "Indicadores y seguimiento de hallazgos",
   },
   {
     id: "tres",
-    number: "03",
     title: "Audit Expert",
     subtitle: "Marcos, normativa y mejores prácticas",
   },
   {
     id: "cinco",
-    number: "04",
     title: "Gastos y Rendiciones",
     subtitle: "Traslados, viáticos y servicios externos",
   },
   {
     id: "seis",
-    number: "05",
     title: "Remuneraciones y Dotación",
     subtitle: "Nómina cruzada con bitácora de turnos",
   },
   {
     id: "cuatro",
-    number: "06",
     title: "Coach de Auditor",
     subtitle: "Preparación de reuniones con stakeholders",
   },
@@ -95,7 +87,7 @@ export function Sidebar() {
             {`Demo · ${VISIBLES.length} espacios`}
           </div>
         </div>
-        {ITEMS.map((it) => {
+        {VISIBLES.map((it) => {
           const active = espacio === it.id;
           return (
             <button
