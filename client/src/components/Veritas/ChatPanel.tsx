@@ -82,7 +82,7 @@ export function ChatPanel({ killerQuestions, placeholder }: Props) {
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-full bg-deloitte-ink flex items-center justify-center relative">
             <div className="w-2 h-2 rounded-full bg-deloitte-green absolute bottom-1 right-1" />
-            <span className="text-white text-[11.5px] font-serif italic">V</span>
+            <span className="text-white text-[12px] font-medium">A</span>
           </div>
           <div>
             <div className="text-[14px] font-semibold leading-tight">AuditIA</div>

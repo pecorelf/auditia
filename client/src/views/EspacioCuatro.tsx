@@ -783,7 +783,7 @@ Genera las pistas para el auditor en el JSON especificado.`;
           <div key={i}>
             <div className={`flex gap-3 ${m.role === "user" ? "justify-end" : ""}`}>
               {m.role === "assistant" && (
-                <div className="w-9 h-9 rounded-full bg-deloitte-ink text-white flex items-center justify-center text-[12px] font-bold flex-shrink-0 mt-1">
+                <div className="w-9 h-9 rounded-full bg-deloitte-ink text-white flex items-center justify-center text-[12px] font-semibold flex-shrink-0 mt-1">
                   {profile.nombre ? profile.nombre.split(" ").map((p: string) => p[0]).slice(0, 2).join("") : "ST"}
                 </div>
               )}
@@ -820,7 +820,7 @@ Genera las pistas para el auditor en el JSON especificado.`;
         ))}
         {loading && (
           <div className="flex gap-3">
-            <div className="w-9 h-9 rounded-full bg-deloitte-ink text-white flex items-center justify-center text-[12px] font-bold flex-shrink-0 mt-1">
+            <div className="w-9 h-9 rounded-full bg-deloitte-ink text-white flex items-center justify-center text-[12px] font-semibold flex-shrink-0 mt-1">
               {profile.nombre ? profile.nombre.split(" ").map((p: string) => p[0]).slice(0, 2).join("") : "ST"}
             </div>
             <div className="bg-white border border-deloitte-line px-4 py-2.5 rounded-lg text-[13px] text-deloitte-mute font-mono">
@@ -921,7 +921,7 @@ function CoachHintCard({ hint, loading, error, stakeholderName }: {
           {/* Header */}
           <div className="flex items-center gap-2 mb-2">
             <span className="text-[15px]">💡</span>
-            <span className="text-[11.5px] font-bold text-amber-800 uppercase tracking-wider">
+            <span className="text-[11.5px] font-semibold text-amber-800 uppercase tracking-wider">
               Coach · pistas para tu próximo turno
             </span>
           </div>
@@ -946,21 +946,21 @@ function CoachHintCard({ hint, loading, error, stakeholderName }: {
             <div className="space-y-2 text-[13.5px] leading-relaxed">
               {hint.lectura && (
                 <div>
-                  <div className="text-[11.5px] font-bold text-amber-700 uppercase tracking-wider mb-0.5">Lectura</div>
+                  <div className="text-[11.5px] font-semibold text-amber-700 uppercase tracking-wider mb-0.5">Lectura</div>
                   <div className="text-deloitte-slate">{hint.lectura}</div>
                 </div>
               )}
 
               {hint.siguiente_movimiento && (
                 <div>
-                  <div className="text-[11.5px] font-bold text-amber-700 uppercase tracking-wider mb-0.5">Siguiente movimiento</div>
+                  <div className="text-[11.5px] font-semibold text-amber-700 uppercase tracking-wider mb-0.5">Siguiente movimiento</div>
                   <div className="text-deloitte-slate">{hint.siguiente_movimiento}</div>
                 </div>
               )}
 
               {hint.frase_sugerida && (
                 <div className="bg-white/60 border border-amber-200 rounded px-2.5 py-1.5">
-                  <div className="text-[11.5px] font-bold text-amber-700 uppercase tracking-wider mb-0.5">Frase sugerida</div>
+                  <div className="text-[11.5px] font-semibold text-amber-700 uppercase tracking-wider mb-0.5">Frase sugerida</div>
                   <div className="text-deloitte-ink italic">"{hint.frase_sugerida.replace(/^["']|["']$/g, "")}"</div>
                 </div>
               )}
@@ -969,7 +969,7 @@ function CoachHintCard({ hint, loading, error, stakeholderName }: {
                 <div className="flex items-start gap-1.5 pt-1 border-t border-amber-200/60">
                   <span className="text-[13px] flex-shrink-0">⚠️</span>
                   <div>
-                    <div className="text-[11.5px] font-bold text-risk-highTxt uppercase tracking-wider">Cuidado</div>
+                    <div className="text-[11.5px] font-semibold text-risk-highTxt uppercase tracking-wider">Cuidado</div>
                     <div className="text-[13px] text-risk-highTxt/90">{hint.alerta}</div>
                   </div>
                 </div>

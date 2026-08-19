@@ -131,7 +131,7 @@ export function EspacioUno() {
                 <div className="text-[12px] text-deloitte-mute mt-1">{a.descripcion}</div>
                 <div className="flex items-center gap-3 mt-3 text-[11.5px] uppercase tracking-wider">
                   <span className="text-deloitte-mute">
-                    <span className="font-bold tabular text-deloitte-ink">{num(a.filas)}</span> filas
+                    <span className="font-semibold tabular text-deloitte-ink">{num(a.filas)}</span> filas
                   </span>
                   <span className="text-deloitte-mute">{a.periodo}</span>
                 </div>

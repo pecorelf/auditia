@@ -48,25 +48,25 @@ export function EspacioAFP() {
       <div className="px-8 py-6 space-y-6">
 
         {/* ── LA CADENA — el hallazgo que justifica cruzar los tres ── */}
-        <div className="border-2 border-risk-high rounded-md overflow-hidden">
-          <div className="bg-risk-high text-white px-5 py-3">
+        <div className="border border-risk-high/40 rounded-xl overflow-hidden shadow-card">
+          <div className="bg-risk-high text-white px-6 py-4">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-[11.5px] uppercase tracking-wider font-bold opacity-80">
+                <div className="text-[11.5px] uppercase tracking-wider font-semibold opacity-80">
                   Hallazgo que ningún proceso detecta por separado
                 </div>
-                <div className="text-[17px] font-bold mt-0.5">
+                <div className="display-medium text-[19px] mt-1">
                   Cadena contacto → cuenta bancaria → giro, ejecutada por el mismo ejecutivo
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-[26px] font-bold tabular leading-none">{h.cadena.cantidad}</div>
+                <div className="text-[26px] font-semibold tabular leading-none">{h.cadena.cantidad}</div>
                 <div className="text-[11px] uppercase tracking-wider opacity-80">casos</div>
               </div>
             </div>
           </div>
 
-          <div className="bg-red-50 px-5 py-4">
+          <div className="bg-red-50/70 px-6 py-5">
             <p className="text-[13.5px] text-deloitte-slate leading-snug mb-4">
               Cada paso, por sí solo, es una transacción legítima que pasa todos los controles de su
               proceso. El patrón solo existe al cruzar los tres. Total involucrado:{" "}
@@ -82,7 +82,7 @@ export function EspacioAFP() {
                     <span className="text-deloitte-mute"> · ejecutivo:</span>{" "}
                     <strong className="text-risk-highTxt">{c.ejecutivo}</strong>
                   </div>
-                  <div className="text-[14px] font-bold tabular text-risk-highTxt">{CLP(c.montoCLP)}</div>
+                  <div className="text-[14px] font-semibold tabular text-risk-highTxt">{CLP(c.montoCLP)}</div>
                 </div>
 
                 <div className="flex items-stretch gap-1.5">
@@ -226,7 +226,7 @@ function PasoCadena({ n, titulo, fecha, nota, alerta }: {
   return (
     <div className={`flex-1 border rounded px-2.5 py-2 ${alerta ? "border-red-300 bg-red-50/60" : "border-deloitte-line bg-white"}`}>
       <div className="flex items-center gap-1.5">
-        <span className={`w-4 h-4 rounded-full text-[11px] font-bold flex items-center justify-center ${alerta ? "bg-risk-high text-white" : "bg-deloitte-paper text-deloitte-slate"}`}>{n}</span>
+        <span className={`w-4 h-4 rounded-full text-[11px] font-semibold flex items-center justify-center ${alerta ? "bg-risk-high text-white" : "bg-deloitte-paper text-deloitte-slate"}`}>{n}</span>
         <span className="text-[11.5px] tabular text-deloitte-mute">{fmtDate(fecha)}</span>
       </div>
       <div className="text-[12.5px] font-semibold text-deloitte-ink mt-1 leading-tight">{titulo}</div>
@@ -258,14 +258,14 @@ function Hallazgo({ ref: refCodigo, sev, titulo, cantidad, unidad, desc, norma, 
   }[sev];
 
   return (
-    <div className={`relative border border-deloitte-line rounded-md overflow-hidden ${st.bg}`}>
-      <div className={`absolute left-0 top-0 bottom-0 w-1 ${st.bar}`} />
+    <div className={`relative border border-deloitte-line rounded-xl overflow-hidden ${st.bg}`}>
+      <div className={`acento-severidad ${st.bar}`} />
       <div className="pl-4 pr-4 py-3">
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1">
             <div className="flex items-center gap-2">
               <RefPapel codigo={refCodigo} />
-              <span className={`text-[11.5px] uppercase tracking-wider font-bold ${st.text}`}>{st.label}</span>
+              <span className={`text-[11.5px] uppercase tracking-wider font-medium ${st.text}`}>{st.label}</span>
             </div>
             <div className="text-[14px] font-semibold mt-0.5 text-deloitte-ink leading-tight">{titulo}</div>
             <p className="text-[12.5px] text-deloitte-slate mt-1 leading-snug">{desc}</p>
@@ -275,13 +275,13 @@ function Hallazgo({ ref: refCodigo, sev, titulo, cantidad, unidad, desc, norma, 
             <div className="mt-2 pt-2 border-t border-deloitte-line/60 flex items-start gap-1.5">
               <Icono nombre="recomendacion" size={14} className="text-deloitte-greenTxt flex-shrink-0 mt-0.5" />
               <div>
-                <div className="text-[11px] uppercase tracking-wider font-bold text-deloitte-greenTxt">Recomendación de AuditIA</div>
+                <div className="text-[11px] uppercase tracking-wider font-semibold text-deloitte-greenTxt">Recomendación de AuditIA</div>
                 <p className="text-[12px] text-deloitte-slate leading-snug mt-0.5">{reco}</p>
               </div>
             </div>
           </div>
           <div className="text-right">
-            <div className={`text-[24px] font-bold tabular ${st.text} leading-none`}>{cantidad}</div>
+            <div className={`cifra text-[26px] font-medium ${st.text} leading-none`}>{cantidad}</div>
             <div className="text-[11px] text-deloitte-mute uppercase tracking-wider">{unidad}</div>
           </div>
         </div>

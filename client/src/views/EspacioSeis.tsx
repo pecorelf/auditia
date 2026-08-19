@@ -326,8 +326,8 @@ export function EspacioSeis() {
                           <td className="px-3 py-1.5">{t.tipo}</td>
                           <td className="px-3 py-1.5 tabular">{t.horaInicio}</td>
                           <td className="px-3 py-1.5 tabular">{t.horaFin}</td>
-                          <td className={`px-3 py-1.5 tabular text-right ${larga ? "font-bold text-risk-highTxt" : ""}`}>{t.horas}{larga && <MarcaAnomalia />}</td>
-                          <td className={`px-3 py-1.5 tabular text-right ${bajaDot ? "font-bold text-risk-highTxt" : ""}`}>{t.dotacionFaena}/{t.dotacionMinima}{bajaDot && <MarcaAnomalia />}</td>
+                          <td className={`px-3 py-1.5 tabular text-right ${larga ? "font-semibold text-risk-highTxt" : ""}`}>{t.horas}{larga && <MarcaAnomalia />}</td>
+                          <td className={`px-3 py-1.5 tabular text-right ${bajaDot ? "font-semibold text-risk-highTxt" : ""}`}>{t.dotacionFaena}/{t.dotacionMinima}{bajaDot && <MarcaAnomalia />}</td>
                         </tr>
                       );
                     })}
@@ -353,7 +353,7 @@ export function EspacioSeis() {
                           <td className="px-3 py-1.5">{t?.nombre}</td>
                           <td className="px-3 py-1.5">{t?.cargo}</td>
                           <td className="px-3 py-1.5">{t?.base}</td>
-                          <td className={`px-3 py-1.5 tabular text-right ${anomHE ? "font-bold text-risk-highTxt" : ""}`}>{l.horasExtraPagadas}{anomHE && <MarcaAnomalia />}</td>
+                          <td className={`px-3 py-1.5 tabular text-right ${anomHE ? "font-semibold text-risk-highTxt" : ""}`}>{l.horasExtraPagadas}{anomHE && <MarcaAnomalia />}</td>
                           <td className="px-3 py-1.5 tabular text-right">{CLP(l.montoHorasExtraCLP)}</td>
                           <td className="px-3 py-1.5">
                             {l.bonos.length === 0 ? "—" : l.bonos.map((b, i) => (
@@ -435,14 +435,14 @@ function HallazgoCard({ ref: refCodigo, severidad, titulo, cantidad, unidad, des
   };
   const s = styles[severidad];
   return (
-    <div className={`relative border border-deloitte-line rounded-md overflow-hidden ${s.bg}`}>
-      <div className={`absolute left-0 top-0 bottom-0 w-1 ${s.bar}`} />
+    <div className={`relative border border-deloitte-line rounded-xl overflow-hidden ${s.bg}`}>
+      <div className={`acento-severidad ${s.bar}`} />
       <div className="pl-4 pr-4 py-3">
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1">
             <div className="flex items-center gap-2">
               <RefPapel codigo={refCodigo} />
-              <span className={`text-[11.5px] uppercase tracking-wider font-bold ${s.text}`}>{s.label}</span>
+              <span className={`text-[11.5px] uppercase tracking-wider font-medium ${s.text}`}>{s.label}</span>
             </div>
             <div className="text-[14px] font-semibold mt-0.5 text-deloitte-ink leading-tight">{titulo}</div>
             <p className="text-[12.5px] text-deloitte-slate mt-1 leading-snug">{descripcion}</p>
@@ -454,7 +454,7 @@ function HallazgoCard({ ref: refCodigo, severidad, titulo, cantidad, unidad, des
                 <div className="flex items-start gap-1.5">
                   <Icono nombre="recomendacion" size={14} className="text-deloitte-greenTxt flex-shrink-0 mt-0.5" />
                   <div>
-                    <div className="text-[11px] uppercase tracking-wider font-bold text-deloitte-greenTxt">Recomendación de AuditIA</div>
+                    <div className="text-[11px] uppercase tracking-wider font-semibold text-deloitte-greenTxt">Recomendación de AuditIA</div>
                     <p className="text-[12px] text-deloitte-slate leading-snug mt-0.5">{recomendacion}</p>
                   </div>
                 </div>
@@ -463,7 +463,7 @@ function HallazgoCard({ ref: refCodigo, severidad, titulo, cantidad, unidad, des
           </div>
           {cantidad !== null && (
             <div className="text-right">
-              <div className={`text-[24px] font-bold tabular ${s.text} leading-none`}>{cantidad}</div>
+              <div className={`cifra text-[26px] font-medium ${s.text} leading-none`}>{cantidad}</div>
               <div className="text-[11px] text-deloitte-mute uppercase tracking-wider">{unidad}</div>
             </div>
           )}

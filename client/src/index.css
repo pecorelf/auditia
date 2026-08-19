@@ -10,8 +10,9 @@
   }
   body {
     @apply bg-deloitte-paper text-deloitte-ink antialiased;
-    font-family: "Open Sans", system-ui, sans-serif;
-    font-feature-settings: "ss01", "cv01";
+    font-family: "Poppins", system-ui, sans-serif;
+    font-feature-settings: "ss01";
+    letter-spacing: -0.005em;
   }
   ::selection {
     background: #86bc25;
@@ -21,13 +22,13 @@
 
 @layer components {
   .card {
-    @apply bg-white border border-deloitte-line rounded-md shadow-card;
+    @apply bg-white border border-deloitte-line/70 rounded-xl shadow-card;
   }
   .card-hover {
     @apply transition-shadow hover:shadow-cardHover;
   }
   .pill {
-    @apply inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11.5px] font-semibold uppercase tracking-wide;
+    @apply inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11.5px] font-medium uppercase tracking-wide;
   }
   .kbd {
     @apply px-1.5 py-0.5 text-[11.5px] font-mono bg-deloitte-line text-deloitte-slate rounded border border-deloitte-line;
@@ -59,8 +60,9 @@
 
 /* Chat bubble — Veritas */
 .veritas-bubble {
-  background: linear-gradient(180deg, #fafafa 0%, #f4f4f3 100%);
+  background: linear-gradient(180deg, #fbfbfa 0%, #f4f4f2 100%);
   border-left: 2px solid #86bc25;
+  border-radius: 0 10px 10px 0;
 }
 
 /* Animated thinking dots */
@@ -100,7 +102,7 @@
 
 /* Editorial uppercase tag */
 .eyebrow {
-  @apply text-[11px] uppercase tracking-[0.14em] font-semibold text-deloitte-mute;
+  @apply text-[11px] uppercase tracking-[0.13em] font-medium text-deloitte-mute;
 }
 
 /* Severity row striping for tables */
@@ -210,4 +212,46 @@
     width: calc(100% / var(--auditia-escala));
     height: calc(100% / var(--auditia-escala));
   }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   Display. La delicadeza del sistema está en el peso, no en el tamaño:
+   los títulos van grandes y livianos (300), con el interletrado apretado.
+   Poner un título grande en negrita es lo que hace que una interfaz se
+   sienta pesada y genérica.
+   ───────────────────────────────────────────────────────────────── */
+.display {
+  font-weight: 300;
+  letter-spacing: -0.022em;
+  line-height: 1.1;
+}
+.display-medium {
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+
+/* Numeración de datos: mono en peso medio, que es donde las cifras
+   se comparan mejor en columna. */
+.cifra {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   Acento de severidad.
+   Antes era una barra maciza de 4px a todo el alto de la tarjeta — el
+   patrón más visto en interfaces generadas, y visualmente pesado. Ahora
+   es una marca corta y redondeada: sigue codificando la severidad, pero
+   deja que la tarjeta respire.
+   ───────────────────────────────────────────────────────────────── */
+.acento-severidad {
+  position: absolute;
+  left: 0;
+  top: 14px;
+  bottom: 14px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
 }

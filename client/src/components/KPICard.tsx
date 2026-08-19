@@ -12,7 +12,7 @@ export function KPICard({ label, value, delta, positive, detail }: Props) {
     <div className="card card-hover p-4">
       <div className="eyebrow">{label}</div>
       <div className="mt-1.5 flex items-baseline gap-2">
-        <div className="text-[26px] font-bold tabular text-deloitte-ink leading-none">{value}</div>
+        <div className="text-[26px] font-semibold tabular text-deloitte-ink leading-none">{value}</div>
         {hasDelta && (
           <div
             className={`text-[12px] font-semibold tabular ${

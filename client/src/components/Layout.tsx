@@ -109,7 +109,7 @@ export function Layout({ children }: Props) {
             >
               <div className="w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center relative">
                 <div className="w-1.5 h-1.5 rounded-full bg-deloitte-green absolute bottom-0.5 right-0.5" />
-                <span className="text-white font-serif italic text-[12px]">A</span>
+                <span className="text-white text-[13px] font-medium">A</span>
               </div>
               <div className="text-[11.5px] uppercase tracking-[0.2em] font-semibold text-white/80" style={{ writingMode: "vertical-rl" }}>
                 AuditIA

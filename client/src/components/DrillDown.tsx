@@ -42,7 +42,7 @@ export function DrillDown({ open, onClose, title, subtitle, fuente, metrica, des
         <div className="px-6 py-4 border-b border-deloitte-line bg-deloitte-paper/40 flex items-start justify-between gap-4">
           <div>
             <div className="eyebrow">Drill-down · detalle</div>
-            <h2 className="text-[18px] font-serif font-semibold text-deloitte-ink mt-0.5">{title}</h2>
+            <h2 className="display-medium text-[20px] text-deloitte-ink mt-0.5">{title}</h2>
             {subtitle && <div className="text-[13px] text-deloitte-slate mt-0.5">{subtitle}</div>}
           </div>
           <button
@@ -57,7 +57,7 @@ export function DrillDown({ open, onClose, title, subtitle, fuente, metrica, des
           {/* Métrica destacada */}
           {metrica && (
             <div className="flex items-center gap-4 p-4 bg-deloitte-paper rounded border border-deloitte-line">
-              <div className="text-[28px] font-bold tabular text-deloitte-ink">{metrica.value}</div>
+              <div className="text-[28px] font-semibold tabular text-deloitte-ink">{metrica.value}</div>
               <div className="text-[13px] text-deloitte-slate">{metrica.label}</div>
             </div>
           )}
@@ -89,7 +89,7 @@ export function DrillDown({ open, onClose, title, subtitle, fuente, metrica, des
                 <thead className="bg-deloitte-paper">
                   <tr className="text-left">
                     {table.headers.map((h, i) => (
-                      <th key={i} className="px-3 py-2 text-[11.5px] uppercase tracking-wider font-bold text-deloitte-mute">{h}</th>
+                      <th key={i} className="px-3 py-2 text-[11.5px] uppercase tracking-wider font-semibold text-deloitte-mute">{h}</th>
                     ))}
                   </tr>
                 </thead>

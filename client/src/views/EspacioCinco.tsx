@@ -144,7 +144,7 @@ export function EspacioCinco() {
                 </div>
                 <div className="text-[11.5px] text-deloitte-mute mt-1 leading-tight">{a.descripcion}</div>
                 <div className="mt-2 flex items-center gap-2 text-[11px] uppercase tracking-wider">
-                  <span className="font-bold tabular text-deloitte-ink">{num(a.filas)}</span>
+                  <span className="font-semibold tabular text-deloitte-ink">{num(a.filas)}</span>
                   <span className="text-deloitte-mute">filas</span>
                 </div>
                 <div className="text-[11px] text-deloitte-greenTxt mt-0.5 font-mono uppercase">{a.tipo}</div>
@@ -362,7 +362,7 @@ function TablaVehiculos({ slice }: { slice: typeof vehiculos }) {
         {slice.map((v) => (
           <tr key={v.id} className="row-striped border-b border-deloitte-line/50">
             <td className="px-2 py-1.5 font-mono text-[11.5px]">{v.id}</td>
-            <td className="px-2 py-1.5 font-mono text-[12px] font-bold">{v.patente}</td>
+            <td className="px-2 py-1.5 font-mono text-[12px] font-semibold">{v.patente}</td>
             <td className="px-2 py-1.5">{v.tipo}</td>
             <td className="px-2 py-1.5">{v.marca}</td>
             <td className="px-2 py-1.5">{v.modelo}</td>
@@ -428,10 +428,10 @@ function TablaViajes({ slice }: { slice: typeof viajes }) {
               <td className="px-2 py-1.5 text-right text-deloitte-mute">{v.distanciaGPSKm}</td>
               <td className="px-2 py-1.5 text-right">{v.tiempoDeclaradoHoras}</td>
               <td className="px-2 py-1.5 text-right text-deloitte-mute">{v.tiempoGPSHoras}</td>
-              <td className={`px-2 py-1.5 text-right ${anomVeloc ? "font-bold text-risk-highTxt" : ""}`}>
+              <td className={`px-2 py-1.5 text-right ${anomVeloc ? "font-semibold text-risk-highTxt" : ""}`}>
                 {v.velocidadPromedioCalculadaKmH}{anomVeloc && <MarcaAnomalia />}
               </td>
-              <td className={`px-2 py-1.5 text-right ${anomExceso ? "font-bold text-risk-highTxt" : ""}`}>
+              <td className={`px-2 py-1.5 text-right ${anomExceso ? "font-semibold text-risk-highTxt" : ""}`}>
                 {v.velocidadMaximaGPS}{anomExceso && <MarcaAnomalia />}
               </td>
               <td className="px-2 py-1.5 text-center">
@@ -465,11 +465,11 @@ function TablaCombustible({ slice }: { slice: typeof cargasCombustible }) {
               <td className="px-2 py-1.5 text-[11.5px]">{c.fecha}</td>
               <td className="px-2 py-1.5">{c.estacion}</td>
               <td className="px-2 py-1.5 text-[12px]">{c.ciudad}</td>
-              <td className={`px-2 py-1.5 text-right ${exceso ? "font-bold text-risk-highTxt" : ""}`}>{c.litros}{exceso && <MarcaAnomalia />}</td>
+              <td className={`px-2 py-1.5 text-right ${exceso ? "font-semibold text-risk-highTxt" : ""}`}>{c.litros}{exceso && <MarcaAnomalia />}</td>
               <td className="px-2 py-1.5 text-right">{CLP(c.precioLitro)}</td>
               <td className="px-2 py-1.5 text-right font-semibold">{CLP(c.montoTotal)}</td>
               <td className="px-2 py-1.5 text-right">{c.nivelEstanqueAntesPct}%</td>
-              <td className={`px-2 py-1.5 text-right ${anomNivel ? "font-bold text-risk-highTxt" : ""}`}>
+              <td className={`px-2 py-1.5 text-right ${anomNivel ? "font-semibold text-risk-highTxt" : ""}`}>
                 {c.nivelEstanqueDespuesPct}%{anomNivel && <MarcaAnomalia />}
               </td>
               <td className="px-2 py-1.5">
@@ -639,7 +639,7 @@ function HallazgoCard({ severidad, titulo, cantidad, unidad, descripcion, normat
       <div className="pl-4 pr-4 py-3">
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1">
-            <div className={`text-[11.5px] uppercase tracking-wider font-bold ${s.text}`}>{s.label}</div>
+            <div className={`text-[11.5px] uppercase tracking-wider font-medium ${s.text}`}>{s.label}</div>
             <div className="text-[14px] font-semibold mt-0.5 text-deloitte-ink leading-tight">{titulo}</div>
             <p className="text-[12.5px] text-deloitte-slate mt-1 leading-snug">{descripcion}</p>
             <div className="text-[11.5px] text-deloitte-mute italic mt-1.5">
@@ -650,7 +650,7 @@ function HallazgoCard({ severidad, titulo, cantidad, unidad, descripcion, normat
                 <div className="flex items-start gap-1.5">
                   <Icono nombre="recomendacion" size={14} className="text-deloitte-greenTxt flex-shrink-0 mt-0.5" />
                   <div>
-                    <div className="text-[11px] uppercase tracking-wider font-bold text-deloitte-greenTxt">Recomendación de AuditIA</div>
+                    <div className="text-[11px] uppercase tracking-wider font-semibold text-deloitte-greenTxt">Recomendación de AuditIA</div>
                     <p className="text-[12px] text-deloitte-slate leading-snug mt-0.5">{recomendacion}</p>
                   </div>
                 </div>
@@ -659,7 +659,7 @@ function HallazgoCard({ severidad, titulo, cantidad, unidad, descripcion, normat
           </div>
           {cantidad !== null && (
             <div className="text-right">
-              <div className={`text-[24px] font-bold tabular ${s.text} leading-none`}>{cantidad}</div>
+              <div className={`text-[24px] font-semibold tabular ${s.text} leading-none`}>{cantidad}</div>
               <div className="text-[11px] text-deloitte-mute uppercase tracking-wider">{unidad}</div>
             </div>
           )}

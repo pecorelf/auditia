@@ -405,7 +405,7 @@ function TabConsulta() {
         {conversation.map((m, i) => (
           <div key={i} className={`flex gap-3 ${m.role === "user" ? "justify-end" : ""}`}>
             {m.role === "assistant" && (
-              <div className="w-7 h-7 rounded bg-deloitte-ink text-deloitte-green flex items-center justify-center text-[11px] font-bold flex-shrink-0 mt-1 font-mono">AI</div>
+              <div className="w-7 h-7 rounded bg-deloitte-ink text-deloitte-green flex items-center justify-center text-[11px] font-semibold flex-shrink-0 mt-1 font-mono">AI</div>
             )}
             <div className={`max-w-[80%] px-4 py-2.5 rounded-lg text-[14px] leading-relaxed ${
               m.role === "user"
@@ -448,7 +448,7 @@ function TabConsulta() {
         ))}
         {loading && (
           <div className="flex gap-3">
-            <div className="w-7 h-7 rounded bg-deloitte-ink text-deloitte-green flex items-center justify-center text-[11px] font-bold flex-shrink-0 mt-1 font-mono">AI</div>
+            <div className="w-7 h-7 rounded bg-deloitte-ink text-deloitte-green flex items-center justify-center text-[11px] font-semibold flex-shrink-0 mt-1 font-mono">AI</div>
             <div className="bg-deloitte-paper border-l-2 border-deloitte-green px-4 py-2.5 rounded-lg text-[13px] text-deloitte-mute font-mono">
               Consultando Fábrica de Pensamiento...
             </div>
@@ -720,7 +720,7 @@ function PlanResult({ plan, org, sector, onReset }: { plan: any; org: string; se
             <div className="space-y-2">
               {plan.objetivos.map((o: any, i: number) => (
                 <div key={i} className="flex gap-3 p-2.5 bg-deloitte-paper/40 rounded border border-deloitte-line">
-                  <div className="w-6 h-6 rounded-full bg-deloitte-ink text-white text-[12px] font-bold flex items-center justify-center flex-shrink-0">{o.numero || i + 1}</div>
+                  <div className="w-6 h-6 rounded-full bg-deloitte-ink text-white text-[12px] font-semibold flex items-center justify-center flex-shrink-0">{o.numero || i + 1}</div>
                   <div className="text-[13.5px]">
                     <div className="font-semibold text-deloitte-ink">{o.titulo}</div>
                     <div className="text-deloitte-slate mt-0.5">{o.descripcion}</div>
@@ -735,15 +735,15 @@ function PlanResult({ plan, org, sector, onReset }: { plan: any; org: string; se
           <Section title="Alcance">
             <div className="grid grid-cols-2 gap-4 text-[13.5px]">
               <div>
-                <div className="text-[11.5px] font-bold text-deloitte-green uppercase tracking-wider mb-2">Incluye</div>
+                <div className="text-[11.5px] font-semibold text-deloitte-green uppercase tracking-wider mb-2">Incluye</div>
                 {(plan.alcance.incluye || []).map((i: string, k: number) => (
                   <div key={k} className="py-1 pl-4 relative text-deloitte-slate">
-                    <span className="absolute left-0 text-deloitte-green font-bold">✓</span>{i}
+                    <span className="absolute left-0 text-deloitte-green font-semibold">✓</span>{i}
                   </div>
                 ))}
               </div>
               <div>
-                <div className="text-[11.5px] font-bold text-risk-highTxt uppercase tracking-wider mb-2">Excluye</div>
+                <div className="text-[11.5px] font-semibold text-risk-highTxt uppercase tracking-wider mb-2">Excluye</div>
                 {(plan.alcance.excluye || []).map((i: string, k: number) => (
                   <div key={k} className="py-1 pl-4 relative text-deloitte-mute">
                     <span className="absolute left-0 text-risk-highTxt">✗</span>{i}
@@ -759,7 +759,7 @@ function PlanResult({ plan, org, sector, onReset }: { plan: any; org: string; se
             <div className="space-y-1.5">
               {plan.riesgos_clave.map((r: any, i: number) => (
                 <div key={i} className="flex items-center gap-3 p-2 border border-deloitte-line rounded bg-white">
-                  <span className={`text-[11.5px] font-bold px-2 py-0.5 rounded uppercase tracking-wider ${
+                  <span className={`text-[11.5px] font-semibold px-2 py-0.5 rounded uppercase tracking-wider ${
                     r.nivel === "Alto" ? "bg-red-100 text-risk-highTxt" : r.nivel === "Medio" ? "bg-amber-100 text-risk-medTxt" : "bg-green-100 text-risk-lowTxt"
                   }`}>{r.nivel}</span>
                   <div className="text-[13.5px] text-deloitte-slate flex-1">
@@ -782,7 +782,7 @@ function PlanResult({ plan, org, sector, onReset }: { plan: any; org: string; se
             <div className="space-y-2">
               {plan.fases.map((f: any, i: number) => (
                 <div key={i} className="flex gap-3 p-2.5 border border-deloitte-line rounded bg-deloitte-paper/40">
-                  <div className="w-20 flex-shrink-0 text-[12px] font-bold text-deloitte-green uppercase tracking-wider font-mono">{f.fase}</div>
+                  <div className="w-20 flex-shrink-0 text-[12px] font-semibold text-deloitte-green uppercase tracking-wider font-mono">{f.fase}</div>
                   <div className="flex-1 text-[13.5px] text-deloitte-slate">
                     {(f.actividades || []).map((a: string, k: number) => (
                       <div key={k} className="py-0.5">› {a}</div>
@@ -831,7 +831,7 @@ function PlanResult({ plan, org, sector, onReset }: { plan: any; org: string; se
               {plan.papeles_de_trabajo.map((p: any, i: number) => (
                 <div key={i} className="p-3 border border-deloitte-line rounded bg-white">
                   <div className="flex items-start gap-3">
-                    <span className="text-[11.5px] font-mono font-bold text-deloitte-green bg-green-50 border border-green-200 px-2 py-0.5 rounded uppercase tracking-wider">{p.codigo || `PT-${i+1}`}</span>
+                    <span className="text-[11.5px] font-mono font-semibold text-deloitte-green bg-green-50 border border-green-200 px-2 py-0.5 rounded uppercase tracking-wider">{p.codigo || `PT-${i+1}`}</span>
                     <div className="flex-1">
                       <div className="text-[14px] font-semibold text-deloitte-ink">{p.titulo}</div>
                       <div className="text-[13px] text-deloitte-slate mt-1">{p.descripcion}</div>
@@ -862,7 +862,7 @@ function PlanResult({ plan, org, sector, onReset }: { plan: any; org: string; se
           <Section title="Entregables">
             {plan.entregables.map((e: string, i: number) => (
               <div key={i} className="py-1 pl-4 relative text-[13.5px] text-deloitte-slate">
-                <span className="absolute left-0 text-deloitte-green font-bold">›</span>{e}
+                <span className="absolute left-0 text-deloitte-green font-semibold">›</span>{e}
               </div>
             ))}
           </Section>
@@ -889,7 +889,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
     <div className="px-5 py-4 border-b border-deloitte-line last:border-b-0">
       <div className="flex items-center gap-2 mb-3">
         <span className="inline-block w-1 h-3.5 bg-deloitte-green rounded"></span>
-        <div className="text-[11.5px] font-bold text-deloitte-greenTxt uppercase tracking-widest font-mono">{title}</div>
+        <div className="text-[11.5px] font-semibold text-deloitte-greenTxt uppercase tracking-widest font-mono">{title}</div>
       </div>
       <div>{children}</div>
     </div>
@@ -1108,7 +1108,7 @@ function EvalResult({ evaluation, org, sector, onReset }: { evaluation: any; org
 
       <div className={`card p-5 mb-4 flex items-center gap-6 border-l-4 ${scoreClass}`}>
         <div className="text-center">
-          <div className="text-[42px] font-bold tabular leading-none">{evaluation.score_global}</div>
+          <div className="text-[42px] font-semibold tabular leading-none">{evaluation.score_global}</div>
           <div className="text-[11.5px] text-deloitte-mute uppercase tracking-wider">/100</div>
         </div>
         <div className="flex-1">
@@ -1119,7 +1119,7 @@ function EvalResult({ evaluation, org, sector, onReset }: { evaluation: any; org
 
       {evaluation.dimensiones?.length > 0 && (
         <div>
-          <div className="text-[11.5px] font-bold text-deloitte-slate uppercase tracking-wider mb-2 border-b-2 border-deloitte-green inline-block pb-0.5">Dimensiones evaluadas</div>
+          <div className="text-[11.5px] font-semibold text-deloitte-slate uppercase tracking-wider mb-2 border-b-2 border-deloitte-green inline-block pb-0.5">Dimensiones evaluadas</div>
           <div className="grid grid-cols-2 gap-2.5 mt-2 mb-5">
             {evaluation.dimensiones.map((d: any, i: number) => {
               const color = d.score >= 70 ? "#16A34A" : d.score >= 40 ? "#F59E0B" : "#DC2626";
@@ -1127,7 +1127,7 @@ function EvalResult({ evaluation, org, sector, onReset }: { evaluation: any; org
                 <div key={i} className="card p-3">
                   <div className="flex items-center justify-between mb-2">
                     <div className="text-[12.5px] font-semibold text-deloitte-ink">{d.nombre}</div>
-                    <div className="text-[13px] font-bold tabular" style={{ color }}>{d.score}/100</div>
+                    <div className="text-[13px] font-semibold tabular" style={{ color }}>{d.score}/100</div>
                   </div>
                   <div className="h-1 bg-deloitte-paper rounded overflow-hidden mb-2">
                     <div className="h-full" style={{ width: `${d.score}%`, background: color }} />
@@ -1142,7 +1142,7 @@ function EvalResult({ evaluation, org, sector, onReset }: { evaluation: any; org
 
       {evaluation.hallazgos?.length > 0 && (
         <div className="mb-5">
-          <div className="text-[11.5px] font-bold text-deloitte-slate uppercase tracking-wider mb-2 border-b-2 border-deloitte-green inline-block pb-0.5">Hallazgos</div>
+          <div className="text-[11.5px] font-semibold text-deloitte-slate uppercase tracking-wider mb-2 border-b-2 border-deloitte-green inline-block pb-0.5">Hallazgos</div>
           <div className="space-y-2 mt-2">
             {evaluation.hallazgos.map((h: any, i: number) => (
               <div key={i} className="card p-3 flex gap-3">
@@ -1164,11 +1164,11 @@ function EvalResult({ evaluation, org, sector, onReset }: { evaluation: any; org
 
       {evaluation.recomendaciones?.length > 0 && (
         <div className="mb-5">
-          <div className="text-[11.5px] font-bold text-deloitte-slate uppercase tracking-wider mb-2 border-b-2 border-deloitte-green inline-block pb-0.5">Recomendaciones priorizadas</div>
+          <div className="text-[11.5px] font-semibold text-deloitte-slate uppercase tracking-wider mb-2 border-b-2 border-deloitte-green inline-block pb-0.5">Recomendaciones priorizadas</div>
           <div className="space-y-2 mt-2">
             {evaluation.recomendaciones.map((r: any, i: number) => (
               <div key={i} className="flex gap-3 p-3 bg-green-50 border border-green-200 rounded">
-                <div className="w-6 h-6 rounded-full bg-deloitte-green text-white text-[12px] font-bold flex items-center justify-center flex-shrink-0">{i + 1}</div>
+                <div className="w-6 h-6 rounded-full bg-deloitte-green text-white text-[12px] font-semibold flex items-center justify-center flex-shrink-0">{i + 1}</div>
                 <div className="text-[13.5px]">
                   <div className="font-semibold text-deloitte-ink">{r.titulo}</div>
                   <div className="text-deloitte-slate mt-0.5">{r.detalle}</div>

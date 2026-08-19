@@ -77,7 +77,7 @@ function SpecBlock({ spec }: { spec: any }) {
           {spec.data.map((k: any, i: number) => (
             <div key={i} className="card p-3">
               <div className="eyebrow">{k.label}</div>
-              <div className="text-xl font-bold mt-1 tabular text-deloitte-ink">{fmt(k.value, spec.format)}</div>
+              <div className="text-xl font-semibold mt-1 tabular text-deloitte-ink">{fmt(k.value, spec.format)}</div>
               {k.detail && <div className="text-[12px] text-deloitte-mute mt-0.5">{k.detail}</div>}
             </div>
           ))}

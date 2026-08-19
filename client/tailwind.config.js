@@ -9,12 +9,12 @@ export default {
           greenDark: "#6FA01F",
           greenTxt: "#4D7014",   // 5,76:1 sobre blanco — para texto en verde
           black: "#000000",
-          ink: "#0A0A0A",
+          ink: "#0C0D0F",      // riel oscuro del sistema
           coal: "#1A1A1A",
           slate: "#2A2A2A",
           mute: "#666666",
           line: "#E5E5E5",
-          paper: "#F7F7F5",
+          paper: "#F6F6F4",    // lienzo del sistema
         },
         // Dos escalas por severidad:
         //   · el color base se usa en BARRAS, PUNTOS y RELLENOS (no texto)
@@ -31,13 +31,17 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['"Open Sans"', "system-ui", "sans-serif"],
-        serif: ['"Source Serif 4"', '"Source Serif Pro"', "Georgia", "serif"],
+        // Misma familia que Loyalty Studio y Discovery Studio: los tres
+        // productos deben leerse como parte de un mismo sistema.
+        sans: ["Poppins", "system-ui", "sans-serif"],
+        // "serif" se conserva como nombre de clase para no tocar 30 archivos,
+        // pero apunta a Poppins: el display es la misma familia en peso ligero.
+        serif: ["Poppins", "system-ui", "sans-serif"],
         mono: ['"JetBrains Mono"', "ui-monospace", "monospace"],
       },
       boxShadow: {
-        card: "0 1px 2px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04)",
-        cardHover: "0 2px 4px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.08)",
+        card: "0 1px 2px rgba(12,13,15,0.03), 0 6px 20px rgba(12,13,15,0.045)",
+        cardHover: "0 2px 6px rgba(12,13,15,0.05), 0 12px 32px rgba(12,13,15,0.08)",
       },
     },
   },

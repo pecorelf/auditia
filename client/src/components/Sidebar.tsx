@@ -70,9 +70,9 @@ export function Sidebar() {
   const logout = useStore((s) => s.logout);
 
   return (
-    <aside className="sidebar-oscura w-[260px] flex-shrink-0 bg-deloitte-ink text-white flex flex-col">
+    <aside className="sidebar-oscura w-[264px] flex-shrink-0 bg-deloitte-ink text-white flex flex-col">
       {/* Brand */}
-      <div className="px-5 py-5 border-b border-white/10">
+      <div className="px-5 py-6 border-b border-white/[0.06]">
         {/* Placa blanca: el logo del cliente se muestra como fue diseñado */}
         <Logo invert />
         <div className="mt-3.5 pt-3 border-t border-white/[0.07]">
@@ -84,9 +84,9 @@ export function Sidebar() {
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 px-3 py-4 space-y-1">
+      <nav className="flex-1 px-3 py-5 space-y-0.5 overflow-y-auto">
         <div className="px-2 mb-2">
-          <div className="text-[11.5px] uppercase tracking-[0.18em] text-white/40 font-semibold">
+          <div className="text-[11px] uppercase tracking-[0.13em] text-white/35 font-medium">
             {`Demo · ${VISIBLES.length} espacios`}
           </div>
         </div>
@@ -96,9 +96,9 @@ export function Sidebar() {
             <button
               key={it.id}
               onClick={() => setEspacio(it.id)}
-              className={`w-full text-left px-3 py-2.5 rounded transition-colors group ${
+              className={`w-full text-left px-3 py-2.5 rounded-lg transition-colors group ${
                 active
-                  ? "bg-white/10 border border-white/15"
+                  ? "bg-white/[0.07] border border-white/10"
                   : "border border-transparent hover:bg-white/5"
               }`}
             >
@@ -111,7 +111,7 @@ export function Sidebar() {
                   {it.number}
                 </div>
                 <div className="flex-1">
-                  <div className={`text-[14px] font-semibold ${active ? "text-white" : "text-white/85"}`}>
+                  <div className={`text-[14px] font-medium ${active ? "text-white" : "text-white/80"}`}>
                     {it.title}
                   </div>
                   <div className="text-[11.5px] text-white/45 mt-0.5">{it.subtitle}</div>
@@ -131,9 +131,9 @@ export function Sidebar() {
           <button
             onClick={() => setEspacio("admin")}
             aria-label="Abrir configuración: industria, cliente y logo"
-            className={`w-full text-left px-3 py-2.5 rounded transition-colors group ${
+            className={`w-full text-left px-3 py-2.5 rounded-lg transition-colors group ${
               espacio === "admin"
-                ? "bg-white/10 border border-white/15"
+                ? "bg-white/[0.07] border border-white/10"
                 : "border border-transparent hover:bg-white/5"
             }`}
           >

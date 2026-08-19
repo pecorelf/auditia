@@ -8,27 +8,27 @@ type Props = {
 
 export function Header({ eyebrow, title, subtitle, meta, cta }: Props) {
   return (
-    <header className="px-8 pt-7 pb-5 border-b border-deloitte-line bg-white">
+    <header className="px-8 pt-9 pb-6 border-b border-deloitte-line/70 bg-white">
       <div className="flex items-start justify-between gap-6">
         <div className="flex-1">
           <div className="eyebrow">{eyebrow}</div>
-          <h1 className="font-serif text-[28px] font-semibold tracking-tight mt-1 text-deloitte-ink leading-tight">
+          <h1 className="display text-[32px] mt-1.5 text-deloitte-ink">
             {title}
           </h1>
           {subtitle && (
-            <p className="text-[14px] text-deloitte-mute mt-1.5 max-w-2xl">{subtitle}</p>
+            <p className="text-[14px] text-deloitte-mute mt-2.5 max-w-2xl leading-relaxed font-light">{subtitle}</p>
           )}
         </div>
         {cta}
       </div>
       {meta && meta.length > 0 && (
-        <div className="flex items-center gap-6 mt-5">
+        <div className="flex items-center gap-8 mt-6">
           {meta.map((m, i) => (
             <div key={i}>
               <div className="text-[11.5px] uppercase tracking-wider text-deloitte-mute font-semibold">
                 {m.label}
               </div>
-              <div className="text-[14px] font-semibold text-deloitte-ink mt-0.5 tabular">{m.value}</div>
+              <div className="cifra text-[15px] font-medium text-deloitte-ink mt-1">{m.value}</div>
             </div>
           ))}
         </div>

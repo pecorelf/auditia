@@ -25,7 +25,7 @@ export function Login() {
         <div className="space-y-6">
           <div>
             <div className="eyebrow text-white/50">Demo interna · Mayo 2026</div>
-            <h1 className="font-serif text-5xl font-semibold tracking-tight mt-2 leading-[1.05]">
+            <h1 className="display text-[52px] mt-3">
               El estado del arte de la IA<br />en Auditoría Interna.
             </h1>
             <p className="text-white/60 mt-5 text-[16px] leading-relaxed max-w-md">
@@ -61,7 +61,7 @@ export function Login() {
             <Logo />
           </div>
           <div className="eyebrow">Ingresa a la demo</div>
-          <h2 className="font-serif text-[26px] font-semibold mt-1 mb-1.5 text-deloitte-ink leading-tight">
+          <h2 className="display text-[28px] mt-1.5 mb-2 text-deloitte-ink">
             Selecciona tu perfil
           </h2>
           <p className="text-[14px] text-deloitte-mute mb-6">

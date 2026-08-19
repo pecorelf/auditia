@@ -46,7 +46,7 @@ export function AlertCard({ severity, title, description, metric, action }: Prop
       <div className="pl-4 pr-4 py-3">
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1">
-            <div className={`text-[11.5px] uppercase tracking-wider font-bold ${s.text}`}>{s.label}</div>
+            <div className={`text-[11.5px] uppercase tracking-wider font-medium ${s.text}`}>{s.label}</div>
             <div className="text-[15px] font-semibold mt-0.5 text-deloitte-ink">{title}</div>
             <p className="text-[13px] text-deloitte-slate mt-1 leading-snug">{description}</p>
             {action && (
@@ -57,7 +57,7 @@ export function AlertCard({ severity, title, description, metric, action }: Prop
           </div>
           {metric && (
             <div className="text-right">
-              <div className={`text-[20px] font-bold tabular ${s.text}`}>{metric}</div>
+              <div className={`text-[20px] font-semibold tabular ${s.text}`}>{metric}</div>
             </div>
           )}
         </div>

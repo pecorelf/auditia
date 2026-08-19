@@ -110,7 +110,7 @@ export function EspacioDos() {
                       <span className="font-semibold">{c.proceso}</span> · {c.responsableSugerido} · plazo {c.fechaCompromiso}
                     </div>
                   </div>
-                  <span className={`text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
+                  <span className={`text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded ${
                     c.severidad === "Crítica" ? "bg-red-100 text-risk-highTxt" : c.severidad === "Alta" ? "bg-amber-100 text-risk-medTxt" : "bg-gray-100 text-deloitte-mute"
                   }`}>{c.severidad}</span>
                   <button
@@ -135,7 +135,7 @@ export function EspacioDos() {
           <div className="flex items-baseline justify-between mb-3">
             <div>
               <div className="eyebrow">Planilla de seguimiento de hallazgos · FY23 — FY26</div>
-              <h2 className="text-[18px] font-serif font-semibold text-deloitte-ink mt-0.5">
+              <h2 className="display-medium text-[20px] text-deloitte-ink mt-0.5">
                 Estado actual de compromisos del plan de auditoría
               </h2>
             </div>
@@ -148,27 +148,27 @@ export function EspacioDos() {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4">
             <button onClick={() => setDrill("abiertos")} className="card p-3 text-left hover:border-deloitte-green hover:shadow-md transition-all cursor-pointer">
               <div className="eyebrow">Abiertos totales</div>
-              <div className="text-[22px] font-bold tabular text-deloitte-ink mt-1">{seg.resumen.abiertos}</div>
+              <div className="text-[22px] font-semibold tabular text-deloitte-ink mt-1">{seg.resumen.abiertos}</div>
               <div className="text-[11.5px] text-deloitte-mute mt-0.5">de {seg.resumen.total} históricos · ver detalle →</div>
             </button>
             <button onClick={() => setDrill("vencidos")} className="card p-3 text-left hover:border-deloitte-green hover:shadow-md transition-all cursor-pointer">
               <div className="eyebrow">Vencidos</div>
-              <div className="text-[22px] font-bold tabular text-risk-highTxt mt-1">{seg.resumen.vencidos}</div>
+              <div className="text-[22px] font-semibold tabular text-risk-highTxt mt-1">{seg.resumen.vencidos}</div>
               <div className="text-[11.5px] text-deloitte-mute mt-0.5">{seg.resumen.pctVencidos}% de los abiertos · ver →</div>
             </button>
             <button onClick={() => setDrill("criticos")} className="card p-3 text-left hover:border-deloitte-green hover:shadow-md transition-all cursor-pointer">
               <div className="eyebrow">Críticos abiertos</div>
-              <div className="text-[22px] font-bold tabular text-risk-highTxt mt-1">{seg.resumen.criticosAbiertos}</div>
+              <div className="text-[22px] font-semibold tabular text-risk-highTxt mt-1">{seg.resumen.criticosAbiertos}</div>
               <div className="text-[11.5px] text-deloitte-mute mt-0.5">requieren escalamiento · ver →</div>
             </button>
             <button onClick={() => setDrill("reiterados")} className="card p-3 text-left hover:border-deloitte-green hover:shadow-md transition-all cursor-pointer">
               <div className="eyebrow">Reiterados</div>
-              <div className="text-[22px] font-bold tabular text-risk-medTxt mt-1">{seg.resumen.reiterados}</div>
+              <div className="text-[22px] font-semibold tabular text-risk-medTxt mt-1">{seg.resumen.reiterados}</div>
               <div className="text-[11.5px] text-deloitte-mute mt-0.5">repetidos año a año · ver →</div>
             </button>
             <button onClick={() => setDrill("cumplimiento")} className="card p-3 text-left hover:border-deloitte-green hover:shadow-md transition-all cursor-pointer">
               <div className="eyebrow">Cumplimiento global</div>
-              <div className="text-[22px] font-bold tabular text-deloitte-ink mt-1">
+              <div className="text-[22px] font-semibold tabular text-deloitte-ink mt-1">
                 {Math.round((seg.resumen.cerrados / seg.resumen.total) * 100)}%
               </div>
               <div className="text-[11.5px] text-deloitte-mute mt-0.5">{seg.resumen.cerrados} cerrados · ver →</div>
@@ -488,7 +488,7 @@ export function EspacioDos() {
             </div>
             <div className="text-right">
               <div className="eyebrow">Índice de riesgo</div>
-              <div className={`text-[36px] font-bold tabular leading-none mt-0.5 ${
+              <div className={`text-[36px] font-semibold tabular leading-none mt-0.5 ${
                 riskScore < 30 ? "text-risk-lowTxt" : riskScore < 60 ? "text-risk-medTxt" : "text-risk-highTxt"
               }`}>
                 {riskScore.toFixed(1)}

@@ -149,7 +149,7 @@ export function AnalisisEnVivo({ fuentes, hallazgos, universo, muestraTradiciona
         <div className="flex items-end justify-between gap-6">
           <div>
             <div className="eyebrow text-white/45">Transacciones cruzadas</div>
-            <div className="font-mono text-[34px] font-bold leading-none mt-1 tabular">
+            <div className="font-mono text-[34px] font-semibold leading-none mt-1 tabular">
               {num(contador)}
               {corriendo && <span className="anim-latido inline-block ml-2 w-2 h-2 rounded-full bg-deloitte-green align-middle" />}
             </div>
@@ -216,7 +216,7 @@ export function AnalisisEnVivo({ fuentes, hallazgos, universo, muestraTradiciona
                   {h.montoCLP ? (
                     <div className="text-[12px] tabular text-deloitte-mute">{CLP(h.montoCLP)}</div>
                   ) : null}
-                  <div className={`text-[16px] font-bold tabular ${c.txt} w-8 text-right`}>{h.cantidad}</div>
+                  <div className={`text-[16px] font-semibold tabular ${c.txt} w-8 text-right`}>{h.cantidad}</div>
                 </div>
               );
             })}
@@ -224,7 +224,7 @@ export function AnalisisEnVivo({ fuentes, hallazgos, universo, muestraTradiciona
             {fase === "listo" && totalMonto > 0 && (
               <div className="anim-entrada flex items-center justify-between border-t border-deloitte-line pt-3 mt-3">
                 <div className="text-[13px] font-semibold text-deloitte-ink">Impacto económico detectado</div>
-                <div className="text-[17px] font-bold tabular text-risk-highTxt">{CLP(totalMonto)}</div>
+                <div className="text-[17px] font-semibold tabular text-risk-highTxt">{CLP(totalMonto)}</div>
               </div>
             )}
           </div>
