@@ -71,15 +71,20 @@ export function Sidebar() {
 
   return (
     <aside className="sidebar-oscura w-[264px] flex-shrink-0 bg-deloitte-ink text-white flex flex-col">
-      {/* Brand */}
-      <div className="px-5 py-6 border-b border-white/[0.06]">
-        {/* Placa blanca: el logo del cliente se muestra como fue diseñado */}
-        <Logo invert />
-        <div className="mt-3.5 pt-3 border-t border-white/[0.07]">
-          <WordmarkAuditIA className="text-white" />
-          <div className="text-[11.5px] text-white/50 mt-0.5">
-            {BRANDING.practice} · IA
-          </div>
+      {/* Franja blanca del cliente.
+          Los logos corporativos vienen con fondo blanco: sobre la barra oscura
+          quedaban con un recorte sucio. La franja ocupa todo el ancho, así el
+          logo se muestra como fue diseñado y el corte es una decisión.
+          Debajo, sobre el oscuro, va la marca del producto: cliente y producto
+          quedan claramente separados. */}
+      <div className="bg-white px-5 h-[72px] flex items-center border-b border-black/[0.06]">
+        <Logo className="max-w-full" />
+      </div>
+
+      <div className="px-5 pt-4 pb-5 border-b border-white/[0.06]">
+        <WordmarkAuditIA className="text-white" />
+        <div className="text-[11.5px] text-white/45 mt-0.5">
+          {BRANDING.practice} · IA
         </div>
       </div>
 

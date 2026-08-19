@@ -20,7 +20,9 @@ export function Login() {
     <div className="min-h-screen login-bg flex">
       {/* Lado izquierdo: branding y mensaje */}
       <div className="hidden md:flex flex-col justify-between p-10 w-[42%] text-white">
-        <Logo invert />
+        <div className="bg-white rounded-lg px-4 py-2.5 inline-flex items-center">
+          <Logo />
+        </div>
 
         <div className="space-y-6">
           <div>

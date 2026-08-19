@@ -1,35 +1,9 @@
 import { BRANDING } from "../config/branding";
 
-export function Logo({ className = "", invert = false }: { className?: string; invert?: boolean }) {
-  // Los logos de cliente vienen casi siempre con fondo blanco. Sobre la barra
-  // oscura eso deja un recorte sucio, así que se les da una placa blanca propia:
-  // el logo se lee como está diseñado y el recorte pasa a ser una decisión.
-  if (invert) {
-    return (
-      <div className={`inline-flex ${className}`}>
-        <div className="bg-white rounded-md px-3 py-2 inline-flex items-center shadow-sm">
-          <img
-            src={BRANDING.logoPath}
-            alt={BRANDING.firmName}
-            className="h-7 w-auto max-w-[180px] object-contain"
-            onError={(e) => {
-              const img = e.currentTarget;
-              img.style.display = "none";
-              const fb = img.nextElementSibling as HTMLElement | null;
-              if (fb) fb.style.display = "inline-block";
-            }}
-          />
-          <span
-            style={{ display: "none", color: BRANDING.colors.ink }}
-            className="display-medium text-[21px]"
-          >
-            {BRANDING.firmName}
-          </span>
-        </div>
-      </div>
-    );
-  }
-
+export function Logo({ className = "" }: { className?: string; invert?: boolean }) {
+  // Se dibuja siempre sobre fondo blanco — la franja la pone quien lo usa.
+  // Los logos corporativos vienen con fondo blanco y sobre oscuro quedaban
+  // con un recorte sucio.
   return (
     <div
       className={`inline-flex items-center ${className}`}
@@ -39,7 +13,7 @@ export function Logo({ className = "", invert = false }: { className?: string; i
       <img
         src={BRANDING.logoPath}
         alt={BRANDING.firmName}
-        className="h-7 w-auto"
+        className="h-9 w-auto max-w-[200px] object-contain"
         onError={(e) => {
           const img = e.currentTarget;
           img.style.display = "none";
