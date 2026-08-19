@@ -12,6 +12,12 @@ type Item = {
 
 const ITEMS: Item[] = [
   {
+    id: "procesos",
+    number: "00",
+    title: "Procesos Críticos",
+    subtitle: "Pagos, pensiones y datos de afiliados",
+  },
+  {
     id: "uno",
     number: "01",
     title: "Pagos a Proveedores",

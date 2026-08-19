@@ -7,6 +7,7 @@ import { EspacioTres } from "./views/EspacioTres";
 import { EspacioCuatro } from "./views/EspacioCuatro";
 import { EspacioCinco } from "./views/EspacioCinco";
 import { EspacioSeis } from "./views/EspacioSeis";
+import { EspacioAFP } from "./views/EspacioAFP";
 import { Admin } from "./views/Admin";
 import { getPackActivo } from "./packs";
 
@@ -33,6 +34,7 @@ export default function App() {
       {espacio === "cuatro" && <EspacioCuatro />}
       {espacio === "cinco" && <EspacioCinco />}
       {espacio === "seis" && <EspacioSeis />}
+      {espacio === "procesos" && <EspacioAFP />}
       {espacio === "admin" && <Admin />}
     </Layout>
   );

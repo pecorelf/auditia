@@ -88,6 +88,7 @@ export function ChatPanel({ killerQuestions, placeholder }: Props) {
             <div className="text-[13px] font-semibold leading-tight">AuditIA</div>
             <div className="text-[10px] text-deloitte-mute leading-tight">
               {espacio === "uno" ? "Sobre los archivos del cliente" :
+               espacio === "procesos" ? "Sobre los tres procesos críticos" :
                espacio === "dos" ? "Sobre el Audit Hub" :
                espacio === "cinco" ? "Sobre gastos y rendiciones" :
                espacio === "seis" ? "Sobre remuneraciones y turnos" :

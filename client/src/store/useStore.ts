@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type Espacio = "uno" | "dos" | "tres" | "cuatro" | "cinco" | "seis" | "admin";
+export type Espacio = "uno" | "dos" | "tres" | "cuatro" | "cinco" | "seis" | "procesos" | "admin";
 
 export type User = {
   id: string;

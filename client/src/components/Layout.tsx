@@ -53,6 +53,17 @@ const KILLERS: Record<string, string[]> = {
     "¿Qué bonos se están pagando fuera del convenio colectivo vigente?",
     "Dame los hallazgos prioritarios con impacto en CLP para el Gerente de Personas",
   ],
+  procesos: [
+    "Explícame la cadena contacto → cuenta → giro. ¿Quién la ejecutó y por cuánto?",
+    "¿Hay pagos duplicados al mismo afiliado? Dame los casos y el monto",
+    "¿Qué giros se pagaron sin una solicitud registrada?",
+    "¿En qué casos quien cambió la cuenta bancaria autorizó también el giro?",
+    "¿Cuántos trámites de pensión se resolvieron fuera del plazo normativo?",
+    "¿Hay expedientes de pensión aprobados sin documento obligatorio?",
+    "¿Qué afiliados comparten teléfono o email entre sí?",
+    "¿Qué modificaciones de datos se hicieron sin respaldo de autorización?",
+    "Dame los tres hallazgos que llevaría al Comité de Auditoría y por qué",
+  ],
 };
 
 export function Layout({ children }: Props) {
@@ -61,7 +72,7 @@ export function Layout({ children }: Props) {
 
   // Los Espacios 3 (Audit Expert) y 4 (Coach) tienen su propio chat interno;
   // no mostramos el panel lateral en esos espacios para evitar confusión visual.
-  const showSideChat = espacio === "uno" || espacio === "dos" || espacio === "cinco" || espacio === "seis";
+  const showSideChat = espacio === "uno" || espacio === "dos" || espacio === "cinco" || espacio === "seis" || espacio === "procesos";
 
   return (
     <div className="flex h-screen overflow-hidden">

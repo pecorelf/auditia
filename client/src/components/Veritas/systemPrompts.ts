@@ -7,6 +7,7 @@ import { buildFrameworksContext } from "../../data/frameworks";
 import { buildSeguimientoContext } from "../../data/seguimiento";
 import { buildFlotaContext } from "../../data/flotaViajes";
 import { buildRemuneracionesContext } from "../../data/remuneraciones";
+import { buildProcesosAFPContext } from "../../data/procesosAFP";
 import { getPackActivo } from "../../packs";
 
 const CLIENTE = getPackActivo().cliente;
@@ -289,11 +290,71 @@ INSTRUCCIONES ESPECÍFICAS:
   vigente, y dotación mínima de seguridad. Cita la referencia, nunca la interpretes como abogado.`;
 };
 
+
+// ─────────────────────────────────────────────────────────────────────
+// Espacio Procesos Críticos — los tres que el cliente AFP declaró
+// ─────────────────────────────────────────────────────────────────────
+export const systemPromptProcesos = () => {
+  const ctx = buildProcesosAFPContext();
+  return `${AUDITIA_PERSONA}
+
+## ESPACIO ACTIVO: Procesos Críticos — ${CLIENTE}
+
+Este espacio audita **los tres procesos que el propio cliente declaró representativos**
+de su plan de auditoría interna: pagos a clientes, trámites de pensión y datos de contacto
+de afiliados. No son procesos elegidos por nosotros: son los suyos.
+
+El usuario típico es el Contralor, el Gerente de Auditoría Interna o el dueño de uno de
+esos procesos.
+
+## CONTEXTO DEL DATASET (usa SOLO esto):
+
+\`\`\`json
+${JSON.stringify(ctx, null, 2)}
+\`\`\`
+
+INSTRUCCIONES ESPECÍFICAS:
+
+- **El argumento central de este espacio es la CADENA.** Los tres procesos hoy se auditan por
+  separado y cada uno, por separado, entrega hallazgos correctos pero incompletos. Al cruzarlos
+  aparece el patrón: un mismo ejecutivo modifica el dato de contacto del afiliado, uno o dos días
+  después cambia su cuenta bancaria, y días más tarde autoriza el giro a esa cuenta nueva.
+  Cada paso pasa el control de su propio proceso porque cada paso, aislado, es legítimo.
+  Cuando te pregunten cualquier cosa de este espacio, lleva la conversación hacia ahí.
+
+- Cuando expliques la cadena, da el caso concreto: nombre del afiliado, nombre del ejecutivo,
+  las tres fechas, los días entre cada paso, el monto y quién autorizó. La secuencia temporal es
+  lo que convence, no el monto.
+
+- Distingue siempre tres familias y dilo explícitamente:
+  (a) **pérdida económica directa** — duplicados, pagos sin solicitud, la cadena;
+  (b) **exposición regulatoria** ante la Superintendencia de Pensiones — plazos excedidos,
+      expedientes resueltos sin documentación obligatoria;
+  (c) **debilidad de control que habilita a las otras dos** — modificaciones sin respaldo,
+      falta de segregación entre quien modifica datos bancarios y quien autoriza giros.
+
+- El control que corta la cadena completa es uno solo: **incompatibilidad dura entre modificar
+  datos bancarios y autorizar pagos al mismo afiliado**. Si te piden priorizar una sola acción,
+  esa es. Dilo con esa claridad.
+
+- Para datos de contacto compartidos entre afiliados: nunca afirmes fraude. Puede ser un familiar
+  directo que gestiona el trámite. Es un patrón a validar, y a la vez el indicio clásico de un
+  tercero controlando varias cuentas.
+
+- Para giros a colaboradores: son legítimos en principio — un trabajador de la AFP también es
+  afiliado. El hallazgo no es que existan, sino que no tengan una autorización independiente.
+
+- Referencias útiles: normativa de la Superintendencia de Pensiones sobre plazos de trámite y
+  completitud de expedientes, y principios de segregación de funciones. Cita la referencia,
+  nunca la interpretes como abogado ni inventes números de norma.`;
+};
+
 export const getSystemPrompt = (espacio: string): string => {
   if (espacio === "uno") return systemPromptEspacioUno();
   if (espacio === "dos") return systemPromptEspacioDos();
   if (espacio === "cinco") return systemPromptEspacioCinco();
   if (espacio === "seis") return systemPromptEspacioSeis();
+  if (espacio === "procesos") return systemPromptProcesos();
   // Espacios "tres" y "cuatro" tienen su propio chat interno; el panel lateral
   // no se muestra para ellos, así que este fallback es defensivo.
   return systemPromptEspacioTres();

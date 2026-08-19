@@ -21,7 +21,7 @@ export const afp: IndustryPack = {
     "agentes previsionales inscritos en el registro. El gasto se concentra en custodia de valores, " +
     "terminales de información de mercado, despacho de cartolas cuatrimestrales y campañas de " +
     "captación y retención de afiliados.",
-  espaciosDisponibles: ["uno", "dos", "tres", "cuatro", "cinco", "seis"],
+  espaciosDisponibles: ["procesos", "uno", "dos", "tres", "cuatro", "cinco", "seis"],
 
   p2p: {
     areasEmpleado: [
