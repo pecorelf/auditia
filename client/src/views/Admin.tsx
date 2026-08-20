@@ -6,7 +6,6 @@
 import { useState } from "react";
 import { Header } from "../components/Header";
 import { PACKS, getPackId, setPackId, getOverrides, setOverrides } from "../packs";
-import { SeccionProtegida } from "../components/SeccionProtegida";
 
 export function Admin() {
   const [packId, setPack] = useState(getPackId());
@@ -62,13 +61,7 @@ export function Admin() {
         ]}
       />
 
-      <div className="px-8 py-6 max-w-4xl">
-        <SeccionProtegida
-          id="admin"
-          titulo="Configuración protegida"
-          descripcion="Acá se cambia la industria, el nombre del cliente y el logo. Un cambio en medio de una demo regenera todos los datos, así que requiere clave."
-        >
-        <div className="space-y-6">
+      <div className="px-8 py-6 space-y-6 max-w-4xl">
         {/* Industria */}
         <div className="card p-5">
           <div className="eyebrow">Industria</div>
@@ -191,8 +184,6 @@ export function Admin() {
           La configuración se guarda en este navegador. Al aplicar, la app se recarga para regenerar
           los datasets con el vocabulario del pack elegido.
         </div>
-        </div>
-        </SeccionProtegida>
       </div>
     </>
   );
