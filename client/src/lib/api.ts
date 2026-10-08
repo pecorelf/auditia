@@ -1,4 +1,4 @@
-// Resolución del backend + gate de acceso.
+// Resolución del backend.
 //
 // En local (Vite dev en 5173) el backend es server.js en el 3001.
 // En Vercel las funciones viven en el mismo origen bajo /api.
@@ -15,20 +15,6 @@ export const apiUrl = (path: string) => {
   return path; // mismo origen en Vercel
 };
 
-// ── Gate de acceso ───────────────────────────────────────────────────
-const PWD_KEY = "auditia.demoPassword";
-
-export const getPassword = (): string => {
-  try { return localStorage.getItem(PWD_KEY) || ""; } catch { return ""; }
-};
-
-export const setPassword = (p: string) => {
-  try { localStorage.setItem(PWD_KEY, p); } catch { /* sin persistencia */ }
-};
-
-export const apiHeaders = (): Record<string, string> => {
-  const h: Record<string, string> = { "Content-Type": "application/json" };
-  const p = getPassword();
-  if (p) h["x-demo-password"] = p;
-  return h;
-};
+export const apiHeaders = (): Record<string, string> => ({
+  "Content-Type": "application/json",
+});

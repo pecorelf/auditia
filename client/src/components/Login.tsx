@@ -1,20 +1,10 @@
-import { useState } from "react";
 import { useStore } from "../store/useStore";
-import { esDesarrollo, getPassword, setPassword } from "../lib/api";
 import { Logo, WordmarkAuditIA } from "./Logo";
 
 export function Login() {
   const users = useStore((s) => s.users);
   const login = useStore((s) => s.login);
-  const [clave, setClave] = useState(getPassword());
-
-  // En Vercel la demo está detrás de una clave compartida; en local no hace falta.
-  const pideClave = !esDesarrollo();
-
-  const entrar = (id: string) => {
-    if (pideClave) setPassword(clave.trim());
-    login(id);
-  };
+  const entrar = (id: string) => login(id);
 
   return (
     <div className="min-h-screen login-bg flex">
@@ -71,20 +61,6 @@ export function Login() {
             AuditIA se adapta al rol.
           </p>
 
-          {pideClave && (
-            <div className="mb-5">
-              <label className="text-[12px] font-semibold text-deloitte-slate block mb-1.5">
-                Clave de acceso
-              </label>
-              <input
-                type="password"
-                value={clave}
-                onChange={(e) => setClave(e.target.value)}
-                placeholder="Clave compartida del equipo"
-                className="w-full text-[14px] border border-deloitte-line rounded px-3 py-2 bg-white"
-              />
-            </div>
-          )}
 
           <div className="space-y-2">
             {users.map((u) => (

@@ -6,15 +6,10 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 export const config = { maxDuration: 60 };
 
 const MODEL = process.env.ANTHROPIC_MODEL || "claude-sonnet-4-5";
-const GATE = process.env.DEMO_PASSWORD;
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
     res.status(405).json({ error: "Método no permitido" });
-    return;
-  }
-  if (GATE && req.headers["x-demo-password"] !== GATE) {
-    res.status(401).json({ error: "No autorizado" });
     return;
   }
   if (!process.env.ANTHROPIC_API_KEY) {

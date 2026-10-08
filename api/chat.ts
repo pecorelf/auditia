@@ -12,7 +12,6 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 export const config = { maxDuration: 60 };
 
 const MODEL = process.env.ANTHROPIC_MODEL || "claude-sonnet-4-5";
-const GATE = process.env.DEMO_PASSWORD;
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
@@ -20,11 +19,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return;
   }
 
-  // Gate de acceso — evita que cualquiera con el link consuma la API key.
-  if (GATE && req.headers["x-demo-password"] !== GATE) {
-    res.status(401).json({ error: "No autorizado" });
-    return;
-  }
 
   if (!process.env.ANTHROPIC_API_KEY) {
     res.status(500).json({ error: "Falta ANTHROPIC_API_KEY en el entorno de Vercel" });

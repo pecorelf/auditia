@@ -7,7 +7,6 @@ export default function handler(_req: VercelRequest, res: VercelResponse) {
     ok: true,
     model: process.env.ANTHROPIC_MODEL || "claude-sonnet-4-5",
     apiKeyPresente: Boolean(process.env.ANTHROPIC_API_KEY),
-    gateActivo: Boolean(process.env.DEMO_PASSWORD),
     ts: Date.now(),
   });
 }
