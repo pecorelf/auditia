@@ -9,6 +9,7 @@ import { buildFlotaContext } from "../../data/flotaViajes";
 import { buildRemuneracionesContext } from "../../data/remuneraciones";
 import { buildProcesosAFPContext } from "../../data/procesosAFP";
 import { buildProcesosTGRContext } from "../../data/procesosTGR";
+import { detectarSeguridad, proyeccion, cruceDelPiso, PISO_OPERATIVO_CLP, SUPUESTO_ADVERSO, diasDeCobertura } from "../../data/seguridadLiquidezTGR";
 import { getPackActivo } from "../../packs";
 
 const CLIENTE = getPackActivo().cliente;
@@ -355,7 +356,24 @@ INSTRUCCIONES ESPECÍFICAS:
 // Espacio Procesos Críticos de Tesorería
 // ─────────────────────────────────────────────────────────────────────
 export const systemPromptTesoreria = () => {
-  const ctx = buildProcesosTGRContext();
+  const ctx = {
+    ...buildProcesosTGRContext(),
+    riesgosTransversales: {
+      nota: "Los otros dos riesgos del mapa. Seguridad entrega hallazgos sobre eventos de " +
+            "plataforma; liquidez NO es un hallazgo sino una proyección de caja.",
+      seguridadDePlataformasDePago: detectarSeguridad(),
+      liquidezOperativa: {
+        naturaleza: "Proyección a 90 días. No es detección de anomalías.",
+        supuestoDelEscenarioAdverso: SUPUESTO_ADVERSO,
+        pisoOperativoCLP: PISO_OPERATIVO_CLP,
+        diasDeCobertura,
+        perforaElPiso: cruceDelPiso
+          ? { fecha: cruceDelPiso.fecha, etiqueta: cruceDelPiso.etiqueta, dia: cruceDelPiso.dia }
+          : null,
+        serie: proyeccion,
+      },
+    },
+  };
   return `${AUDITIA_PERSONA}
 
 ## ESPACIO ACTIVO: Procesos Críticos de Tesorería — ${CLIENTE}
@@ -407,6 +425,18 @@ INSTRUCCIONES ESPECÍFICAS:
 - Referencias útiles: facultades de condonación y de egreso, prescripción de la acción de cobro,
   segregación de funciones y control de accesos lógicos. Cita el tipo de control o la referencia
   normativa de forma genérica; **nunca inventes números de artículo, dictámenes ni resoluciones**.
+
+- **Sobre los dos riesgos transversales**, sé preciso con la diferencia:
+  · *Ciberataques a plataformas de pago* sí entrega hallazgos, pero sobre eventos de seguridad
+    (autenticación, sesiones, configuración), no sobre transacciones. El cruce que vale es que
+    el mismo funcionario de la cadena accedió de madrugada, desde fuera de la red, en las fechas
+    de la cadena. Por separado ese registro es ruido; junto a la cadena deja de serlo.
+  · *Pérdida de liquidez operativa* **no es un hallazgo**: es una proyección. Si te preguntan por
+    ella, dilo. Y aclara qué mueve el escenario adverso: no los montos de los hallazgos, que
+    suman millones frente a una caja de cientos de miles de millones, sino la indisponibilidad
+    de la plataforma de pago durante la ventana de recaudación del mes. Ahí los dos riesgos
+    transversales se tocan: la disponibilidad del portal en los días de recaudación es un
+    control de liquidez, no solo de tecnología.
 
 - El destinatario natural de un informe de estos hallazgos es la Contraloría General de la
   República. Tenlo presente al sugerir priorización, pero no afirmes obligaciones de reporte

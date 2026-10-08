@@ -12,6 +12,7 @@ import { AnalisisEnVivo } from "../components/AnalisisEnVivo";
 import { LeyendaSeveridad } from "../components/LeyendaSeveridad";
 import { RefPapel } from "../components/RefPapel";
 import { Icono } from "../components/Iconos";
+import { RiesgosTransversales } from "../components/RiesgosTransversales";
 import {
   contribuyentes, funcionarios, pagos, lotes, deudas, movimientos,
   detectarHallazgos, PERIODO,
@@ -282,6 +283,11 @@ export function EspacioTGR() {
                 reco="Conciliación diaria por cuenta con umbral de tolerancia cero y responsable nominado. Un descuadre que persiste deja de ser un error de registro." />
             </>
           )}
+        </div>
+
+        {/* Riesgos transversales: seguridad de plataformas y liquidez */}
+        <div className="pt-2 border-t border-deloitte-line">
+          <RiesgosTransversales />
         </div>
       </div>
     </>

@@ -62,6 +62,9 @@ const KILLERS: Record<string, string[]> = {
     "¿Se alzaron embargos sin pago íntegro registrado?",
     "¿Hay egresos del Tesoro sobre la facultad de quien los autorizó?",
     "¿Qué funcionarios desvinculados mantienen accesos vigentes?",
+    "¿Hay ráfagas de autenticación contra el portal de pagos? ¿Alguna terminó en acceso?",
+    "¿Qué accesos fuera de horario coinciden con las fechas de la cadena?",
+    "¿Cuándo perfora el piso operativo el escenario adverso de liquidez y por qué?",
     "Dame los tres hallazgos que llevaría a la Contraloría y por qué",
   ],
   procesos: [
