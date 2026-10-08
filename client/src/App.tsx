@@ -8,6 +8,7 @@ import { EspacioCuatro } from "./views/EspacioCuatro";
 import { EspacioCinco } from "./views/EspacioCinco";
 import { EspacioSeis } from "./views/EspacioSeis";
 import { EspacioAFP } from "./views/EspacioAFP";
+import { EspacioTGR } from "./views/EspacioTGR";
 import { Admin } from "./views/Admin";
 import { getPackActivo } from "./packs";
 import { aplicarEscala, getEscala } from "./components/ModoPresentacion";
@@ -39,6 +40,7 @@ export default function App() {
       {espacio === "cinco" && <EspacioCinco />}
       {espacio === "seis" && <EspacioSeis />}
       {espacio === "procesos" && <EspacioAFP />}
+      {espacio === "tesoreria" && <EspacioTGR />}
       {espacio === "admin" && <Admin />}
     </Layout>
   );

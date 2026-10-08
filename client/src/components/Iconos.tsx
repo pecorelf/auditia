@@ -13,6 +13,7 @@ import {
   FilePen, Car, Truck, Fuel, Siren, Satellite, Ship, Wallet, Gauge, ShieldAlert,
   Lightbulb, TriangleAlert, Settings, LogOut, Landmark, Store, Pickaxe, Radio,
   ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight, X, Check, Lock, LockOpen,
+  Landmark as Tesoro, Gavel, Vault, Scale, FileSearch, Hourglass, KeyRound, Building2,
   type LucideIcon,
 } from "lucide-react";
 
@@ -46,6 +47,7 @@ export const ICONOS: Record<string, LucideIcon> = {
   mineria: Pickaxe,
   retail: Store,
   medios: Radio,
+  tesoreria: Building2,
 
   // Interfaz
   recomendacion: Lightbulb,
@@ -57,6 +59,15 @@ export const ICONOS: Record<string, LucideIcon> = {
   cerrar: X,
   candado: Lock,
   candadoAbierto: LockOpen,
+  // Tesorería
+  recaudacion: Banknote,
+  cobranza: Gavel,
+  custodia: Vault,
+  juicio: Scale,
+  expediente: FileSearch,
+  prescripcion: Hourglass,
+  accesos: KeyRound,
+  tesoro: Tesoro,
   primera: ChevronsLeft,
   anterior: ChevronLeft,
   siguiente: ChevronRight,

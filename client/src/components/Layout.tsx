@@ -53,6 +53,17 @@ const KILLERS: Record<string, string[]> = {
     "¿Qué bonos se están pagando fuera del convenio colectivo vigente?",
     "Dame los hallazgos prioritarios con impacto en CLP para el Gerente de Personas",
   ],
+  tesoreria: [
+    "Explícame la cadena recaudación → Tesoro → cobranza. ¿Quién la ejecutó y por cuánto?",
+    "¿Cuánto se perdió por deudas prescritas sin gestión?",
+    "¿Qué deudas prescriben dentro de 90 días y todavía se pueden salvar?",
+    "¿Hay pagos recaudados en banco que nunca se registraron en el sistema?",
+    "¿Qué condonaciones se autorizaron por sobre la facultad del funcionario?",
+    "¿Se alzaron embargos sin pago íntegro registrado?",
+    "¿Hay egresos del Tesoro sobre la facultad de quien los autorizó?",
+    "¿Qué funcionarios desvinculados mantienen accesos vigentes?",
+    "Dame los tres hallazgos que llevaría a la Contraloría y por qué",
+  ],
   procesos: [
     "Explícame la cadena contacto → cuenta → giro. ¿Quién la ejecutó y por cuánto?",
     "¿Hay pagos duplicados al mismo afiliado? Dame los casos y el monto",
@@ -72,7 +83,7 @@ export function Layout({ children }: Props) {
 
   // Los Espacios 3 (Audit Expert) y 4 (Coach) tienen su propio chat interno;
   // no mostramos el panel lateral en esos espacios para evitar confusión visual.
-  const showSideChat = espacio === "uno" || espacio === "dos" || espacio === "cinco" || espacio === "seis" || espacio === "procesos";
+  const showSideChat = espacio === "uno" || espacio === "dos" || espacio === "cinco" || espacio === "seis" || espacio === "procesos" || espacio === "tesoreria";
 
   return (
     <div className="escala-app flex h-screen overflow-hidden">

@@ -12,10 +12,11 @@ import { banca } from "./banca";
 import { retail } from "./retail";
 import { energia } from "./energia";
 import { caja } from "./caja";
+import { tesoreria } from "./tesoreria";
 
 export type { IndustryPack } from "./types";
 
-export const PACKS: IndustryPack[] = [afp, banca, caja, energia, mineria, retail, maritimo, medios];
+export const PACKS: IndustryPack[] = [afp, banca, caja, energia, mineria, retail, tesoreria, maritimo, medios];
 
 export const PACK_POR_DEFECTO = "maritimo";
 

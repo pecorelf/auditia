@@ -13,6 +13,11 @@ type Item = {
 
 const ITEMS: Item[] = [
   {
+    id: "tesoreria",
+    title: "Procesos Críticos",
+    subtitle: "Recaudación, cobranza y fondos del Tesoro",
+  },
+  {
     id: "procesos",
     title: "Procesos Críticos",
     subtitle: "Pagos, pensiones y datos de afiliados",
